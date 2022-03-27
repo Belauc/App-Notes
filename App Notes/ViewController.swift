@@ -9,7 +9,7 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    @IBOutlet weak var doneButtonOutlet: UIButton!
+    @IBOutlet weak var doneButtonOutlet: UIBarButtonItem!
     @IBOutlet weak var bodyTextView: UITextView!
     @IBOutlet weak var headerTitleTextField: UITextField!
     
@@ -30,12 +30,12 @@ class ViewController: UIViewController {
         restoreData()
     }
 
-    @IBAction func DoneButtonPressed(_ sender: UIButton) {
+    @IBAction func doneButtonPressed(_ sender: UIBarButtonItem) {
         saveData()
         doNextState()
     }
     
-    //Следующее состояние
+    // Следующее состояние
     func doNextState() {
         self.state = self.state.nextState // тригерит didSet обсервер
     }
@@ -45,11 +45,11 @@ class ViewController: UIViewController {
         switch state {
         case .editEnable:
             doneButtonOutlet.isEnabled = true
-            doneButtonOutlet.setTitle("Готово", for: .normal)
+            doneButtonOutlet.title = "Готово"
         case .editDisable:
             view.endEditing(true)
             doneButtonOutlet.isEnabled = false
-            doneButtonOutlet.setTitle("", for: .disabled)
+            doneButtonOutlet.title = ""
         }
     }
     
@@ -57,30 +57,30 @@ class ViewController: UIViewController {
         state == .editDisable ? doNextState() : nil
     }
     
+    // MARK: - Работа с UserDefaults
     // Сохраннеие данных в памяти
     func saveData() {
-        note?.title = headerTitleTextField.text ?? ""
-        note?.body = bodyTextView.text ?? ""
+        note.title = headerTitleTextField.text
+        note.body = bodyTextView.text
         UserSettings.noteModel = note
     }
     
     // Выгрузка данных из памяти
     func restoreData() {
-        headerTitleTextField.text = note?.title
-        bodyTextView.text = note?.body
+        headerTitleTextField.text = note.title
+        bodyTextView.text = note.body
     }
 }
 
-// MARK: Extensions
+// MARK: - Extensions
 extension ViewController: UITextViewDelegate{
-    
     func textViewDidBeginEditing(_ textView: UITextView) {
         enableButtonForStartEditing()
     }
     
 }
+
 extension ViewController: UITextFieldDelegate{
-    
     func textFieldDidBeginEditing(_ textField: UITextField) {
         enableButtonForStartEditing()
     }

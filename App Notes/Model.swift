@@ -8,8 +8,8 @@
 import Foundation
 
 class Note: NSObject, NSCoding {
-    var title: String
-    var body: String
+    var title: String?
+    var body: String?
     
     init(title: String, body: String) {
         self.title = title
@@ -22,10 +22,9 @@ class Note: NSObject, NSCoding {
     }
     
     required init?(coder: NSCoder) {
-        title = coder.decodeObject(forKey: "title") as? String ?? ""
-        body = coder.decodeObject(forKey: "body") as? String ?? ""
+        title = coder.decodeObject(forKey: "title") as? String
+        body = coder.decodeObject(forKey: "body") as? String
     }
-    
 }
 
 enum State {

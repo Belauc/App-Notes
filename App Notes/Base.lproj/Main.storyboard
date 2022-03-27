@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="tQb-vs-Ceq">
     <device id="retina6_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
@@ -16,27 +16,16 @@
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="top" axis="vertical" alignment="bottom" spacing="19" translatesAutoresizingMaskIntoConstraints="NO" id="fWq-lk-ave">
-                                <rect key="frame" x="20" y="44" width="350" height="766"/>
+                            <stackView opaque="NO" contentMode="top" axis="vertical" alignment="bottom" translatesAutoresizingMaskIntoConstraints="NO" id="fWq-lk-ave">
+                                <rect key="frame" x="20" y="113" width="350" height="697"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qyj-dd-GUK">
-                                        <rect key="frame" x="302" y="0.0" width="48" height="45"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="45" id="FwS-Wq-fB2"/>
-                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="48" id="mkd-2v-pTC"/>
-                                        </constraints>
-                                        <state key="normal" title="Готово"/>
-                                        <connections>
-                                            <action selector="DoneButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="FYT-cU-Mb2"/>
-                                        </connections>
-                                    </button>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Заголовок" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Zmb-8h-0mT">
-                                        <rect key="frame" x="5" y="64" width="345" height="37"/>
+                                        <rect key="frame" x="5" y="0.0" width="345" height="86"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="p0T-K7-Uxg">
-                                        <rect key="frame" x="0.0" y="120" width="350" height="646"/>
+                                        <rect key="frame" x="0.0" y="86" width="350" height="611"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <color key="textColor" systemColor="labelColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -55,19 +44,44 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="fWq-lk-ave" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="25" id="2Rf-y0-ssY"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="fWq-lk-ave" secondAttribute="trailing" constant="20" id="44x-YK-adX"/>
                             <constraint firstItem="fWq-lk-ave" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="iCR-bH-ed1"/>
-                            <constraint firstItem="fWq-lk-ave" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="jwH-jb-4uR"/>
                             <constraint firstItem="fWq-lk-ave" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="wqN-he-JZG"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="wpV-BD-igu">
+                        <barButtonItem key="rightBarButtonItem" title="Item" id="XlD-ty-nHa">
+                            <connections>
+                                <action selector="doneButtonPressed:" destination="BYZ-38-t0r" id="tWZ-Ws-MPu"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="bodyTextView" destination="p0T-K7-Uxg" id="Kwd-On-bbN"/>
-                        <outlet property="doneButtonOutlet" destination="Qyj-dd-GUK" id="rKN-KA-gHI"/>
+                        <outlet property="doneButtonOutlet" destination="XlD-ty-nHa" id="28H-1n-gBC"/>
                         <outlet property="headerTitleTextField" destination="Zmb-8h-0mT" id="vYE-xJ-wzv"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2927.6923076923076" y="127.96208530805687"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="vV8-yy-z8z">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="tQb-vs-Ceq" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="M3x-kK-XIV">
+                        <rect key="frame" x="0.0" y="44" width="390" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="RCb-tY-tkq"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="FG2-g2-JTW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1998.4615384615383" y="127.96208530805687"/>
         </scene>
