@@ -14,7 +14,10 @@ enum SettingsKeys: String {
 final class UserSettings{
     static var noteModel: Note {
         get{
-            guard let savedData = UserDefaults.standard.object(forKey: SettingsKeys.noteModel.rawValue) as? Data, let decodedModel = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(savedData) as? Note else {
+            guard
+                let savedData = UserDefaults.standard.object(forKey: SettingsKeys.noteModel.rawValue) as? Data,
+                let decodedModel = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(savedData) as? Note
+            else {
                 return Note(title: "", body: "")
             }
             return decodedModel

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+final class NoteViewController: UIViewController {
 
     @IBOutlet weak var doneButtonOutlet: UIBarButtonItem!
     @IBOutlet weak var bodyTextView: UITextView!
@@ -20,16 +20,11 @@ class ViewController: UIViewController {
     }
     let note = UserSettings.noteModel
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        bodyTextView.becomeFirstResponder()
-        updateInterface()
-        bodyTextView.delegate = self
-        headerTitleTextField.delegate = self
-        restoreData()
+        configure()
     }
-
+    
     @IBAction func doneButtonPressed(_ sender: UIBarButtonItem) {
         saveData()
         doNextState()
@@ -70,17 +65,33 @@ class ViewController: UIViewController {
         headerTitleTextField.text = note.title
         bodyTextView.text = note.body
     }
+    
+    private func configure(){
+        setupDelegate()
+        setupViews()
+    }
+    
+    private func setupViews(){
+        bodyTextView.becomeFirstResponder()
+        updateInterface()
+        restoreData()
+    }
+    
+    private func setupDelegate(){
+        bodyTextView.delegate = self
+        headerTitleTextField.delegate = self
+    }
 }
 
 // MARK: - Extensions
-extension ViewController: UITextViewDelegate{
+extension NoteViewController: UITextViewDelegate{
     func textViewDidBeginEditing(_ textView: UITextView) {
         enableButtonForStartEditing()
     }
     
 }
 
-extension ViewController: UITextFieldDelegate{
+extension NoteViewController: UITextFieldDelegate{
     func textFieldDidBeginEditing(_ textField: UITextField) {
         enableButtonForStartEditing()
     }
