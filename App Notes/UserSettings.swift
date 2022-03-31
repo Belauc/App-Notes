@@ -11,9 +11,10 @@ enum SettingsKeys: String {
     case noteModel
 }
 
-final class UserSettings{
+final class UserSettings {
     static var noteModel: Note {
-        get{
+
+        get {
             guard
                 let savedData = UserDefaults.standard.object(forKey: SettingsKeys.noteModel.rawValue) as? Data,
                 let decodedModel = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(savedData) as? Note
@@ -22,11 +23,12 @@ final class UserSettings{
             }
             return decodedModel
         }
-        
-        set{
+
+        set {
             let defaults = UserDefaults.standard
             let key = SettingsKeys.noteModel.rawValue
-            if let saveData = try? NSKeyedArchiver.archivedData(withRootObject: newValue, requiringSecureCoding: false){
+            if let saveData = try? NSKeyedArchiver.archivedData(withRootObject: newValue,
+                                                                requiringSecureCoding: false) {
                     defaults.set(saveData, forKey: key)
             }
         }
