@@ -20,12 +20,12 @@
                                 <rect key="frame" x="20" y="113" width="350" height="697"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Заголовок" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Zmb-8h-0mT">
-                                        <rect key="frame" x="5" y="0.0" width="345" height="194"/>
+                                        <rect key="frame" x="5" y="0.0" width="345" height="244"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="p0T-K7-Uxg">
-                                        <rect key="frame" x="0.0" y="194" width="350" height="503"/>
+                                        <rect key="frame" x="0.0" y="244" width="350" height="453"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <color key="textColor" systemColor="labelColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -59,7 +59,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="bodyTextView" destination="p0T-K7-Uxg" id="Kwd-On-bbN"/>
-                        <outlet property="doneButtonOutlet" destination="XlD-ty-nHa" id="28H-1n-gBC"/>
+                        <outlet property="doneBarButton" destination="XlD-ty-nHa" id="28H-1n-gBC"/>
                         <outlet property="headerTitleTextField" destination="Zmb-8h-0mT" id="vYE-xJ-wzv"/>
                     </connections>
                 </viewController>
