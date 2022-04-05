@@ -32,19 +32,12 @@ final class NoteViewController: UIViewController {
         }
     }
     private let note = UserSettings.noteModel
-    private let uiSettings = UISettings.shared
+    private let projectSettings = ProjectSettings.shared
     private let datePicker = UIDatePicker()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         configure()
-
-    }
-
-    @objc
-    func doneButtonPressed(_ sender: UIBarButtonItem) {
-        saveData()
-        doNextState()
     }
 
     // Следующее состояние
@@ -57,7 +50,7 @@ final class NoteViewController: UIViewController {
         switch state {
         case .editEnable:
             doneBarButton.isEnabled = true
-            doneBarButton.title = "Готово"
+            doneBarButton.title = projectSettings.titleForDoneButton
         case .editDisable:
             view.endEditing(true)
             doneBarButton.isEnabled = false
@@ -69,31 +62,23 @@ final class NoteViewController: UIViewController {
         state == .editDisable ? doNextState() : nil
     }
 
-    // MARK: - Работа с UserDefaults
-    // Сохраннеие данных в памяти
-    func saveData() {
-        note.title = headerTitleTextField.text
-        note.body = bodyTextView.text
-        UserSettings.noteModel = note
-    }
-
-    // Выгрузка данных из памяти
-    func restoreData() {
-        headerTitleTextField.text = note.title
-        bodyTextView.text = note.body
-    }
-
-    private func getStringFromDate(date: Date) -> String {
-        let dateFormater = DateFormatter()
-        dateFormater.dateFormat = "dd MMMM yyyy"
-        dateFormater.locale = uiSettings.locale
+    private func getDateFromDatePicker() -> String {
+        let dateFormater = projectSettings.dateFormater
+        let date = datePicker.date
         return dateFormater.string(from: date)
     }
 
     @objc
-    func doneButtonPressedDatePicker() {
-        let dateFromPicker = getStringFromDate(date: datePicker.date)
-        dateTimeTextField.text = dateFromPicker
+    func doneButtonPressed() {
+        saveData()
+        checkTextFieldOnNil()
+        doNextState()
+    }
+
+    @objc
+    func changedDatePicker() {
+        let date = getDateFromDatePicker()
+        dateTimeTextField.text = date
     }
 
     // MARK: - Настройка Views
@@ -105,8 +90,8 @@ final class NoteViewController: UIViewController {
     private func setupViews() {
         setupUIBase()
         setupUIHeader()
-        setupUIBody()
         setupUIDateTextField()
+        setupUIBody()
         updateUI()
         restoreData()
     }
@@ -115,32 +100,15 @@ final class NoteViewController: UIViewController {
     private func setupUIHeader() {
         view.addSubview(headerTitleTextField)
         headerTitleTextField.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor,
-                                                  constant: uiSettings.marginTop).isActive = true
+                                                  constant: projectSettings.marginTop).isActive = true
         headerTitleTextField.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor,
-                                                   constant: uiSettings.marginLeft).isActive = true
+                                                   constant: projectSettings.marginLeft).isActive = true
         headerTitleTextField.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor,
-                                                    constant: uiSettings.marginRight).isActive = true
-        headerTitleTextField.font = UIFont.systemFont(ofSize: uiSettings.titleFontSize)
-        headerTitleTextField.placeholder = uiSettings.placeholdeerForTitleNote
+                                                    constant: projectSettings.marginRight).isActive = true
+        headerTitleTextField.font = UIFont.systemFont(ofSize: projectSettings.titleFontSize)
+        headerTitleTextField.placeholder = projectSettings.placeholdeerForTitleNote
         headerTitleTextField.autocorrectionType = .no
         headerTitleTextField.translatesAutoresizingMaskIntoConstraints = false
-    }
-
-    // MARK: - Настройка констрейтов и тд. для bodyTeftField
-    private func setupUIBody() {
-        view.addSubview(bodyTextView)
-        bodyTextView.topAnchor.constraint(equalTo: dateTimeTextField.bottomAnchor,
-                                                  constant: uiSettings.paddingTop).isActive = true
-        bodyTextView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor,
-                                                   constant: uiSettings.marginLeft).isActive = true
-        bodyTextView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor,
-                                                    constant: uiSettings.marginRight).isActive = true
-        bodyTextView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
-        bodyTextView.font = UIFont.systemFont(ofSize: uiSettings.bodyFontSize)
-        bodyTextView.autocorrectionType = .no
-        bodyTextView.becomeFirstResponder()
-        bodyTextView.translatesAutoresizingMaskIntoConstraints = false
-
     }
 
     // MARK: - Настройка констрейтов и тд. для dateTeftField
@@ -148,27 +116,34 @@ final class NoteViewController: UIViewController {
         dateTimeTextField.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(dateTimeTextField)
         dateTimeTextField.topAnchor.constraint(equalTo: headerTitleTextField.bottomAnchor,
-                                                  constant: uiSettings.paddingTop).isActive = true
+                                                  constant: projectSettings.paddingTop).isActive = true
         dateTimeTextField.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor,
-                                                   constant: uiSettings.marginLeft).isActive = true
+                                                   constant: projectSettings.marginLeft).isActive = true
         dateTimeTextField.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor,
-                                                    constant: uiSettings.marginRight).isActive = true
-        dateTimeTextField.font = UIFont.systemFont(ofSize: uiSettings.titleFontSize)
-        dateTimeTextField.placeholder = uiSettings.placeholdeerForTitleNote
+                                                    constant: projectSettings.marginRight).isActive = true
+        dateTimeTextField.font = UIFont.systemFont(ofSize: projectSettings.titleFontSize)
+        dateTimeTextField.placeholder = projectSettings.placeholdeerForDatePicker
         dateTimeTextField.inputView = datePicker
         datePicker.datePickerMode = .date
         datePicker.preferredDatePickerStyle = .wheels
-        datePicker.locale = uiSettings.locale
-        let toolBar = UIToolbar(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: 45))
-        toolBar.sizeToFit()
-        toolBar.translatesAutoresizingMaskIntoConstraints = false
-        let doneBtnToolBar = UIBarButtonItem(barButtonSystemItem: .done,
-                                             target: self,
-                                             action: #selector(doneButtonPressedDatePicker))
-        let flexSpaceToolBar = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        toolBar.setItems([flexSpaceToolBar, doneBtnToolBar], animated: true)
-        dateTimeTextField.inputAccessoryView = toolBar
-        dateTimeTextField.autocorrectionType = .no
+        datePicker.locale = projectSettings.locale
+        datePicker.addTarget(self, action: #selector(changedDatePicker), for: .valueChanged)
+    }
+
+    // MARK: - Настройка констрейтов и тд. для bodyTeftField
+    private func setupUIBody() {
+        view.addSubview(bodyTextView)
+        bodyTextView.topAnchor.constraint(equalTo: dateTimeTextField.bottomAnchor,
+                                                  constant: projectSettings.paddingTop).isActive = true
+        bodyTextView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor,
+                                                   constant: projectSettings.marginLeft).isActive = true
+        bodyTextView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor,
+                                                    constant: projectSettings.marginRight).isActive = true
+        bodyTextView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+        bodyTextView.font = UIFont.systemFont(ofSize: projectSettings.bodyFontSize)
+        bodyTextView.autocorrectionType = .no
+        bodyTextView.becomeFirstResponder()
+        bodyTextView.translatesAutoresizingMaskIntoConstraints = false
     }
 
     // MARK: - Настройка общих views
@@ -176,16 +151,20 @@ final class NoteViewController: UIViewController {
         view.backgroundColor = .systemBackground
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.navigationBar.shadowImage = UIImage()
+        doneBarButton.target = self
+        doneBarButton.action = #selector(doneButtonPressed)
+        self.navigationItem.rightBarButtonItem = doneBarButton
     }
 
     // MARK: - Настройка делегатов
     private func setupDelegate() {
         bodyTextView.delegate = self
         headerTitleTextField.delegate = self
+        dateTimeTextField.delegate = self
     }
 }
 
-// MARK: - Extensions
+// MARK: - Extensions для работы с делегатами
 extension NoteViewController: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
         enableButtonForStartEditing()
@@ -195,5 +174,36 @@ extension NoteViewController: UITextViewDelegate {
 extension NoteViewController: UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
         enableButtonForStartEditing()
+    }
+}
+
+// MARK: - Extensions для работы с UserDefaults
+extension NoteViewController {
+    // Сохраннеие данных в памяти
+    func saveData() {
+        note.title = headerTitleTextField.text
+        note.body = bodyTextView.text
+        note.date = dateTimeTextField.text
+        UserSettings.noteModel = note
+    }
+
+    // Выгрузка данных из памяти
+    func restoreData() {
+        headerTitleTextField.text = note.title
+        bodyTextView.text = note.body
+        dateTimeTextField.text = note.date
+    }
+
+}
+
+// MARK: - Extensions для работы проверки на пустоту TextInput
+extension NoteViewController {
+    func checkTextFieldOnNil() {
+        guard note.isEmtpy else { return }
+        let alert = UIAlertController(title: projectSettings.titleAlertForCheckNil,
+                                      message: projectSettings.messageAlertForCheckNil,
+                                      preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Ок", style: .default, handler: nil))
+        present(alert, animated: true)
     }
 }

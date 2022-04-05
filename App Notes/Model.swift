@@ -10,18 +10,24 @@ import Foundation
 class Note: NSObject, NSCoding {
     var title: String?
     var body: String?
-    var date: Date?
+    var date: String?
     var isEmtpy: Bool {
-            guard title != nil, body != nil else {
-                return true
-            }
-            return false
+        guard title != nil, body != nil, date != nil else {
+            return true
+        }
+        guard title != "" || body != "" || date != "" else {
+            return true
+        }
+        return false
     }
 
-    init(title: String, body: String, date: Date) {
+    init(title: String, body: String, date: String) {
         self.title = title
         self.body = body
         self.date = date
+    }
+
+    override init() {
     }
 
     func encode(with coder: NSCoder) {
@@ -33,6 +39,6 @@ class Note: NSObject, NSCoding {
     required init?(coder: NSCoder) {
         title = coder.decodeObject(forKey: "title") as? String
         body = coder.decodeObject(forKey: "body") as? String
-        body = coder.decodeObject(forKey: "date") as? String
+        date = coder.decodeObject(forKey: "date") as? String
     }
 }

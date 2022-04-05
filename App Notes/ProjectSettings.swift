@@ -18,9 +18,22 @@ class ProjectSettings {
     let titleFontSize: CGFloat = 22
     let bodyFontSize: CGFloat = 14
     let placeholdeerForTitleNote = "Заголовок"
+    let titleForDoneButton = "Готово"
+    let titleAlertForCheckNil = "Внимание"
+    let messageAlertForCheckNil = "Необхоидмо заполнить хотя бы одно поле для сохранения"
+    var dateFormater: DateFormatter {
+        let dateFormater = DateFormatter()
+        dateFormater.dateFormat = "Дата: dd MMMM yyyy"
+        dateFormater.locale = locale
+        return dateFormater
+    }
+    var placeholdeerForDatePicker: String {
+        let now = Date()
+        let date = dateFormater.string(from: now)
+        return date
+    }
     var locale: Locale {
         let localeId = Locale.preferredLanguages.first
         return Locale(identifier: localeId!)
     }
-    let dateFormat = "Дата: dd MMMM yyyy"
 }

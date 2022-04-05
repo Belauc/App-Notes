@@ -8,11 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		18117973B698483744112A49 /* Pods_App_Notes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96C8B21562B2652774A823FC /* Pods_App_Notes.framework */; };
-		A546424727FA39250003F04B /* UISettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = A546424627FA39250003F04B /* UISettings.swift */; };
+		A546424727FA39250003F04B /* ProjectSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = A546424627FA39250003F04B /* ProjectSettings.swift */; };
 		A5613A1727F0B5FB00188D35 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5613A1627F0B5FB00188D35 /* AppDelegate.swift */; };
 		A5613A1927F0B5FB00188D35 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5613A1827F0B5FB00188D35 /* SceneDelegate.swift */; };
 		A5613A1B27F0B5FB00188D35 /* NoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5613A1A27F0B5FB00188D35 /* NoteViewController.swift */; };
-		A5613A1E27F0B5FB00188D35 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A5613A1C27F0B5FB00188D35 /* Main.storyboard */; };
 		A5613A2027F0B5FC00188D35 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A5613A1F27F0B5FC00188D35 /* Assets.xcassets */; };
 		A5613A2327F0B5FC00188D35 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A5613A2127F0B5FC00188D35 /* LaunchScreen.storyboard */; };
 		A5AE19DD27F0C7010005DD07 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5AE19DC27F0C7010005DD07 /* Model.swift */; };
@@ -23,12 +22,11 @@
 		2489B0D984D49CCD2A612247 /* Pods-App Notes.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App Notes.release.xcconfig"; path = "Target Support Files/Pods-App Notes/Pods-App Notes.release.xcconfig"; sourceTree = "<group>"; };
 		91C2DD8D85F1250ABE1E6D1D /* Pods-App Notes.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App Notes.debug.xcconfig"; path = "Target Support Files/Pods-App Notes/Pods-App Notes.debug.xcconfig"; sourceTree = "<group>"; };
 		96C8B21562B2652774A823FC /* Pods_App_Notes.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_App_Notes.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		A546424627FA39250003F04B /* UISettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UISettings.swift; sourceTree = "<group>"; };
+		A546424627FA39250003F04B /* ProjectSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectSettings.swift; sourceTree = "<group>"; };
 		A5613A1327F0B5FB00188D35 /* App Notes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "App Notes.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A5613A1627F0B5FB00188D35 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A5613A1827F0B5FB00188D35 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		A5613A1A27F0B5FB00188D35 /* NoteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteViewController.swift; sourceTree = "<group>"; };
-		A5613A1D27F0B5FB00188D35 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		A5613A1F27F0B5FC00188D35 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A5613A2227F0B5FC00188D35 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A5613A2427F0B5FC00188D35 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -89,13 +87,12 @@
 				A5613A1627F0B5FB00188D35 /* AppDelegate.swift */,
 				A5613A1827F0B5FB00188D35 /* SceneDelegate.swift */,
 				A5613A1A27F0B5FB00188D35 /* NoteViewController.swift */,
-				A5613A1C27F0B5FB00188D35 /* Main.storyboard */,
 				A5613A1F27F0B5FC00188D35 /* Assets.xcassets */,
 				A5613A2127F0B5FC00188D35 /* LaunchScreen.storyboard */,
 				A5613A2427F0B5FC00188D35 /* Info.plist */,
 				A5AE19DC27F0C7010005DD07 /* Model.swift */,
 				A5AE19E727F0E5CA0005DD07 /* UserSettings.swift */,
-				A546424627FA39250003F04B /* UISettings.swift */,
+				A546424627FA39250003F04B /* ProjectSettings.swift */,
 			);
 			path = "App Notes";
 			sourceTree = "<group>";
@@ -161,7 +158,6 @@
 			files = (
 				A5613A2327F0B5FC00188D35 /* LaunchScreen.storyboard in Resources */,
 				A5613A2027F0B5FC00188D35 /* Assets.xcassets in Resources */,
-				A5613A1E27F0B5FB00188D35 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -216,7 +212,7 @@
 			files = (
 				A5613A1B27F0B5FB00188D35 /* NoteViewController.swift in Sources */,
 				A5613A1727F0B5FB00188D35 /* AppDelegate.swift in Sources */,
-				A546424727FA39250003F04B /* UISettings.swift in Sources */,
+				A546424727FA39250003F04B /* ProjectSettings.swift in Sources */,
 				A5613A1927F0B5FB00188D35 /* SceneDelegate.swift in Sources */,
 				A5AE19E827F0E5CA0005DD07 /* UserSettings.swift in Sources */,
 				A5AE19DD27F0C7010005DD07 /* Model.swift in Sources */,
@@ -226,14 +222,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		A5613A1C27F0B5FB00188D35 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				A5613A1D27F0B5FB00188D35 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		A5613A2127F0B5FC00188D35 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
