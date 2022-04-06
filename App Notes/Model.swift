@@ -12,13 +12,10 @@ class Note: NSObject, NSCoding {
     var body: String?
     var date: String?
     var isEmtpy: Bool {
-        guard title != nil, body != nil, date != nil else {
-            return true
+        guard (title ?? "").isEmpty && (body ?? "").isEmpty && (date ?? "").isEmpty else {
+            return false
         }
-        guard title != "" || body != "" || date != "" else {
-            return true
-        }
-        return false
+        return true
     }
 
     init(title: String, body: String, date: String) {
@@ -27,8 +24,7 @@ class Note: NSObject, NSCoding {
         self.date = date
     }
 
-    override init() {
-    }
+    override init() { }
 
     func encode(with coder: NSCoder) {
         coder.encode(title, forKey: "title")
