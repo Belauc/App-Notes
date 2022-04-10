@@ -19,7 +19,7 @@ final class UserSettings {
                 let savedData = UserDefaults.standard.object(forKey: SettingsKeys.noteModel.rawValue) as? Data,
                 let decodedModel = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(savedData) as? Note
             else {
-                return Note(title: "", body: "")
+                return Note()
             }
             return decodedModel
         }
