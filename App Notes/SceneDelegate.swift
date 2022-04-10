@@ -15,8 +15,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                willConnectTo session: UISceneSession,
                options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
-        let noteViewController = NoteViewController()
-        let navViewController = UINavigationController(rootViewController: noteViewController)
+        let listViewController = ListViewController()
+        let navViewController = UINavigationController(rootViewController: listViewController)
         window?.rootViewController = navViewController
         window?.windowScene = windowScene
         window?.makeKeyAndVisible()
