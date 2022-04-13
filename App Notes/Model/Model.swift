@@ -11,8 +11,9 @@ class Note: NSObject, NSCoding {
     var title: String?
     var body: String?
     var date: String?
+    var fullDateTime: String?
     var isEmtpy: Bool {
-        guard (title ?? "").isEmpty && (body ?? "").isEmpty && (date ?? "").isEmpty else {
+        guard (title ?? "").isEmpty && (body ?? "").isEmpty else {
             return false
         }
         return true

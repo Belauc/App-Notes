@@ -25,38 +25,37 @@ final class NoteViewController: UIViewController {
     private var doneBarButton = UIBarButtonItem()
     private var bodyTextView = UITextView()
     private var headerTitleTextField = UITextField()
-    private var dateTimeTextField = UITextField()
+    private var dateTimeLabel = UILabel()
+    private var scrollView = UIScrollView()
     private var state: State = .editEnable {
         didSet {
             updateUI()
         }
     }
-    private let note = UserSettings.noteModel
     private let datePicker = UIDatePicker()
     private enum UiSettings {
-        static let marginTop: CGFloat = 35
+        static let marginTop: CGFloat = 20
         static let marginLeft: CGFloat = 20
         static let marginRight: CGFloat = -20
         static let paddingTop: CGFloat = 10
         static let titleFontSize: CGFloat = 22
-        static let bodyFontSize: CGFloat = 14
+        static let baseFontSize: CGFloat = 14
         static let placeholdeerForTitleNote = "Заголовок"
         static let titleForDoneButton = "Готово"
         static let titleAlertForCheckNil = "Внимание"
         static let messageAlertForCheckNil = "Необхоидмо заполнить хотя бы одно поле для сохранения"
-        static var dateFormater: DateFormatter {
+        static var onlyDateFormat: String {
             let dateFormater = DateFormatter()
-            dateFormater.dateFormat = "Дата: dd MMMM yyyy"
+            dateFormater.dateFormat = "dd.MM.yyyy"
             dateFormater.locale = locale
-            return dateFormater
-        }
-        static var placeholdeerForDatePicker: String {
-            let now = Date()
-            let date = dateFormater.string(from: now)
+            let date = dateFormater.string(from: Date())
             return date
         }
         static var locale: Locale = Locale(identifier: "ru_RU")
+        static let backgroundColor = UIColor(red: 249/255, green: 250/255, blue: 254/255, alpha: 1)
     }
+    var note: Note = Note()
+    var delegate: UpdateNotesListDelegate?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -85,23 +84,13 @@ final class NoteViewController: UIViewController {
         state == .editDisable ? doNextState() : nil
     }
 
-    private func getDateFromDatePicker() -> String {
-        let dateFormater = UiSettings.dateFormater
-        let date = datePicker.date
-        return dateFormater.string(from: date)
-    }
-
     @objc
     func doneButtonPressed() {
-        saveData()
+        note.title = headerTitleTextField.text
+        note.body = bodyTextView.text
+        note.date = UiSettings.onlyDateFormat
         checkTextFieldOnNil()
         doNextState()
-    }
-
-    @objc
-    func changedDatePicker() {
-        let date = getDateFromDatePicker()
-        dateTimeTextField.text = date
     }
 
     // MARK: - Настройка Views
@@ -112,21 +101,50 @@ final class NoteViewController: UIViewController {
 
     private func setupViews() {
         setupUIBase()
+        setupScrollView()
+        setupUIDateLabel()
         setupUIHeader()
-        setupUIDateTextField()
         setupUIBody()
         updateUI()
         restoreData()
     }
 
+    // MARK: - Настройка констрейтов и тд. для scrollView
+    private func setupScrollView() {
+        view.addSubview(scrollView)
+        scrollView.contentSize = CGSize(width: scrollView.frame.width, height: scrollView.frame.height)
+        scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
+        scrollView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor).isActive = true
+        scrollView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor).isActive = true
+        scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+    }
+
+    // MARK: - Настройка констрейтов и тд. для dateLabel
+    private func setupUIDateLabel() {
+        dateTimeLabel.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.addSubview(dateTimeLabel)
+        dateTimeLabel.widthAnchor.constraint(equalToConstant: view.frame.width - UiSettings.marginLeft * 2)
+            .isActive = true
+        dateTimeLabel.textAlignment = .center
+        dateTimeLabel.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 12).isActive = true
+        dateTimeLabel.leftAnchor.constraint(equalTo: scrollView.leftAnchor,
+                                                   constant: UiSettings.marginLeft).isActive = true
+        dateTimeLabel.rightAnchor.constraint(equalTo: scrollView.rightAnchor,
+                                                    constant: UiSettings.marginRight).isActive = true
+        dateTimeLabel.font = UIFont.systemFont(ofSize: UiSettings.baseFontSize)
+        dateTimeLabel.textColor = UIColor(red: 172/255, green: 172/255, blue: 172/255, alpha: 1)
+        dateTimeLabel.textAlignment = .center
+    }
+
     // MARK: - Настройка констрейтов и тд. для HeaderTeftField
     private func setupUIHeader() {
-        view.addSubview(headerTitleTextField)
-        headerTitleTextField.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor,
+        scrollView.addSubview(headerTitleTextField)
+        headerTitleTextField.topAnchor.constraint(equalTo: dateTimeLabel.bottomAnchor,
                                                   constant: UiSettings.marginTop).isActive = true
-        headerTitleTextField.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor,
+        headerTitleTextField.leftAnchor.constraint(equalTo: scrollView.leftAnchor,
                                                    constant: UiSettings.marginLeft).isActive = true
-        headerTitleTextField.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor,
+        headerTitleTextField.rightAnchor.constraint(equalTo: scrollView.rightAnchor,
                                                     constant: UiSettings.marginRight).isActive = true
         headerTitleTextField.font = UIFont.systemFont(ofSize: UiSettings.titleFontSize)
         headerTitleTextField.placeholder = UiSettings.placeholdeerForTitleNote
@@ -134,44 +152,27 @@ final class NoteViewController: UIViewController {
         headerTitleTextField.translatesAutoresizingMaskIntoConstraints = false
     }
 
-    // MARK: - Настройка констрейтов и тд. для dateTeftField
-    private func setupUIDateTextField() {
-        dateTimeTextField.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(dateTimeTextField)
-        dateTimeTextField.topAnchor.constraint(equalTo: headerTitleTextField.bottomAnchor,
-                                                  constant: UiSettings.paddingTop).isActive = true
-        dateTimeTextField.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor,
-                                                   constant: UiSettings.marginLeft).isActive = true
-        dateTimeTextField.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor,
-                                                    constant: UiSettings.marginRight).isActive = true
-        dateTimeTextField.font = UIFont.systemFont(ofSize: UiSettings.titleFontSize)
-        dateTimeTextField.placeholder = UiSettings.placeholdeerForDatePicker
-        dateTimeTextField.inputView = datePicker
-        datePicker.datePickerMode = .date
-        datePicker.preferredDatePickerStyle = .wheels
-        datePicker.locale = UiSettings.locale
-        datePicker.addTarget(self, action: #selector(changedDatePicker), for: .valueChanged)
-    }
-
     // MARK: - Настройка констрейтов и тд. для bodyTeftField
     private func setupUIBody() {
-        view.addSubview(bodyTextView)
-        bodyTextView.topAnchor.constraint(equalTo: dateTimeTextField.bottomAnchor,
+        scrollView.addSubview(bodyTextView)
+        bodyTextView.topAnchor.constraint(equalTo: headerTitleTextField.bottomAnchor,
                                                   constant: UiSettings.paddingTop).isActive = true
-        bodyTextView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor,
+        bodyTextView.leftAnchor.constraint(equalTo: scrollView.leftAnchor,
                                                    constant: UiSettings.marginLeft).isActive = true
-        bodyTextView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor,
+        bodyTextView.rightAnchor.constraint(equalTo: scrollView.rightAnchor,
                                                     constant: UiSettings.marginRight).isActive = true
-        bodyTextView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
-        bodyTextView.font = UIFont.systemFont(ofSize: UiSettings.bodyFontSize)
+        bodyTextView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        bodyTextView.font = UIFont.systemFont(ofSize: UiSettings.baseFontSize)
         bodyTextView.autocorrectionType = .no
         bodyTextView.becomeFirstResponder()
         bodyTextView.translatesAutoresizingMaskIntoConstraints = false
+        bodyTextView.backgroundColor = UiSettings.backgroundColor
+        bodyTextView.adjustableForKeyboard()
     }
 
     // MARK: - Настройка общих views
     func setupUIBase() {
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = UiSettings.backgroundColor
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.navigationBar.shadowImage = UIImage()
         doneBarButton.target = self
@@ -183,7 +184,6 @@ final class NoteViewController: UIViewController {
     private func setupDelegate() {
         bodyTextView.delegate = self
         headerTitleTextField.delegate = self
-        dateTimeTextField.delegate = self
     }
 }
 
@@ -200,21 +200,25 @@ extension NoteViewController: UITextFieldDelegate {
     }
 }
 
-// MARK: - Extensions для работы с UserDefaults
+// MARK: - Extensions для работы с данными
 extension NoteViewController {
-    // Сохраннеие данных в памяти
+    // Сохраннеие данных
     func saveData() {
         note.title = headerTitleTextField.text
         note.body = bodyTextView.text
-        note.date = dateTimeTextField.text
-        UserSettings.noteModel = note
+        note.date = UiSettings.onlyDateFormat
+        delegate?.updateNoteList(note: note)
     }
 
-    // Выгрузка данных из памяти
+    // Выгрузка данных
     func restoreData() {
         headerTitleTextField.text = note.title
         bodyTextView.text = note.body
-        dateTimeTextField.text = note.date
+        dateTimeLabel.text = note.fullDateTime
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        saveData()
     }
 
 }
@@ -228,5 +232,36 @@ extension NoteViewController {
                                       preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Ок", style: .default, handler: nil))
         present(alert, animated: true)
+    }
+}
+
+// MARK: - Extensions для обработки сдвига экрана при появлении клавиатуры
+extension UITextView {
+    func adjustableForKeyboard() {
+        let notificationCenter = NotificationCenter.default
+        notificationCenter.addObserver(self, selector: #selector(adjustForKeyboard),
+                                       name: UIResponder.keyboardWillHideNotification,
+                                       object: nil)
+        notificationCenter.addObserver(self, selector: #selector(adjustForKeyboard),
+                                       name: UIResponder.keyboardWillChangeFrameNotification,
+                                       object: nil)
+    }
+
+    @objc
+    private func adjustForKeyboard(notification: Notification) {
+        guard let keyboardValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else {
+            return }
+        let keyboardScreenEndFrame = keyboardValue.cgRectValue
+        let keyboardViewEndFrame = convert(keyboardScreenEndFrame, from: window)
+        if notification.name == UIResponder.keyboardWillHideNotification {
+            contentInset = .zero
+        } else {
+            contentInset = UIEdgeInsets(top: 0, left: 0,
+                                        bottom: keyboardViewEndFrame.height - safeAreaInsets.bottom,
+                                        right: 0)
+        }
+
+        scrollIndicatorInsets = contentInset
+        scrollRangeToVisible(selectedRange)
     }
 }

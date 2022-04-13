@@ -16,7 +16,7 @@ final class NoteCardView: UIView {
         static let marginTop: CGFloat = 10
         static let marginLeft: CGFloat = 16
         static let marginRight: CGFloat = -16
-        static let marginBottom: CGFloat = 16
+        static let marginBottom: CGFloat = -10
         static let titleFontSize: CGFloat = 16
         static let bodyFontSize: CGFloat = 10
         static let cornerRadius: CGFloat = 14
@@ -35,7 +35,7 @@ final class NoteCardView: UIView {
 
     private func setupNoteCardView() {
         layer.cornerRadius = UiSettings.cornerRadius
-        backgroundColor = UiSettings.backgroundColor
+        self.backgroundColor = UiSettings.backgroundColor
     }
 
     private func setupSubView() {
@@ -54,7 +54,6 @@ final class NoteCardView: UIView {
                                                constant: UiSettings.marginRight).isActive = true
         headerTextLabel.font = UIFont.systemFont(ofSize: UiSettings.titleFontSize)
         headerTextLabel.translatesAutoresizingMaskIntoConstraints = false
-        headerTextLabel.text = "sadasdasdasdasdaasdsadsd"
     }
 
     private func setupBody() {
@@ -68,11 +67,12 @@ final class NoteCardView: UIView {
         bodyTextLabel.font = UIFont.systemFont(ofSize: UiSettings.bodyFontSize)
         bodyTextLabel.textColor = UIColor(red: 172/255, green: 172/255, blue: 172/255, alpha: 1)
         bodyTextLabel.translatesAutoresizingMaskIntoConstraints = false
-        bodyTextLabel.text = "sadasdasdasdasdasd"
     }
 
     private func setupDate() {
         addSubview(dateTextLabel)
+        dateTextLabel.topAnchor.constraint(equalTo: bodyTextLabel.bottomAnchor,
+                                           constant: 24).isActive = true
         dateTextLabel.leftAnchor.constraint(equalTo: leftAnchor,
                                             constant: UiSettings.marginLeft).isActive = true
         dateTextLabel.rightAnchor.constraint(equalTo: rightAnchor,
