@@ -12,8 +12,8 @@ protocol UpdateNotesListDelegate: AnyObject {
 }
 
 final class ListViewController: UIViewController {
-    var stackView = UIStackView()
-    var scrollView = UIScrollView()
+    private let stackView = UIStackView()
+    private let scrollView = UIScrollView()
     private let addButton = UIButton()
     private enum UiSettings {
         static let marginTop: CGFloat = 16
@@ -29,6 +29,7 @@ final class ListViewController: UIViewController {
         static let titleFontSize: CGFloat = 22
         static let bodyFontSize: CGFloat = 14
         static let stackViewSpacing: CGFloat = 4
+        static let marginNoteCard: CGFloat = 32
         static let titleForNavBar = "Заметки"
         static var fullDateFormatNow: String {
             let dateFormater = DateFormatter()
@@ -40,9 +41,8 @@ final class ListViewController: UIViewController {
         static var locale: Locale = Locale(identifier: "ru_RU")
     }
 
-    var notes: [Note] = []
-    let note: Note = Note()
-    var clickedCardViewInStack = NoteCardView()
+    private var notes: [Note] = []
+    private var clickedCardViewInStack = NoteCardView()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -195,7 +195,7 @@ extension ListViewController: UpdateNotesListDelegate {
 
     func addNoteCardInStackView(note: Note) {
         let noteView = NoteCardView(frame: CGRect(x: 0, y: 0, width: 150, height: 90))
-        noteView.widthAnchor.constraint(equalToConstant: view.frame.width - 32).isActive = true
+        noteView.widthAnchor.constraint(equalToConstant: view.frame.width - UiSettings.marginNoteCard).isActive = true
         noteView.model.body = note.body ?? ""
         noteView.model.title = note.title ?? ""
         noteView.model.date = note.date ?? ""
