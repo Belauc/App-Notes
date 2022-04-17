@@ -9,18 +9,39 @@ import UIKit
 
 final class NoteCardView: UIView {
 
-    var headerTextLabel = UILabel()
-    var bodyTextLabel = UILabel()
-    var dateTextLabel = UILabel()
+    private var headerTextLabel = UILabel()
+    private var bodyTextLabel = UILabel()
+    private var dateTextLabel = UILabel()
     private enum UiSettings {
         static let marginTop: CGFloat = 10
         static let marginLeft: CGFloat = 16
         static let marginRight: CGFloat = -16
         static let marginBottom: CGFloat = -10
+        static let marginDateToBody: CGFloat = 24
+        static let marginBodyToHeader: CGFloat = 4
         static let titleFontSize: CGFloat = 16
-        static let bodyFontSize: CGFloat = 10
         static let cornerRadius: CGFloat = 14
+        static let fontForBodyAndDate = UIFont.systemFont(ofSize: 10, weight: .regular)
+        static let colorForBody = UIColor(red: 172/255, green: 172/255, blue: 172/255, alpha: 1)
         static let backgroundColor = UIColor.systemBackground
+    }
+    struct Model {
+        var title: String
+        var body: String
+        var date: String
+    }
+    var model: NoteCardView.Model {
+        get {
+            let title = headerTextLabel.text ?? ""
+            let body = bodyTextLabel.text ?? ""
+            let date = dateTextLabel.text ?? ""
+            return Model(title: title, body: body, date: date)
+        }
+        set {
+            dateTextLabel.text = newValue.date
+            headerTextLabel.text = newValue.title
+            bodyTextLabel.text = newValue.body
+        }
     }
 
     override init(frame: CGRect) {
@@ -46,40 +67,60 @@ final class NoteCardView: UIView {
 
     private func setupHeader() {
         addSubview(headerTextLabel)
-        headerTextLabel.topAnchor.constraint(equalTo: topAnchor,
-                                             constant: UiSettings.marginTop).isActive = true
-        headerTextLabel.leftAnchor.constraint(equalTo: leftAnchor,
-                                              constant: UiSettings.marginLeft).isActive = true
-        headerTextLabel.rightAnchor.constraint(equalTo: rightAnchor,
-                                               constant: UiSettings.marginRight).isActive = true
+        headerTextLabel.topAnchor.constraint(
+            equalTo: topAnchor,
+            constant: UiSettings.marginTop
+        ).isActive = true
+        headerTextLabel.leftAnchor.constraint(
+            equalTo: leftAnchor,
+            constant: UiSettings.marginLeft
+        ).isActive = true
+        headerTextLabel.rightAnchor.constraint(
+            equalTo: rightAnchor,
+            constant: UiSettings.marginRight
+        ).isActive = true
         headerTextLabel.font = UIFont.systemFont(ofSize: UiSettings.titleFontSize)
         headerTextLabel.translatesAutoresizingMaskIntoConstraints = false
     }
 
     private func setupBody() {
         addSubview(bodyTextLabel)
-        bodyTextLabel.topAnchor.constraint(equalTo: headerTextLabel.bottomAnchor,
-                                           constant: 4).isActive = true
-        bodyTextLabel.leftAnchor.constraint(equalTo: leftAnchor,
-                                            constant: UiSettings.marginLeft).isActive = true
-        bodyTextLabel.rightAnchor.constraint(equalTo: rightAnchor,
-                                             constant: UiSettings.marginRight).isActive = true
-        bodyTextLabel.font = UIFont.systemFont(ofSize: UiSettings.bodyFontSize)
-        bodyTextLabel.textColor = UIColor(red: 172/255, green: 172/255, blue: 172/255, alpha: 1)
+        bodyTextLabel.topAnchor.constraint(
+            equalTo: headerTextLabel.bottomAnchor,
+            constant: UiSettings.marginBodyToHeader
+        ).isActive = true
+        bodyTextLabel.leftAnchor.constraint(
+            equalTo: leftAnchor,
+            constant: UiSettings.marginLeft
+        ).isActive = true
+        bodyTextLabel.rightAnchor.constraint(
+            equalTo: rightAnchor,
+            constant: UiSettings.marginRight
+        ).isActive = true
+        bodyTextLabel.font = UiSettings.fontForBodyAndDate
+        bodyTextLabel.textColor = UiSettings.colorForBody
         bodyTextLabel.translatesAutoresizingMaskIntoConstraints = false
     }
 
     private func setupDate() {
         addSubview(dateTextLabel)
-        dateTextLabel.topAnchor.constraint(equalTo: bodyTextLabel.bottomAnchor,
-                                           constant: 24).isActive = true
-        dateTextLabel.leftAnchor.constraint(equalTo: leftAnchor,
-                                            constant: UiSettings.marginLeft).isActive = true
-        dateTextLabel.rightAnchor.constraint(equalTo: rightAnchor,
-                                             constant: UiSettings.marginRight).isActive = true
-        dateTextLabel.bottomAnchor.constraint(equalTo: bottomAnchor,
-                                              constant: UiSettings.marginBottom).isActive = true
-        dateTextLabel.font = UIFont.systemFont(ofSize: UiSettings.bodyFontSize)
+        dateTextLabel.topAnchor.constraint(
+            equalTo: bodyTextLabel.bottomAnchor,
+            constant: UiSettings.marginDateToBody
+        ).isActive = true
+        dateTextLabel.leftAnchor.constraint(
+            equalTo: leftAnchor,
+            constant: UiSettings.marginLeft
+        ).isActive = true
+        dateTextLabel.rightAnchor.constraint(
+            equalTo: rightAnchor,
+            constant: UiSettings.marginRight
+        ).isActive = true
+        dateTextLabel.bottomAnchor.constraint(
+            equalTo: bottomAnchor,
+            constant: UiSettings.marginBottom
+        ).isActive = true
+        dateTextLabel.font = UiSettings.fontForBodyAndDate
         dateTextLabel.translatesAutoresizingMaskIntoConstraints = false
     }
 

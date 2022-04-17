@@ -11,7 +11,7 @@ protocol UpdateNotesListDelegate: AnyObject {
     func updateNoteList(note: Note)
 }
 
-final class ListViewController: UIViewController, UpdateNotesListDelegate {
+final class ListViewController: UIViewController {
     var stackView = UIStackView()
     var scrollView = UIScrollView()
     private let addButton = UIButton()
@@ -19,6 +19,12 @@ final class ListViewController: UIViewController, UpdateNotesListDelegate {
         static let marginTop: CGFloat = 16
         static let marginLeft: CGFloat = 16
         static let marginRight: CGFloat = -16
+        static let heightWidthForButton: CGFloat = 50
+        static let marginBottomForButton: CGFloat = -60
+        static let cornerRadiusForButton: CGFloat = 25
+        static let fontForButton = UIFont.systemFont(ofSize: 36, weight: .regular)
+        static let colorForButton = UIColor(red: 0, green: 0.478, blue: 1, alpha: 1)
+        static let backgraundColor = UIColor(red: 249/255, green: 250/255, blue: 254/255, alpha: 1)
         static let paddingTop: CGFloat = 10
         static let titleFontSize: CGFloat = 22
         static let bodyFontSize: CGFloat = 14
@@ -46,16 +52,6 @@ final class ListViewController: UIViewController, UpdateNotesListDelegate {
     // MARK: - Настройка Views
     private func configure() {
         setupViews()
-//        notes.append(Note(title: "asdasd", body: "asdasd", date: "21.03.2022 среда 21:55"))
-//        notes.append(Note(title: "22222", body: "asdasd", date: "21.03.2022 среда 21:55"))
-//        notes.append(Note(title: "asd333333asd", body: "asdasd", date: "21.03.2022 среда 21:55"))
-//        notes.append(Note(title: "asd44444asd", body: "asdasd", date: "21.03.2022 среда 21:55"))
-//        notes.append(Note(title: "asd5555asd", body: "asdasd", date: "21.03.2022 среда 21:55"))
-//        notes.append(Note(title: "asd5555asd", body: "asdasd", date: "21.03.2022 среда 21:55"))
-//        notes.append(Note(title: "asd5555asd", body: "asdasd", date: "21.03.2022 среда 21:55"))
-//        notes.append(Note(title: "asd5555asd", body: "asdasd", date: "21.03.2022 среда 21:55"))
-//        notes.append(Note(title: "asd5555asd", body: "asdasd", date: "21.03.2022 среда 21:55"))
-//        notes.append(Note(title: "asd5555asd", body: "asdasd", date: "21.03.2022 среда 21:55"))
         loadDate()
     }
 
@@ -86,8 +82,10 @@ final class ListViewController: UIViewController, UpdateNotesListDelegate {
         stackView.spacing = UiSettings.stackViewSpacing
         stackView.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: UiSettings.marginTop).isActive = true
         stackView.leftAnchor.constraint(equalTo: scrollView.leftAnchor, constant: UiSettings.marginLeft).isActive = true
-        stackView.rightAnchor.constraint(equalTo: scrollView.rightAnchor,
-                                         constant: UiSettings.marginRight).isActive = true
+        stackView.rightAnchor.constraint(
+            equalTo: scrollView.rightAnchor,
+            constant: UiSettings.marginRight
+        ).isActive = true
         stackView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor).isActive = true
         stackView.translatesAutoresizingMaskIntoConstraints = false
         let tapOnStackView = UITapGestureRecognizer(target: self, action: #selector(itemStackViewTapped(_:)))
@@ -97,16 +95,17 @@ final class ListViewController: UIViewController, UpdateNotesListDelegate {
     // MARK: - Обработка нажатия на элемент StackView
     @objc
     func itemStackViewTapped(_ recognizer: UIGestureRecognizer) {
-        let clickedViewInStack = stackView.arrangedSubviews
-            .first(where: {$0.bounds.contains(recognizer.location(in: $0))})
+        let clickedViewInStack = stackView.arrangedSubviews.first(
+            where: {$0.bounds.contains(recognizer.location(in: $0))}
+        )
         guard let cardView = clickedViewInStack as? NoteCardView else {
             return
         }
         clickedCardViewInStack = cardView
         let noteForSend = notes.first(where: {
-                $0.date == clickedCardViewInStack.dateTextLabel.text &&
-                $0.title == clickedCardViewInStack.headerTextLabel.text &&
-                $0.body == clickedCardViewInStack.bodyTextLabel.text
+            $0.date == clickedCardViewInStack.model.date &&
+                $0.title == clickedCardViewInStack.model.title &&
+                $0.body == clickedCardViewInStack.model.body
         })
         let noteViewController = NoteViewController()
         noteViewController.delegate = self
@@ -116,24 +115,30 @@ final class ListViewController: UIViewController, UpdateNotesListDelegate {
 
     private func setupUIAddButton() {
         view.addSubview(addButton)
-        addButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -60).isActive = true
-        addButton.rightAnchor.constraint(equalTo: scrollView.rightAnchor,
-                                         constant: -19).isActive = true
+        addButton.bottomAnchor.constraint(
+            equalTo: view.safeAreaLayoutGuide.bottomAnchor,
+            constant: UiSettings.marginBottomForButton
+        ).isActive = true
+        addButton.rightAnchor.constraint(
+            equalTo: scrollView.rightAnchor,
+            constant: UiSettings.marginRight
+        ).isActive = true
         addButton.translatesAutoresizingMaskIntoConstraints = false
-        addButton.layer.cornerRadius = 25
-        addButton.widthAnchor.constraint(equalToConstant: 50).isActive = true
-        addButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        addButton.layer.cornerRadius = UiSettings.cornerRadiusForButton
+        addButton.widthAnchor.constraint(equalToConstant: UiSettings.heightWidthForButton).isActive = true
+        addButton.heightAnchor.constraint(equalToConstant: UiSettings.heightWidthForButton).isActive = true
         addButton.clipsToBounds = true
         addButton.contentVerticalAlignment = .center
         addButton.setTitle("+", for: .normal)
-        addButton.titleLabel?.font = UIFont.systemFont(ofSize: 36, weight: .regular)
-        addButton.backgroundColor = UIColor(red: 0, green: 0.478, blue: 1, alpha: 1)
-        addButton.addTarget(self, action: #selector(didTapButton), for: .touchUpInside)
+        addButton.titleLabel?.font = UiSettings.fontForButton
+        addButton.backgroundColor = UiSettings.colorForButton
+        addButton.addTarget(self, action: #selector(addTapButton), for: .touchUpInside)
         addButton.translatesAutoresizingMaskIntoConstraints = false
     }
 
+    // MARK: - обработка нажатия на кнопку добавить
     @objc
-    func didTapButton() {
+    func addTapButton() {
         let noteViewController = NoteViewController()
         noteViewController.delegate = self
         navigationController?.pushViewController(noteViewController, animated: true)
@@ -141,17 +146,17 @@ final class ListViewController: UIViewController, UpdateNotesListDelegate {
 
     // MARK: - Настройка общих views
     func setupUIBase() {
-        view.backgroundColor = UIColor(red: 249/255, green: 250/255, blue: 254/255, alpha: 1)
+        view.backgroundColor = UiSettings.backgraundColor
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationItem.title = UiSettings.titleForNavBar
         navigationItem.backBarButtonItem = UIBarButtonItem(
-            title: "", style: .plain, target: nil, action: nil)
+            title: "", style: .plain, target: NoteViewController(), action: nil)
     }
 }
 
-// MARK: - Работы с данными в stackView
-extension ListViewController {
+// MARK: - Работы с данными в stackView + UpdateNotesListDelegate
+extension ListViewController: UpdateNotesListDelegate {
     private func loadDate() {
         notes.forEach { addNoteCardInStackView(note: $0 ) }
     }
@@ -168,6 +173,7 @@ extension ListViewController {
     }
 
     func addToNoteList(note: Note) {
+        guard !note.isEmtpy else { return }
         note.fullDateTime = UiSettings.fullDateFormatNow
         notes.append(note)
         updateStackView(note: note)
@@ -190,9 +196,9 @@ extension ListViewController {
     func addNoteCardInStackView(note: Note) {
         let noteView = NoteCardView(frame: CGRect(x: 0, y: 0, width: 150, height: 90))
         noteView.widthAnchor.constraint(equalToConstant: view.frame.width - 32).isActive = true
-        noteView.bodyTextLabel.text = note.body
-        noteView.headerTextLabel.text = note.title
-        noteView.dateTextLabel.text = note.date
+        noteView.model.body = note.body ?? ""
+        noteView.model.title = note.title ?? ""
+        noteView.model.date = note.date ?? ""
         stackView.addArrangedSubview(noteView)
     }
 }

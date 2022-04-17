@@ -37,7 +37,7 @@ final class NoteViewController: UIViewController {
         static let marginTop: CGFloat = 20
         static let marginLeft: CGFloat = 20
         static let marginRight: CGFloat = -20
-        static let paddingTop: CGFloat = 10
+        static let paddingTop: CGFloat = 12
         static let titleFontSize: CGFloat = 22
         static let baseFontSize: CGFloat = 14
         static let placeholdeerForTitleNote = "Заголовок"
@@ -124,14 +124,22 @@ final class NoteViewController: UIViewController {
     private func setupUIDateLabel() {
         dateTimeLabel.translatesAutoresizingMaskIntoConstraints = false
         scrollView.addSubview(dateTimeLabel)
-        dateTimeLabel.widthAnchor.constraint(equalToConstant: view.frame.width - UiSettings.marginLeft * 2)
-            .isActive = true
+        dateTimeLabel.widthAnchor.constraint(
+            equalToConstant: view.frame.width - UiSettings.marginLeft * 2
+        ).isActive = true
         dateTimeLabel.textAlignment = .center
-        dateTimeLabel.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 12).isActive = true
-        dateTimeLabel.leftAnchor.constraint(equalTo: scrollView.leftAnchor,
-                                                   constant: UiSettings.marginLeft).isActive = true
-        dateTimeLabel.rightAnchor.constraint(equalTo: scrollView.rightAnchor,
-                                                    constant: UiSettings.marginRight).isActive = true
+        dateTimeLabel.topAnchor.constraint(
+            equalTo: scrollView.topAnchor,
+            constant: UiSettings.paddingTop
+        ).isActive = true
+        dateTimeLabel.leftAnchor.constraint(
+            equalTo: scrollView.leftAnchor,
+            constant: UiSettings.marginLeft
+        ).isActive = true
+        dateTimeLabel.rightAnchor.constraint(
+            equalTo: scrollView.rightAnchor,
+            constant: UiSettings.marginRight
+        ).isActive = true
         dateTimeLabel.font = UIFont.systemFont(ofSize: UiSettings.baseFontSize)
         dateTimeLabel.textColor = UIColor(red: 172/255, green: 172/255, blue: 172/255, alpha: 1)
         dateTimeLabel.textAlignment = .center
@@ -140,12 +148,18 @@ final class NoteViewController: UIViewController {
     // MARK: - Настройка констрейтов и тд. для HeaderTeftField
     private func setupUIHeader() {
         scrollView.addSubview(headerTitleTextField)
-        headerTitleTextField.topAnchor.constraint(equalTo: dateTimeLabel.bottomAnchor,
-                                                  constant: UiSettings.marginTop).isActive = true
-        headerTitleTextField.leftAnchor.constraint(equalTo: scrollView.leftAnchor,
-                                                   constant: UiSettings.marginLeft).isActive = true
-        headerTitleTextField.rightAnchor.constraint(equalTo: scrollView.rightAnchor,
-                                                    constant: UiSettings.marginRight).isActive = true
+        headerTitleTextField.topAnchor.constraint(
+            equalTo: dateTimeLabel.bottomAnchor,
+            constant: UiSettings.marginTop
+        ).isActive = true
+        headerTitleTextField.leftAnchor.constraint(
+            equalTo: scrollView.leftAnchor,
+            constant: UiSettings.marginLeft
+        ).isActive = true
+        headerTitleTextField.rightAnchor.constraint(
+            equalTo: scrollView.rightAnchor,
+            constant: UiSettings.marginRight
+        ).isActive = true
         headerTitleTextField.font = UIFont.systemFont(ofSize: UiSettings.titleFontSize)
         headerTitleTextField.placeholder = UiSettings.placeholdeerForTitleNote
         headerTitleTextField.autocorrectionType = .no
@@ -155,12 +169,18 @@ final class NoteViewController: UIViewController {
     // MARK: - Настройка констрейтов и тд. для bodyTeftField
     private func setupUIBody() {
         scrollView.addSubview(bodyTextView)
-        bodyTextView.topAnchor.constraint(equalTo: headerTitleTextField.bottomAnchor,
-                                                  constant: UiSettings.paddingTop).isActive = true
-        bodyTextView.leftAnchor.constraint(equalTo: scrollView.leftAnchor,
-                                                   constant: UiSettings.marginLeft).isActive = true
-        bodyTextView.rightAnchor.constraint(equalTo: scrollView.rightAnchor,
-                                                    constant: UiSettings.marginRight).isActive = true
+        bodyTextView.topAnchor.constraint(
+            equalTo: headerTitleTextField.bottomAnchor,
+            constant: UiSettings.paddingTop
+        ).isActive = true
+        bodyTextView.leftAnchor.constraint(
+            equalTo: scrollView.leftAnchor,
+            constant: UiSettings.marginLeft
+        ).isActive = true
+        bodyTextView.rightAnchor.constraint(
+            equalTo: scrollView.rightAnchor,
+            constant: UiSettings.marginRight
+        ).isActive = true
         bodyTextView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         bodyTextView.font = UIFont.systemFont(ofSize: UiSettings.baseFontSize)
         bodyTextView.autocorrectionType = .no
