@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class NoteCardView: UIView {
+final class NoteCardView: UITableViewCell {
 
     private var headerTextLabel = UILabel()
     private var bodyTextLabel = UILabel()
@@ -25,27 +25,17 @@ final class NoteCardView: UIView {
         static let colorForBody = UIColor(red: 172/255, green: 172/255, blue: 172/255, alpha: 1)
         static let backgroundColor = UIColor.systemBackground
     }
-    struct Model {
-        var title: String
-        var body: String
-        var date: String
-    }
-    var model: NoteCardView.Model {
-        get {
-            let title = headerTextLabel.text ?? ""
-            let body = bodyTextLabel.text ?? ""
-            let date = dateTextLabel.text ?? ""
-            return Model(title: title, body: body, date: date)
-        }
-        set {
-            dateTextLabel.text = newValue.date
-            headerTextLabel.text = newValue.title
-            bodyTextLabel.text = newValue.body
+    static let identificator = "noteCell"
+    var model: Note? {
+        didSet {
+            dateTextLabel.text = oldValue?.date
+            headerTextLabel.text = oldValue?.title
+            bodyTextLabel.text = oldValue?.body
         }
     }
 
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupNoteCardView()
         setupSubView()
     }
@@ -66,9 +56,9 @@ final class NoteCardView: UIView {
     }
 
     private func setupHeader() {
-        addSubview(headerTextLabel)
+        contentView.addSubview(headerTextLabel)
         headerTextLabel.topAnchor.constraint(
-            equalTo: topAnchor,
+            equalTo: contentView.topAnchor,
             constant: UiSettings.marginTop
         ).isActive = true
         headerTextLabel.leftAnchor.constraint(
@@ -84,17 +74,17 @@ final class NoteCardView: UIView {
     }
 
     private func setupBody() {
-        addSubview(bodyTextLabel)
+        contentView.addSubview(bodyTextLabel)
         bodyTextLabel.topAnchor.constraint(
             equalTo: headerTextLabel.bottomAnchor,
             constant: UiSettings.marginBodyToHeader
         ).isActive = true
         bodyTextLabel.leftAnchor.constraint(
-            equalTo: leftAnchor,
+            equalTo: contentView.leftAnchor,
             constant: UiSettings.marginLeft
         ).isActive = true
         bodyTextLabel.rightAnchor.constraint(
-            equalTo: rightAnchor,
+            equalTo: contentView.rightAnchor,
             constant: UiSettings.marginRight
         ).isActive = true
         bodyTextLabel.font = UiSettings.fontForBodyAndDate
@@ -103,21 +93,21 @@ final class NoteCardView: UIView {
     }
 
     private func setupDate() {
-        addSubview(dateTextLabel)
+        contentView.addSubview(dateTextLabel)
         dateTextLabel.topAnchor.constraint(
             equalTo: bodyTextLabel.bottomAnchor,
             constant: UiSettings.marginDateToBody
         ).isActive = true
         dateTextLabel.leftAnchor.constraint(
-            equalTo: leftAnchor,
+            equalTo: contentView.leftAnchor,
             constant: UiSettings.marginLeft
         ).isActive = true
         dateTextLabel.rightAnchor.constraint(
-            equalTo: rightAnchor,
+            equalTo: contentView.rightAnchor,
             constant: UiSettings.marginRight
         ).isActive = true
         dateTextLabel.bottomAnchor.constraint(
-            equalTo: bottomAnchor,
+            equalTo: contentView.bottomAnchor,
             constant: UiSettings.marginBottom
         ).isActive = true
         dateTextLabel.font = UiSettings.fontForBodyAndDate

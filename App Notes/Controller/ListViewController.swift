@@ -15,6 +15,7 @@ final class ListViewController: UIViewController {
     private let stackView = UIStackView()
     private let scrollView = UIScrollView()
     private let addButton = UIButton()
+    private let tableView = UITableView()
     private enum UiSettings {
         static let marginTop: CGFloat = 16
         static let marginLeft: CGFloat = 16
@@ -42,7 +43,6 @@ final class ListViewController: UIViewController {
     }
 
     private var notes: [Note] = []
-    private var clickedCardViewInStack = NoteCardView()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,65 +52,30 @@ final class ListViewController: UIViewController {
     // MARK: - Настройка Views
     private func configure() {
         setupViews()
-        loadDate()
+        //loadDate()  поправить загрузку данных
     }
 
     private func setupViews() {
-        setupScrollView()
-        setupUIStack()
+        setupTableView()
         setupUIAddButton()
-        setupUIBase()
+        setupBase()
     }
 
     // MARK: - Настройка констрейтов и тд. для scrollView
-    private func setupScrollView() {
-        view.addSubview(scrollView)
-        scrollView.alwaysBounceVertical = true
-        scrollView.isDirectionalLockEnabled = true
-        scrollView.contentSize = CGSize(width: scrollView.frame.width, height: scrollView.frame.height)
-        scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
-        scrollView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor).isActive = true
-        scrollView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor).isActive = true
-        scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
-    }
-
-    // MARK: - Настройка констрейтов и тд. для UIStack
-    private func setupUIStack() {
-        scrollView.addSubview(stackView)
-        stackView.axis = .vertical
-        stackView.spacing = UiSettings.stackViewSpacing
-        stackView.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: UiSettings.marginTop).isActive = true
-        stackView.leftAnchor.constraint(equalTo: scrollView.leftAnchor, constant: UiSettings.marginLeft).isActive = true
-        stackView.rightAnchor.constraint(
-            equalTo: scrollView.rightAnchor,
-            constant: UiSettings.marginRight
-        ).isActive = true
-        stackView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor).isActive = true
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        let tapOnStackView = UITapGestureRecognizer(target: self, action: #selector(itemStackViewTapped(_:)))
-        stackView.addGestureRecognizer(tapOnStackView)
+    private func setupTableView() {
+        view.addSubview(tableView)
+        tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
+        tableView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor).isActive = true
+        tableView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor).isActive = true
+        tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.backgroundColor = UiSettings.backgraundColor
     }
 
     // MARK: - Обработка нажатия на элемент StackView
     @objc
     func itemStackViewTapped(_ recognizer: UIGestureRecognizer) {
-        let clickedViewInStack = stackView.arrangedSubviews.first(
-            where: {$0.bounds.contains(recognizer.location(in: $0))}
-        )
-        guard let cardView = clickedViewInStack as? NoteCardView else {
-            return
-        }
-        clickedCardViewInStack = cardView
-        let noteForSend = notes.first(where: {
-            $0.date == clickedCardViewInStack.model.date &&
-                $0.title == clickedCardViewInStack.model.title &&
-                $0.body == clickedCardViewInStack.model.body
-        })
-        let noteViewController = NoteViewController()
-        noteViewController.delegate = self
-        noteViewController.note = noteForSend ?? Note()
-        navigationController?.pushViewController(noteViewController, animated: true)
+
     }
 
     private func setupUIAddButton() {
@@ -120,7 +85,7 @@ final class ListViewController: UIViewController {
             constant: UiSettings.marginBottomForButton
         ).isActive = true
         addButton.rightAnchor.constraint(
-            equalTo: scrollView.rightAnchor,
+            equalTo: view.safeAreaLayoutGuide.rightAnchor,
             constant: UiSettings.marginRight
         ).isActive = true
         addButton.translatesAutoresizingMaskIntoConstraints = false
@@ -145,45 +110,56 @@ final class ListViewController: UIViewController {
     }
 
     // MARK: - Настройка общих views
-    func setupUIBase() {
+    func setupBase() {
         view.backgroundColor = UiSettings.backgraundColor
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationItem.title = UiSettings.titleForNavBar
         navigationItem.backBarButtonItem = UIBarButtonItem(
             title: "", style: .plain, target: NoteViewController(), action: nil)
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.register(NoteCardView.self, forCellReuseIdentifier: NoteCardView.identificator)
     }
 }
 
-// MARK: - Работы с данными в stackView + UpdateNotesListDelegate
-extension ListViewController: UpdateNotesListDelegate {
-    private func loadDate() {
-        notes.forEach { addNoteCardInStackView(note: $0 ) }
+extension ListViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return notes.count
     }
 
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(
+            withIdentifier: NoteCardView.identificator,
+            for: indexPath
+        ) as? NoteCardView else { return UITableViewCell() }
+        cell.model = notes[indexPath.row]
+        return cell
+    }
+}
+
+extension ListViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let clickedItem = notes[indexPath.row]
+        let noteViewController = NoteViewController()
+        noteViewController.delegate = self
+        noteViewController.note = clickedItem
+        navigationController?.pushViewController(noteViewController, animated: true)
+    }
+}
+
+// MARK: - Работы с UpdateNotesListDelegate
+extension ListViewController: UpdateNotesListDelegate {
     func updateNoteList(note: Note) {
-        guard notes.contains(where: { $0.fullDateTime == note.fullDateTime }) else {
-            addToNoteList(note: note)
+        guard notes.contains(where: { $0.id == note.id }) else {
+            notes.append(note)
+            tableView.reloadData()
             return
         }
         guard let index = notes.firstIndex(of: note) else { return }
         note.fullDateTime = UiSettings.fullDateFormatNow
         notes[index] = note
-        updateStackView(note: note)
-    }
-
-    func addToNoteList(note: Note) {
-        guard !note.isEmtpy else { return }
-        note.fullDateTime = UiSettings.fullDateFormatNow
-        notes.append(note)
-        updateStackView(note: note)
-    }
-
-    func updateStackView(note: Note) {
-        stackView.removeArrangedSubview(clickedCardViewInStack)
-        clickedCardViewInStack.removeFromSuperview()
-        addNoteCardInStackView(note: note)
-        sortStackView()
+        tableView.reloadData()
     }
 
     func sortStackView() {
@@ -191,14 +167,5 @@ extension ListViewController: UpdateNotesListDelegate {
         for index in (0...count).reversed() {
             stackView.addArrangedSubview(stackView.subviews[index])
         }
-    }
-
-    func addNoteCardInStackView(note: Note) {
-        let noteView = NoteCardView(frame: CGRect(x: 0, y: 0, width: 150, height: 90))
-        noteView.widthAnchor.constraint(equalToConstant: view.frame.width - UiSettings.marginNoteCard).isActive = true
-        noteView.model.body = note.body ?? ""
-        noteView.model.title = note.title ?? ""
-        noteView.model.date = note.date ?? ""
-        stackView.addArrangedSubview(noteView)
     }
 }
