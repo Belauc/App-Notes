@@ -7,19 +7,6 @@
 
 import UIKit
 
-enum State {
-    case editEnable
-    case editDisable
-    var nextState: State {
-        switch self {
-        case .editEnable:
-            return .editDisable
-        case .editDisable:
-            return .editEnable
-        }
-    }
-}
-
 final class NoteViewController: UIViewController {
 
     private var doneBarButton = UIBarButtonItem()
@@ -56,6 +43,18 @@ final class NoteViewController: UIViewController {
     }
     var note: Note = Note()
     var delegate: UpdateNotesListDelegate?
+    enum State {
+        case editEnable
+        case editDisable
+        var nextState: State {
+            switch self {
+            case .editEnable:
+                return .editDisable
+            case .editDisable:
+                return .editEnable
+            }
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()

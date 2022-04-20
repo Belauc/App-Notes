@@ -26,22 +26,17 @@ final class ListViewController: UIViewController {
         static let fontForButton = UIFont.systemFont(ofSize: 36, weight: .regular)
         static let colorForButton = UIColor(red: 0, green: 0.478, blue: 1, alpha: 1)
         static let backgraundColor = UIColor(red: 249/255, green: 250/255, blue: 254/255, alpha: 1)
-        static let paddingTop: CGFloat = 10
-        static let titleFontSize: CGFloat = 22
-        static let bodyFontSize: CGFloat = 14
-        static let stackViewSpacing: CGFloat = 4
-        static let marginNoteCard: CGFloat = 32
+        static let highlightColor = UIColor(red: 233.0/255.0, green: 242.0/255.0, blue: 250.0/255.0, alpha: 1.0)
+        static let UnHighlightColor = UIColor.systemBackground
         static let titleForNavBar = "Заметки"
         static var fullDateFormatNow: String {
             let dateFormater = DateFormatter()
             dateFormater.dateFormat = "dd.MM.yyyy EEEE HH:mm:ss"
-            dateFormater.locale = locale
+            dateFormater.locale = Locale(identifier: "ru_RU")
             let date = dateFormater.string(from: Date())
             return date
         }
-        static var locale: Locale = Locale(identifier: "ru_RU")
     }
-
     private var notes: [Note] = []
 
     override func viewDidLoad() {
@@ -52,7 +47,6 @@ final class ListViewController: UIViewController {
     // MARK: - Настройка Views
     private func configure() {
         setupViews()
-        //loadDate()  поправить загрузку данных
     }
 
     private func setupViews() {
@@ -61,23 +55,22 @@ final class ListViewController: UIViewController {
         setupBase()
     }
 
-    // MARK: - Настройка констрейтов и тд. для scrollView
+    // MARK: - Настройка констрейтов и тд. для TableView
     private func setupTableView() {
         view.addSubview(tableView)
-        tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
+        tableView.topAnchor.constraint(
+            equalTo: view.safeAreaLayoutGuide.topAnchor,
+            constant: UiSettings.marginTop
+        ).isActive = true
         tableView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor).isActive = true
         tableView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor).isActive = true
         tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.backgroundColor = UiSettings.backgraundColor
+        tableView.separatorStyle = .none
     }
 
-    // MARK: - Обработка нажатия на элемент StackView
-    @objc
-    func itemStackViewTapped(_ recognizer: UIGestureRecognizer) {
-
-    }
-
+    // MARK: - Настройка отображения кнопки добавить
     private func setupUIAddButton() {
         view.addSubview(addButton)
         addButton.bottomAnchor.constraint(
@@ -120,9 +113,11 @@ final class ListViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(NoteCardView.self, forCellReuseIdentifier: NoteCardView.identificator)
+        tableView.rowHeight = 94
     }
 }
 
+// MARK: - Расширение для UITableViewDataSource
 extension ListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return notes.count
@@ -134,10 +129,22 @@ extension ListViewController: UITableViewDataSource {
             for: indexPath
         ) as? NoteCardView else { return UITableViewCell() }
         cell.model = notes[indexPath.row]
+        cell.selectionStyle = .none
         return cell
+    }
+
+    func tableView(_ tableView: UITableView, didHighlightRowAt indexPath: IndexPath) {
+        guard let cell = tableView.cellForRow(at: indexPath) as? NoteCardView else {return }
+        cell.backView.backgroundColor = UiSettings.highlightColor
+    }
+
+    func tableView(_ tableView: UITableView, didUnhighlightRowAt indexPath: IndexPath) {
+        guard let cell = tableView.cellForRow(at: indexPath) as? NoteCardView else {return }
+        cell.backView.backgroundColor = UiSettings.UnHighlightColor
     }
 }
 
+// MARK: - Расширение для UITableViewDelegate
 extension ListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let clickedItem = notes[indexPath.row]
@@ -151,21 +158,21 @@ extension ListViewController: UITableViewDelegate {
 // MARK: - Работы с UpdateNotesListDelegate
 extension ListViewController: UpdateNotesListDelegate {
     func updateNoteList(note: Note) {
+        guard !note.isEmtpy else { return }
         guard notes.contains(where: { $0.id == note.id }) else {
+            note.fullDateTime = UiSettings.fullDateFormatNow
             notes.append(note)
-            tableView.reloadData()
+            sortNotes()
             return
         }
         guard let index = notes.firstIndex(of: note) else { return }
         note.fullDateTime = UiSettings.fullDateFormatNow
         notes[index] = note
-        tableView.reloadData()
+        sortNotes()
     }
 
-    func sortStackView() {
-        let count = stackView.arrangedSubviews.count - 1
-        for index in (0...count).reversed() {
-            stackView.addArrangedSubview(stackView.subviews[index])
-        }
+    func sortNotes() {
+        notes = notes.sorted(by: { $0.fullDateTime ?? "0" > $1.fullDateTime ?? "1" })
+        tableView.reloadData()
     }
 }
