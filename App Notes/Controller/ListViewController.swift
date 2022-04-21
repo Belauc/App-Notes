@@ -12,8 +12,6 @@ protocol UpdateNotesListDelegate: AnyObject {
 }
 
 final class ListViewController: UIViewController {
-    private let stackView = UIStackView()
-    private let scrollView = UIScrollView()
     private let addButton = UIButton()
     private let tableView = UITableView()
     private enum UiSettings {
@@ -23,6 +21,7 @@ final class ListViewController: UIViewController {
         static let heightWidthForButton: CGFloat = 50
         static let marginBottomForButton: CGFloat = -60
         static let cornerRadiusForButton: CGFloat = 25
+        static let rowHeight: CGFloat = 94
         static let fontForButton = UIFont.systemFont(ofSize: 36, weight: .regular)
         static let colorForButton = UIColor(red: 0, green: 0.478, blue: 1, alpha: 1)
         static let backgraundColor = UIColor(red: 249/255, green: 250/255, blue: 254/255, alpha: 1)
@@ -68,6 +67,7 @@ final class ListViewController: UIViewController {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.backgroundColor = UiSettings.backgraundColor
         tableView.separatorStyle = .none
+        tableView.rowHeight = UiSettings.rowHeight
     }
 
     // MARK: - Настройка отображения кнопки добавить
@@ -113,7 +113,6 @@ final class ListViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(NoteCardView.self, forCellReuseIdentifier: NoteCardView.identificator)
-        tableView.rowHeight = 94
     }
 }
 
