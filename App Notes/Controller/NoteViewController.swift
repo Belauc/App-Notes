@@ -43,7 +43,7 @@ final class NoteViewController: UIViewController {
     }
     var note: Note = Note()
     var delegate: UpdateNotesListDelegate?
-    enum State {
+    private enum State {
         case editEnable
         case editDisable
         var nextState: State {
@@ -62,12 +62,12 @@ final class NoteViewController: UIViewController {
     }
 
     // Следующее состояние
-    func doNextState() {
+    private func doNextState() {
         self.state = self.state.nextState // тригерит didSet обсервер
     }
 
     // Обновление интерфейса(Кнопки "Готово")
-    func updateUI() {
+    private func updateUI() {
         switch state {
         case .editEnable:
             doneBarButton.isEnabled = true
@@ -79,12 +79,12 @@ final class NoteViewController: UIViewController {
         }
     }
 
-    func enableButtonForStartEditing() {
+    private func enableButtonForStartEditing() {
         state == .editDisable ? doNextState() : nil
     }
 
     @objc
-    func doneButtonPressed() {
+    private func doneButtonPressed() {
         note.title = headerTitleTextField.text
         note.body = bodyTextView.text
         note.date = UiSettings.onlyDateFormat
@@ -190,7 +190,7 @@ final class NoteViewController: UIViewController {
     }
 
     // MARK: - Настройка общих views
-    func setupUIBase() {
+    private func setupUIBase() {
         view.backgroundColor = UiSettings.backgroundColor
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.navigationBar.shadowImage = UIImage()
@@ -222,7 +222,7 @@ extension NoteViewController: UITextFieldDelegate {
 // MARK: - Extensions для работы с данными
 extension NoteViewController {
     // Сохраннеие данных
-    func saveData() {
+    private func saveData() {
         note.title = headerTitleTextField.text
         note.body = bodyTextView.text
         note.date = UiSettings.onlyDateFormat
@@ -230,7 +230,7 @@ extension NoteViewController {
     }
 
     // Выгрузка данных
-    func restoreData() {
+    private func restoreData() {
         headerTitleTextField.text = note.title
         bodyTextView.text = note.body
         dateTimeLabel.text = note.fullDateTime
@@ -244,7 +244,7 @@ extension NoteViewController {
 
 // MARK: - Extensions для работы проверки на пустоту TextInput
 extension NoteViewController {
-    func checkTextFieldOnNil() {
+    private func checkTextFieldOnNil() {
         guard note.isEmtpy else { return }
         let alert = UIAlertController(title: UiSettings.titleAlertForCheckNil,
                                       message: UiSettings.messageAlertForCheckNil,

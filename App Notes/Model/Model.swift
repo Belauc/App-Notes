@@ -8,8 +8,7 @@
 import Foundation
 
 class Note: NSObject, NSCoding {
-    static var count: Int = 0
-    let id: Int
+    let id: UUID?
     var title: String?
     var body: String?
     var date: String?
@@ -25,17 +24,11 @@ class Note: NSObject, NSCoding {
         self.title = title
         self.body = body
         self.date = date
-        self.id = Note.count
-        Note.count += 1
+        self.id = UUID()
     }
 
     override init() {
-        self.id = Note.count
-        Note.count += 1
-    }
-
-    deinit {
-        Note.count -= 1
+        self.id = UUID()
     }
 
     func encode(with coder: NSCoder) {
@@ -46,7 +39,7 @@ class Note: NSObject, NSCoding {
     }
 
     required init?(coder: NSCoder) {
-        id = coder.decodeObject(forKey: "id") as? Int ?? 0
+        id = coder.decodeObject(forKey: "id") as? UUID
         title = coder.decodeObject(forKey: "title") as? String
         body = coder.decodeObject(forKey: "body") as? String
         date = coder.decodeObject(forKey: "date") as? String

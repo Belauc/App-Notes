@@ -43,11 +43,13 @@ final class ListViewController: UIViewController {
         configure()
     }
 
-    // MARK: - Настройка Views
+    // MARK: - Общая настройка
     private func configure() {
+        loadData()
         setupViews()
     }
 
+    // MARK: - Настройка Views
     private func setupViews() {
         setupTableView()
         setupUIAddButton()
@@ -96,14 +98,14 @@ final class ListViewController: UIViewController {
 
     // MARK: - обработка нажатия на кнопку добавить
     @objc
-    func addTapButton() {
+    private func addTapButton() {
         let noteViewController = NoteViewController()
         noteViewController.delegate = self
         navigationController?.pushViewController(noteViewController, animated: true)
     }
 
     // MARK: - Настройка общих views
-    func setupBase() {
+    private func setupBase() {
         view.backgroundColor = UiSettings.backgraundColor
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.navigationBar.shadowImage = UIImage()
@@ -154,24 +156,33 @@ extension ListViewController: UITableViewDelegate {
     }
 }
 
-// MARK: - Работы с UpdateNotesListDelegate
+// MARK: - Работа с UpdateNotesListDelegate
 extension ListViewController: UpdateNotesListDelegate {
     func updateNoteList(note: Note) {
         guard !note.isEmtpy else { return }
-        guard notes.contains(where: { $0.id == note.id }) else {
-            note.fullDateTime = UiSettings.fullDateFormatNow
-            notes.append(note)
-            sortNotes()
-            return
-        }
-        guard let index = notes.firstIndex(of: note) else { return }
         note.fullDateTime = UiSettings.fullDateFormatNow
-        notes[index] = note
+        if let index = notes.firstIndex(of: note) {
+            notes[index] = note
+        } else {
+            notes.append(note)
+        }
         sortNotes()
+        saveData()
     }
 
-    func sortNotes() {
+    private func sortNotes() {
         notes = notes.sorted(by: { $0.fullDateTime ?? "0" > $1.fullDateTime ?? "1" })
         tableView.reloadData()
+    }
+}
+
+// MARK: - Работы с UserDefaults
+extension ListViewController {
+    private func loadData() {
+        notes = UserSettings.noteModel
+    }
+
+    private func saveData() {
+        UserSettings.noteModel = notes
     }
 }
