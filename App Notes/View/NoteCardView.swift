@@ -52,6 +52,13 @@ final class NoteCardView: UITableViewCell {
         self.backgroundColor = UiSettings.backgroundColorBase
     }
 
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+        if selected {
+            selectedBackgroundView?.backgroundColor = UiSettings.backgroundColorBase
+        }
+    }
+
     private func setupSubView() {
         setupBackView()
         setupHeader()
@@ -63,12 +70,10 @@ final class NoteCardView: UITableViewCell {
         contentView.addSubview(backView)
         backView.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
         backView.leftAnchor.constraint(
-            equalTo: leftAnchor,
-            constant: UiSettings.marginLeft
+            equalTo: leftAnchor
         ).isActive = true
         backView.rightAnchor.constraint(
-            equalTo: rightAnchor,
-            constant: UiSettings.marginRight
+            equalTo: contentView.rightAnchor
         ).isActive = true
         backView.translatesAutoresizingMaskIntoConstraints = false
         backView.layer.cornerRadius = UiSettings.cornerRadius
@@ -83,7 +88,7 @@ final class NoteCardView: UITableViewCell {
             constant: UiSettings.marginHeaderToTop
         ).isActive = true
         headerTextLabel.leftAnchor.constraint(
-            equalTo: backView.leftAnchor,
+            equalTo: contentView.leftAnchor,
             constant: UiSettings.marginLeft
         ).isActive = true
         headerTextLabel.rightAnchor.constraint(
@@ -101,7 +106,7 @@ final class NoteCardView: UITableViewCell {
             constant: UiSettings.marginBodyToHeader
         ).isActive = true
         bodyTextLabel.leftAnchor.constraint(
-            equalTo: backView.leftAnchor,
+            equalTo: contentView.leftAnchor,
             constant: UiSettings.marginLeft
         ).isActive = true
         bodyTextLabel.rightAnchor.constraint(
@@ -120,7 +125,7 @@ final class NoteCardView: UITableViewCell {
             constant: UiSettings.marginDateToBody
         ).isActive = true
         dateTextLabel.leftAnchor.constraint(
-            equalTo: backView.leftAnchor,
+            equalTo: contentView.leftAnchor,
             constant: UiSettings.marginLeft
         ).isActive = true
         dateTextLabel.rightAnchor.constraint(

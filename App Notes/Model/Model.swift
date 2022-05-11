@@ -36,6 +36,7 @@ class Note: NSObject, NSCoding {
         coder.encode(title, forKey: "title")
         coder.encode(body, forKey: "body")
         coder.encode(date, forKey: "date")
+        coder.encode(fullDateTime, forKey: "fullDate")
     }
 
     required init?(coder: NSCoder) {
@@ -43,5 +44,6 @@ class Note: NSObject, NSCoding {
         title = coder.decodeObject(forKey: "title") as? String
         body = coder.decodeObject(forKey: "body") as? String
         date = coder.decodeObject(forKey: "date") as? String
+        fullDateTime = coder.decodeObject(forKey: "fullDate") as? String
     }
 }

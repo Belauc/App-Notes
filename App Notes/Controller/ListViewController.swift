@@ -14,6 +14,7 @@ protocol UpdateNotesListDelegate: AnyObject {
 final class ListViewController: UIViewController {
     private let addButton = UIButton()
     private let tableView = UITableView()
+    private var editBarButton = UIBarButtonItem()
     private enum UiSettings {
         static let marginTop: CGFloat = 16
         static let marginLeft: CGFloat = 16
@@ -28,6 +29,11 @@ final class ListViewController: UIViewController {
         static let highlightColor = UIColor(red: 233.0/255.0, green: 242.0/255.0, blue: 250.0/255.0, alpha: 1.0)
         static let UnHighlightColor = UIColor.systemBackground
         static let titleForNavBar = "Заметки"
+        static let titleForEditStateButton = "Готово"
+        static let titleForSelectStateButton = "Выбрать"
+        static let titleAlertForCheckNil = "Внимание"
+        static let titleAlertButton = "Ок"
+        static let messageAlertForCheckNil = "Вы не выбрали ни одной заметки"
         static var fullDateFormatNow: String {
             let dateFormater = DateFormatter()
             dateFormater.dateFormat = "dd.MM.yyyy EEEE HH:mm:ss"
@@ -36,7 +42,10 @@ final class ListViewController: UIViewController {
             return date
         }
     }
+    private var addButtonBottomAnchor: NSLayoutConstraint?
     private var notes: [Note] = []
+    private var selectedIndexs: [IndexPath] = []
+    private var stateEditing = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,9 +60,9 @@ final class ListViewController: UIViewController {
 
     // MARK: - Настройка Views
     private func setupViews() {
+        setupBase()
         setupTableView()
         setupUIAddButton()
-        setupBase()
     }
 
     // MARK: - Настройка констрейтов и тд. для TableView
@@ -63,22 +72,28 @@ final class ListViewController: UIViewController {
             equalTo: view.safeAreaLayoutGuide.topAnchor,
             constant: UiSettings.marginTop
         ).isActive = true
-        tableView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor).isActive = true
-        tableView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor).isActive = true
+        tableView.leftAnchor.constraint(
+            equalTo: view.safeAreaLayoutGuide.leftAnchor,
+            constant: UiSettings.marginLeft
+        ).isActive = true
+        tableView.rightAnchor.constraint(
+            equalTo: view.safeAreaLayoutGuide.rightAnchor,
+            constant: UiSettings.marginRight).isActive = true
         tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.backgroundColor = UiSettings.backgraundColor
         tableView.separatorStyle = .none
         tableView.rowHeight = UiSettings.rowHeight
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.register(NoteCardView.self, forCellReuseIdentifier: NoteCardView.identificator)
+        tableView.allowsMultipleSelection = true
+        tableView.allowsMultipleSelectionDuringEditing = true
     }
 
     // MARK: - Настройка отображения кнопки добавить
     private func setupUIAddButton() {
         view.addSubview(addButton)
-        addButton.bottomAnchor.constraint(
-            equalTo: view.safeAreaLayoutGuide.bottomAnchor,
-            constant: UiSettings.marginBottomForButton
-        ).isActive = true
         addButton.rightAnchor.constraint(
             equalTo: view.safeAreaLayoutGuide.rightAnchor,
             constant: UiSettings.marginRight
@@ -89,19 +104,11 @@ final class ListViewController: UIViewController {
         addButton.heightAnchor.constraint(equalToConstant: UiSettings.heightWidthForButton).isActive = true
         addButton.clipsToBounds = true
         addButton.contentVerticalAlignment = .center
-        addButton.setTitle("+", for: .normal)
+        addButton.setImage(UIImage(named: "plus"), for: .normal)
         addButton.titleLabel?.font = UiSettings.fontForButton
         addButton.backgroundColor = UiSettings.colorForButton
-        addButton.addTarget(self, action: #selector(addTapButton), for: .touchUpInside)
+        addButton.addTarget(self, action: #selector(addEditTapButton), for: .touchUpInside)
         addButton.translatesAutoresizingMaskIntoConstraints = false
-    }
-
-    // MARK: - обработка нажатия на кнопку добавить
-    @objc
-    private func addTapButton() {
-        let noteViewController = NoteViewController()
-        noteViewController.delegate = self
-        navigationController?.pushViewController(noteViewController, animated: true)
     }
 
     // MARK: - Настройка общих views
@@ -112,9 +119,137 @@ final class ListViewController: UIViewController {
         self.navigationItem.title = UiSettings.titleForNavBar
         navigationItem.backBarButtonItem = UIBarButtonItem(
             title: "", style: .plain, target: NoteViewController(), action: nil)
-        tableView.dataSource = self
-        tableView.delegate = self
-        tableView.register(NoteCardView.self, forCellReuseIdentifier: NoteCardView.identificator)
+        editBarButton.target = self
+        editBarButton.action = #selector(editButtonPressed)
+        editBarButton.title = UiSettings.titleForSelectStateButton
+        navigationItem.rightBarButtonItem = editBarButton
+    }
+
+    // MARK: - обработка нажатия на кнопку добавить/удалить
+    @objc
+    private func addEditTapButton() {
+        if stateEditing {
+            guard !selectedIndexs.isEmpty else {
+                showAlertSelectedNill()
+                return
+            }
+            changeState()
+            deleteDataAfterEdit()
+            saveData()
+        } else {
+            let noteViewController = NoteViewController()
+            noteViewController.delegate = self
+            UIView.animateKeyframes(
+                withDuration: 1,
+                delay: 0,
+                options: [],
+                animations: { [weak self] in
+                    guard let self = self else { return }
+                    self.addKeyFrames()
+                }
+            )
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) { [weak self] in
+                guard let self = self else { return }
+                self.navigationController?.pushViewController(noteViewController, animated: true)
+            }
+        }
+    }
+
+    // MARK: - Анимационные кейсы для скрытия кнопки добавления/удаления
+    private func addKeyFrames() {
+        UIView.addKeyframe(
+            withRelativeStartTime: 0,
+            relativeDuration: 0.2,
+            animations: { [weak self] in
+                guard let self = self else { return }
+                self.addButton.frame.origin.y -= 15
+            }
+        )
+        UIView.addKeyframe(
+            withRelativeStartTime: 0.5,
+            relativeDuration: 0.8,
+            animations: { [weak self] in
+                guard let self = self else { return }
+                self.addButton.frame.origin.y += 200
+            }
+        )
+    }
+
+    // MARK: - Удаление данных после редактирования списка заметок
+    private func deleteDataAfterEdit() {
+        selectedIndexs.forEach { indexPath in
+            notes.remove(at: indexPath.row)
+        }
+        tableView.deleteRows(at: selectedIndexs, with: .right)
+        selectedIndexs.removeAll()
+    }
+
+    // MARK: - Проверка на количество выбранных заметок
+    private func showAlertSelectedNill() {
+        let alert = UIAlertController(title: UiSettings.titleAlertForCheckNil,
+                                      message: UiSettings.messageAlertForCheckNil,
+                                      preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: UiSettings.titleAlertButton, style: .default, handler: nil))
+        present(alert, animated: true)
+    }
+
+    // MARK: - Обрабокта нажатия кнопки выбрать/готово в навбаре
+    @objc
+    private func editButtonPressed() {
+        changeState()
+        selectedIndexs.removeAll()
+    }
+
+    // MARK: - Изменения состояния, редактирование/выбор.
+    private func changeState() {
+        stateEditing = !stateEditing
+        tableView.setEditing(stateEditing, animated: true)
+        editBarButton.title = stateEditing ? UiSettings.titleForEditStateButton : UiSettings.titleForSelectStateButton
+        let image = stateEditing ? UIImage(named: "delete") : UIImage(named: "plus")
+        addButton.transform = CGAffineTransform(scaleX: 0.01, y: 0.01)
+        UIView.animate(
+            withDuration: 1.2,
+            delay: 0.0,
+            usingSpringWithDamping: 0.5,
+            initialSpringVelocity: 0.2,
+            options: .curveEaseOut,
+            animations: {
+                self.addButton.setImage(image, for: .normal)
+                self.addButton.transform = CGAffineTransform(scaleX: 1, y: 1)
+            }
+        )
+    }
+
+    // MARK: - Изменения жиненного цикла
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        addButtonBottomAnchor?.isActive = false
+        addButtonBottomAnchor = addButton.bottomAnchor.constraint(
+            equalTo: view.bottomAnchor,
+            constant: 50
+        )
+        addButtonBottomAnchor?.isActive = true
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        UIView.animate(
+            withDuration: 1.8,
+            delay: 0,
+            usingSpringWithDamping: 0.4,
+            initialSpringVelocity: 0.2,
+            options: .curveEaseIn,
+            animations: { [weak self] in
+                guard let self = self else { return }
+                self.addButtonBottomAnchor?.isActive = false
+                self.addButtonBottomAnchor = self.addButton.bottomAnchor.constraint(
+                    equalTo: self.view.safeAreaLayoutGuide.bottomAnchor,
+                    constant: UiSettings.marginBottomForButton
+                )
+                self.addButtonBottomAnchor?.isActive = true
+                self.view.layoutSubviews()
+            }
+        )
     }
 }
 
@@ -130,13 +265,13 @@ extension ListViewController: UITableViewDataSource {
             for: indexPath
         ) as? NoteCardView else { return UITableViewCell() }
         cell.model = notes[indexPath.row]
-        cell.selectionStyle = .none
         return cell
     }
 
     func tableView(_ tableView: UITableView, didHighlightRowAt indexPath: IndexPath) {
         guard let cell = tableView.cellForRow(at: indexPath) as? NoteCardView else {return }
         cell.backView.backgroundColor = UiSettings.highlightColor
+        cell.contentView.backgroundColor = UiSettings.backgraundColor
     }
 
     func tableView(_ tableView: UITableView, didUnhighlightRowAt indexPath: IndexPath) {
@@ -148,11 +283,37 @@ extension ListViewController: UITableViewDataSource {
 // MARK: - Расширение для UITableViewDelegate
 extension ListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let clickedItem = notes[indexPath.row]
-        let noteViewController = NoteViewController()
-        noteViewController.delegate = self
-        noteViewController.note = clickedItem
-        navigationController?.pushViewController(noteViewController, animated: true)
+        if stateEditing {
+            selectedIndexs.append(indexPath)
+        } else {
+            let clickedItem = notes[indexPath.row]
+            let noteViewController = NoteViewController()
+            noteViewController.delegate = self
+            noteViewController.note = clickedItem
+            navigationController?.pushViewController(noteViewController, animated: true)
+        }
+    }
+
+    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        selectedIndexs.removeAll(where: {$0 == indexPath})
+    }
+
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+
+    func tableView(
+        _ tableView: UITableView,
+        trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath
+    ) -> UISwipeActionsConfiguration? {
+        let deleteAction = UIContextualAction(style: .destructive, title: nil) { [weak self] _, _, _ in
+            guard let self = self else { return }
+            self.notes.remove(at: indexPath.row)
+            self.tableView.deleteRows(at: [indexPath], with: .right)
+            self.saveData()
+        }
+        deleteAction.image = UIImage(systemName: "trash")
+        return UISwipeActionsConfiguration(actions: [deleteAction])
     }
 }
 
