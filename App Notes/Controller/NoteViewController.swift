@@ -88,8 +88,14 @@ final class NoteViewController: UIViewController {
         note.title = headerTitleTextField.text
         note.body = bodyTextView.text
         note.date = UiSettings.onlyDateFormat
+        note.dt = Date()
+        print(note.dt)
         checkTextFieldOnNil()
         doNextState()
+        let dateFormater = DateFormatter()
+        dateFormater.dateFormat = "dd.MM.yyyy"
+        let date = dateFormater.string(from: note.dt!)
+        print(date)
     }
 
     // MARK: - Настройка Views

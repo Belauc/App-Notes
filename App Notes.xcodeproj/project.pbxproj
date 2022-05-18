@@ -16,6 +16,7 @@
 		A5613A2027F0B5FC00188D35 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A5613A1F27F0B5FC00188D35 /* Assets.xcassets */; };
 		A5613A2327F0B5FC00188D35 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A5613A2127F0B5FC00188D35 /* LaunchScreen.storyboard */; };
 		A5AE19DD27F0C7010005DD07 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5AE19DC27F0C7010005DD07 /* Model.swift */; };
+		A5B941B02832873800D66FA7 /* Worker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5B941AF2832873800D66FA7 /* Worker.swift */; };
 		A5D2124C28146E2100FDCA28 /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D2124B28146E2100FDCA28 /* UserSettings.swift */; };
 /* End PBXBuildFile section */
 
@@ -33,6 +34,7 @@
 		A5613A2227F0B5FC00188D35 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A5613A2427F0B5FC00188D35 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A5AE19DC27F0C7010005DD07 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		A5B941AF2832873800D66FA7 /* Worker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Worker.swift; sourceTree = "<group>"; };
 		A5D2124B28146E2100FDCA28 /* UserSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettings.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -112,6 +114,7 @@
 		A5613A1527F0B5FB00188D35 /* App Notes */ = {
 			isa = PBXGroup;
 			children = (
+				A5B941AE2832872100D66FA7 /* Network */,
 				A54A5A8A2803783B0038B4B4 /* Controller */,
 				A54A5A89280378350038B4B4 /* Model */,
 				A54A5A882803782D0038B4B4 /* View */,
@@ -122,6 +125,14 @@
 				A5613A2427F0B5FC00188D35 /* Info.plist */,
 			);
 			path = "App Notes";
+			sourceTree = "<group>";
+		};
+		A5B941AE2832872100D66FA7 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				A5B941AF2832873800D66FA7 /* Worker.swift */,
+			);
+			path = Network;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -238,6 +249,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A5613A1B27F0B5FB00188D35 /* NoteViewController.swift in Sources */,
+				A5B941B02832873800D66FA7 /* Worker.swift in Sources */,
 				A5613A1727F0B5FB00188D35 /* AppDelegate.swift in Sources */,
 				A54A5A86280378280038B4B4 /* ListViewController.swift in Sources */,
 				A54A5A8D280381530038B4B4 /* NoteCardView.swift in Sources */,

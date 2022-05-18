@@ -46,10 +46,12 @@ final class ListViewController: UIViewController {
     private var notes: [Note] = []
     private var selectedIndexs: [IndexPath] = []
     private var stateEditing = false
+    private var worker = Worker()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         configure()
+        worker.fetch()
     }
 
     // MARK: - Общая настройка

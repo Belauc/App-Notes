@@ -7,17 +7,22 @@
 
 import Foundation
 
-class Note: NSObject, NSCoding {
-    let id: UUID?
+class Note: NSObject, Decodable, NSCoding {
+    var id: UUID = UUID()
     var title: String?
     var body: String?
     var date: String?
+    var dt: Date?
     var fullDateTime: String?
     var isEmtpy: Bool {
         guard (title ?? "").isEmpty && (body ?? "").isEmpty else {
             return false
         }
         return true
+    }
+    enum CodingKeys: String, CodingKey {
+        case title = "header"
+        case body = "text"
     }
 
     init(title: String, body: String, date: String) {
@@ -27,9 +32,7 @@ class Note: NSObject, NSCoding {
         self.id = UUID()
     }
 
-    override init() {
-        self.id = UUID()
-    }
+    override init() {}
 
     func encode(with coder: NSCoder) {
         coder.encode(id, forKey: "id")
@@ -40,7 +43,7 @@ class Note: NSObject, NSCoding {
     }
 
     required init?(coder: NSCoder) {
-        id = coder.decodeObject(forKey: "id") as? UUID
+        id = coder.decodeObject(forKey: "id") as? UUID ?? UUID()
         title = coder.decodeObject(forKey: "title") as? String
         body = coder.decodeObject(forKey: "body") as? String
         date = coder.decodeObject(forKey: "date") as? String
