@@ -28,11 +28,15 @@ final class NoteCardView: UITableViewCell {
         static let colorForBody = UIColor(red: 172/255, green: 172/255, blue: 172/255, alpha: 1)
         static let backgroundColor = UIColor.systemBackground
         static let backgroundColorBase = UIColor(red: 249/255, green: 250/255, blue: 254/255, alpha: 1)
+        static let locale = Locale(identifier: "ru_RU")
     }
     static let identificator = "noteCell"
     var model: Note? {
         willSet {
-            dateTextLabel.text = newValue?.date
+            let dateFormater = DateFormatter()
+            dateFormater.dateFormat = "dd.MM.yyyy"
+            dateFormater.locale = UiSettings.locale
+            dateTextLabel.text =  dateFormater.string(from: newValue?.date ?? Date())
             headerTextLabel.text = newValue?.title
             bodyTextLabel.text = newValue?.body
         }

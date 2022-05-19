@@ -31,13 +31,6 @@ final class NoteViewController: UIViewController {
         static let titleForDoneButton = "Готово"
         static let titleAlertForCheckNil = "Внимание"
         static let messageAlertForCheckNil = "Необхоидмо заполнить хотя бы одно поле для сохранения"
-        static var onlyDateFormat: String {
-            let dateFormater = DateFormatter()
-            dateFormater.dateFormat = "dd.MM.yyyy"
-            dateFormater.locale = locale
-            let date = dateFormater.string(from: Date())
-            return date
-        }
         static var locale: Locale = Locale(identifier: "ru_RU")
         static let backgroundColor = UIColor(red: 249/255, green: 250/255, blue: 254/255, alpha: 1)
     }
@@ -87,15 +80,9 @@ final class NoteViewController: UIViewController {
     private func doneButtonPressed() {
         note.title = headerTitleTextField.text
         note.body = bodyTextView.text
-        note.date = UiSettings.onlyDateFormat
-        note.dt = Date()
-        print(note.dt)
+        note.date = Date()
         checkTextFieldOnNil()
         doNextState()
-        let dateFormater = DateFormatter()
-        dateFormater.dateFormat = "dd.MM.yyyy"
-        let date = dateFormater.string(from: note.dt!)
-        print(date)
     }
 
     // MARK: - Настройка Views
@@ -231,7 +218,7 @@ extension NoteViewController {
     private func saveData() {
         note.title = headerTitleTextField.text
         note.body = bodyTextView.text
-        note.date = UiSettings.onlyDateFormat
+        note.date = Date()
         delegate?.updateNoteList(note: note)
     }
 
@@ -239,7 +226,10 @@ extension NoteViewController {
     private func restoreData() {
         headerTitleTextField.text = note.title
         bodyTextView.text = note.body
-        dateTimeLabel.text = note.fullDateTime
+        let dateFormater = DateFormatter()
+        dateFormater.dateFormat = "dd.MM.yyyy EEEE HH:mm"
+        dateFormater.locale = UiSettings.locale
+        dateTimeLabel.text = dateFormater.string(from: note.date)
     }
 
     override func viewWillDisappear(_ animated: Bool) {

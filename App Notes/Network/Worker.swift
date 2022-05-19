@@ -9,7 +9,7 @@ import Foundation
 
 protocol WorkerType {
     var session: URLSession { get }
-    func fetch()
+    func fetch(complition: @escaping (Bool, [Note]?) -> Void)
 }
 
 final class Worker: WorkerType {
@@ -19,18 +19,28 @@ final class Worker: WorkerType {
         self.session = session
     }
 
-    func fetch() {
+    func fetch(complition: @escaping (Bool, [Note]?) -> Void) {
         let task = session.dataTask(with: createURLReComponents()!) { data, response, error in
             if let error = error {
                 print(error.localizedDescription)
+                complition(false, nil)
+                return
             } else {
                 guard let response = response as? HTTPURLResponse,
                       response.statusCode == 200,
-                      let data = data else { return }
+                      let data = data else {
+                    let response = response as? HTTPURLResponse
+                    print("Ошибка, код ответа сервера: \(response?.statusCode ?? 0)")
+                    return
+                }
                 let jsonDecoder = JSONDecoder()
                 jsonDecoder.dateDecodingStrategy = .secondsSince1970
-                let json = try? jsonDecoder.decode([Note].self, from: data)
-                print(json![0])
+                do {
+                    let notes = try jsonDecoder.decode([Note].self, from: data)
+                    complition(true, notes)
+                } catch let error {
+                    print(error)
+                }
             }
         }
         task.resume()

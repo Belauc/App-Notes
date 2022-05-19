@@ -15,6 +15,8 @@ final class ListViewController: UIViewController {
     private let addButton = UIButton()
     private let tableView = UITableView()
     private var editBarButton = UIBarButtonItem()
+    private var loadingView = UIView()
+    private var activityIndicator = UIActivityIndicatorView()
     private enum UiSettings {
         static let marginTop: CGFloat = 16
         static let marginLeft: CGFloat = 16
@@ -34,13 +36,6 @@ final class ListViewController: UIViewController {
         static let titleAlertForCheckNil = "Внимание"
         static let titleAlertButton = "Ок"
         static let messageAlertForCheckNil = "Вы не выбрали ни одной заметки"
-        static var fullDateFormatNow: String {
-            let dateFormater = DateFormatter()
-            dateFormater.dateFormat = "dd.MM.yyyy EEEE HH:mm:ss"
-            dateFormater.locale = Locale(identifier: "ru_RU")
-            let date = dateFormater.string(from: Date())
-            return date
-        }
     }
     private var addButtonBottomAnchor: NSLayoutConstraint?
     private var notes: [Note] = []
@@ -51,7 +46,6 @@ final class ListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configure()
-        worker.fetch()
     }
 
     // MARK: - Общая настройка
@@ -64,67 +58,8 @@ final class ListViewController: UIViewController {
     private func setupViews() {
         setupBase()
         setupTableView()
+        setuploadingScreen()
         setupUIAddButton()
-    }
-
-    // MARK: - Настройка констрейтов и тд. для TableView
-    private func setupTableView() {
-        view.addSubview(tableView)
-        tableView.topAnchor.constraint(
-            equalTo: view.safeAreaLayoutGuide.topAnchor,
-            constant: UiSettings.marginTop
-        ).isActive = true
-        tableView.leftAnchor.constraint(
-            equalTo: view.safeAreaLayoutGuide.leftAnchor,
-            constant: UiSettings.marginLeft
-        ).isActive = true
-        tableView.rightAnchor.constraint(
-            equalTo: view.safeAreaLayoutGuide.rightAnchor,
-            constant: UiSettings.marginRight).isActive = true
-        tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.backgroundColor = UiSettings.backgraundColor
-        tableView.separatorStyle = .none
-        tableView.rowHeight = UiSettings.rowHeight
-        tableView.dataSource = self
-        tableView.delegate = self
-        tableView.register(NoteCardView.self, forCellReuseIdentifier: NoteCardView.identificator)
-        tableView.allowsMultipleSelection = true
-        tableView.allowsMultipleSelectionDuringEditing = true
-    }
-
-    // MARK: - Настройка отображения кнопки добавить
-    private func setupUIAddButton() {
-        view.addSubview(addButton)
-        addButton.rightAnchor.constraint(
-            equalTo: view.safeAreaLayoutGuide.rightAnchor,
-            constant: UiSettings.marginRight
-        ).isActive = true
-        addButton.translatesAutoresizingMaskIntoConstraints = false
-        addButton.layer.cornerRadius = UiSettings.cornerRadiusForButton
-        addButton.widthAnchor.constraint(equalToConstant: UiSettings.heightWidthForButton).isActive = true
-        addButton.heightAnchor.constraint(equalToConstant: UiSettings.heightWidthForButton).isActive = true
-        addButton.clipsToBounds = true
-        addButton.contentVerticalAlignment = .center
-        addButton.setImage(UIImage(named: "plus"), for: .normal)
-        addButton.titleLabel?.font = UiSettings.fontForButton
-        addButton.backgroundColor = UiSettings.colorForButton
-        addButton.addTarget(self, action: #selector(addEditTapButton), for: .touchUpInside)
-        addButton.translatesAutoresizingMaskIntoConstraints = false
-    }
-
-    // MARK: - Настройка общих views
-    private func setupBase() {
-        view.backgroundColor = UiSettings.backgraundColor
-        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-        navigationController?.navigationBar.shadowImage = UIImage()
-        self.navigationItem.title = UiSettings.titleForNavBar
-        navigationItem.backBarButtonItem = UIBarButtonItem(
-            title: "", style: .plain, target: NoteViewController(), action: nil)
-        editBarButton.target = self
-        editBarButton.action = #selector(editButtonPressed)
-        editBarButton.title = UiSettings.titleForSelectStateButton
-        navigationItem.rightBarButtonItem = editBarButton
     }
 
     // MARK: - обработка нажатия на кнопку добавить/удалить
@@ -179,6 +114,7 @@ final class ListViewController: UIViewController {
 
     // MARK: - Удаление данных после редактирования списка заметок
     private func deleteDataAfterEdit() {
+        selectedIndexs = selectedIndexs.sorted(by: {$0.row > $1.row})
         selectedIndexs.forEach { indexPath in
             notes.remove(at: indexPath.row)
         }
@@ -215,9 +151,9 @@ final class ListViewController: UIViewController {
             usingSpringWithDamping: 0.5,
             initialSpringVelocity: 0.2,
             options: .curveEaseOut,
-            animations: {
-                self.addButton.setImage(image, for: .normal)
-                self.addButton.transform = CGAffineTransform(scaleX: 1, y: 1)
+            animations: { [weak self] in
+                self?.addButton.setImage(image, for: .normal)
+                self?.addButton.transform = CGAffineTransform(scaleX: 1, y: 1)
             }
         )
     }
@@ -323,7 +259,6 @@ extension ListViewController: UITableViewDelegate {
 extension ListViewController: UpdateNotesListDelegate {
     func updateNoteList(note: Note) {
         guard !note.isEmtpy else { return }
-        note.fullDateTime = UiSettings.fullDateFormatNow
         if let index = notes.firstIndex(of: note) {
             notes[index] = note
         } else {
@@ -334,7 +269,7 @@ extension ListViewController: UpdateNotesListDelegate {
     }
 
     private func sortNotes() {
-        notes = notes.sorted(by: { $0.fullDateTime ?? "0" > $1.fullDateTime ?? "1" })
+        notes = notes.sorted(by: { $0.date > $1.date })
         tableView.reloadData()
     }
 }
@@ -343,9 +278,121 @@ extension ListViewController: UpdateNotesListDelegate {
 extension ListViewController {
     private func loadData() {
         notes = UserSettings.noteModel
+        worker.fetch { [weak self] succses, notes in
+            if succses, let notes = notes {
+                self?.notes.append(contentsOf: notes)
+            }
+            DispatchQueue.main.async { [weak self] in
+                self?.tableView.reloadData()
+                self?.removeLoadingScreen()
+            }
+        }
     }
 
     private func saveData() {
         UserSettings.noteModel = notes
     }
+}
+
+// MARK: - Экстеншен настройки констрейтов и views
+extension ListViewController {
+    // MARK: - Настройка констрейтов и тд. для TableView
+    private func setupTableView() {
+        view.addSubview(tableView)
+        tableView.topAnchor.constraint(
+            equalTo: view.safeAreaLayoutGuide.topAnchor,
+            constant: UiSettings.marginTop
+        ).isActive = true
+        tableView.leftAnchor.constraint(
+            equalTo: view.safeAreaLayoutGuide.leftAnchor,
+            constant: UiSettings.marginLeft
+        ).isActive = true
+        tableView.rightAnchor.constraint(
+            equalTo: view.safeAreaLayoutGuide.rightAnchor,
+            constant: UiSettings.marginRight).isActive = true
+        tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.backgroundColor = UiSettings.backgraundColor
+        tableView.separatorStyle = .none
+        tableView.rowHeight = UiSettings.rowHeight
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.register(NoteCardView.self, forCellReuseIdentifier: NoteCardView.identificator)
+        tableView.allowsMultipleSelection = true
+        tableView.allowsMultipleSelectionDuringEditing = true
+    }
+
+    // MARK: - Настройка констрейтов и тд. для ActivityIndicator
+    private func setuploadingScreen() {
+        loadingView.translatesAutoresizingMaskIntoConstraints = false
+        loadingView.backgroundColor = UiSettings.backgraundColor
+        activityIndicator = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        activityIndicator.hidesWhenStopped = true
+        activityIndicator.style = .medium
+        activityIndicator.color = .gray
+        loadingView.addSubview(activityIndicator)
+        view.addSubview(loadingView)
+        loadingView.topAnchor.constraint(
+            equalTo: tableView.topAnchor
+        ).isActive = true
+        loadingView.leftAnchor.constraint(
+            equalTo: tableView.leftAnchor
+        ).isActive = true
+        loadingView.rightAnchor.constraint(
+            equalTo: tableView.rightAnchor).isActive = true
+        loadingView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        activityIndicator.centerXAnchor.constraint(equalTo: loadingView.centerXAnchor).isActive = true
+        activityIndicator.startAnimating()
+    }
+
+    private func removeLoadingScreen() {
+        UIView.animate(
+            withDuration: 0.8,
+            delay: 0.0,
+            options: .curveEaseOut,
+            animations: { [weak self] in
+                self?.loadingView.layer.opacity = 0
+            },
+            completion: {[weak self] _ in
+                self?.loadingView.isHidden = true
+            }
+        )
+        activityIndicator.stopAnimating()
+    }
+
+    // MARK: - Настройка отображения кнопки добавить
+    private func setupUIAddButton() {
+        view.addSubview(addButton)
+        addButton.rightAnchor.constraint(
+            equalTo: view.safeAreaLayoutGuide.rightAnchor,
+            constant: UiSettings.marginRight
+        ).isActive = true
+        addButton.translatesAutoresizingMaskIntoConstraints = false
+        addButton.layer.cornerRadius = UiSettings.cornerRadiusForButton
+        addButton.widthAnchor.constraint(equalToConstant: UiSettings.heightWidthForButton).isActive = true
+        addButton.heightAnchor.constraint(equalToConstant: UiSettings.heightWidthForButton).isActive = true
+        addButton.clipsToBounds = true
+        addButton.contentVerticalAlignment = .center
+        addButton.setImage(UIImage(named: "plus"), for: .normal)
+        addButton.titleLabel?.font = UiSettings.fontForButton
+        addButton.backgroundColor = UiSettings.colorForButton
+        addButton.addTarget(self, action: #selector(addEditTapButton), for: .touchUpInside)
+        addButton.translatesAutoresizingMaskIntoConstraints = false
+    }
+
+    // MARK: - Настройка общих views
+    private func setupBase() {
+        view.backgroundColor = UiSettings.backgraundColor
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        navigationController?.navigationBar.shadowImage = UIImage()
+        self.navigationItem.title = UiSettings.titleForNavBar
+        navigationItem.backBarButtonItem = UIBarButtonItem(
+            title: "", style: .plain, target: NoteViewController(), action: nil)
+        editBarButton.target = self
+        editBarButton.action = #selector(editButtonPressed)
+        editBarButton.title = UiSettings.titleForSelectStateButton
+        navigationItem.rightBarButtonItem = editBarButton
+    }
+
 }
