@@ -282,7 +282,7 @@ extension ListViewController {
             if succses, let notes = notes {
                 self?.notes.append(contentsOf: notes)
             }
-            DispatchQueue.main.async { [weak self] in
+            DispatchQueue.main.asyncAfter(deadline: .now() + 10) { [weak self] in
                 self?.tableView.reloadData()
                 self?.removeLoadingScreen()
             }

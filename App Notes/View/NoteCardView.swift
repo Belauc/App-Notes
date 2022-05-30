@@ -12,6 +12,7 @@ final class NoteCardView: UITableViewCell {
     private let headerTextLabel = UILabel()
     private let bodyTextLabel = UILabel()
     private let dateTextLabel = UILabel()
+    private let imageIcon = UIImageView()
     let backView = UIView()
     private enum UiSettings {
         static let marginTop: CGFloat = 4
@@ -24,6 +25,7 @@ final class NoteCardView: UITableViewCell {
         static let hightNoteView: CGFloat = 90
         static let titleFontSize: CGFloat = 16
         static let cornerRadius: CGFloat = 14
+        static let imageIconSize: CGFloat = 24
         static let fontForBodyAndDate = UIFont.systemFont(ofSize: 10, weight: .regular)
         static let colorForBody = UIColor(red: 172/255, green: 172/255, blue: 172/255, alpha: 1)
         static let backgroundColor = UIColor.systemBackground
@@ -31,7 +33,7 @@ final class NoteCardView: UITableViewCell {
         static let locale = Locale(identifier: "ru_RU")
     }
     static let identificator = "noteCell"
-    var model: Note? {
+    weak var model: Note? {
         willSet {
             let dateFormater = DateFormatter()
             dateFormater.dateFormat = "dd.MM.yyyy"
@@ -39,6 +41,22 @@ final class NoteCardView: UITableViewCell {
             dateTextLabel.text =  dateFormater.string(from: newValue?.date ?? Date())
             headerTextLabel.text = newValue?.title
             bodyTextLabel.text = newValue?.body
+            if let url = URL(string: newValue?.userShareIcon ?? "") {
+                imageIcon.image = UIImage(named: "circle")
+                DispatchQueue.global().async { [weak self] in
+                    do {
+                        let data = try Data(contentsOf: url)
+                        DispatchQueue.main.async { [weak self] in
+                            self?.imageIcon.image = UIImage(data: data)
+                        }
+                    } catch let error {
+                        print(error.localizedDescription)
+                    }
+
+                }
+            } else {
+                imageIcon.image = nil
+            }
         }
     }
 
@@ -67,6 +85,7 @@ final class NoteCardView: UITableViewCell {
         setupBackView()
         setupHeader()
         setupBody()
+        setupImageIcon()
         setupDate()
     }
 
@@ -122,6 +141,27 @@ final class NoteCardView: UITableViewCell {
         bodyTextLabel.translatesAutoresizingMaskIntoConstraints = false
     }
 
+    private func setupImageIcon() {
+        backView.addSubview(imageIcon)
+        imageIcon.topAnchor.constraint(
+            equalTo: bodyTextLabel.bottomAnchor,
+            constant: UiSettings.marginHeaderToTop
+        ).isActive = true
+        imageIcon.rightAnchor.constraint(
+            equalTo: backView.rightAnchor,
+            constant: UiSettings.marginRight
+        ).isActive = true
+        imageIcon.bottomAnchor.constraint(
+            equalTo: backView.bottomAnchor,
+            constant: UiSettings.marginBottom
+        ).isActive = true
+        imageIcon.widthAnchor.constraint(equalToConstant: UiSettings.imageIconSize).isActive = true
+        imageIcon.heightAnchor.constraint(equalToConstant: UiSettings.imageIconSize).isActive = true
+        imageIcon.layer.cornerRadius = imageIcon.frame.height/2
+        imageIcon.clipsToBounds = true
+        imageIcon.translatesAutoresizingMaskIntoConstraints = false
+    }
+
     private func setupDate() {
         backView.addSubview(dateTextLabel)
         dateTextLabel.topAnchor.constraint(
@@ -132,10 +172,6 @@ final class NoteCardView: UITableViewCell {
             equalTo: contentView.leftAnchor,
             constant: UiSettings.marginLeft
         ).isActive = true
-        dateTextLabel.rightAnchor.constraint(
-            equalTo: backView.rightAnchor,
-            constant: UiSettings.marginRight
-        ).isActive = true
         dateTextLabel.bottomAnchor.constraint(
             equalTo: backView.bottomAnchor,
             constant: UiSettings.marginBottom
@@ -143,5 +179,4 @@ final class NoteCardView: UITableViewCell {
         dateTextLabel.font = UiSettings.fontForBodyAndDate
         dateTextLabel.translatesAutoresizingMaskIntoConstraints = false
     }
-
 }

@@ -33,4 +33,8 @@ final class UserSettings {
             }
         }
     }
+
+    deinit {
+        print(#function)
+    }
 }
