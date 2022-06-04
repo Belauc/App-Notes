@@ -41,22 +41,7 @@ final class NoteCardView: UITableViewCell {
             dateTextLabel.text =  dateFormater.string(from: newValue?.date ?? Date())
             headerTextLabel.text = newValue?.title
             bodyTextLabel.text = newValue?.body
-            if let url = URL(string: newValue?.userShareIcon ?? "") {
-                imageIcon.image = UIImage(named: "circle")
-                DispatchQueue.global().async { [weak self] in
-                    do {
-                        let data = try Data(contentsOf: url)
-                        DispatchQueue.main.async { [weak self] in
-                            self?.imageIcon.image = UIImage(data: data)
-                        }
-                    } catch let error {
-                        print(error.localizedDescription)
-                    }
-
-                }
-            } else {
-                imageIcon.image = nil
-            }
+            imageIcon.image = UIImage(data: newValue?.cachedImage ?? Data())
         }
     }
 

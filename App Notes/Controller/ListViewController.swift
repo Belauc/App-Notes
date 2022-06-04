@@ -134,8 +134,10 @@ final class ListViewController: UIViewController {
     // MARK: - Обрабокта нажатия кнопки выбрать/готово в навбаре
     @objc
     private func editButtonPressed() {
+        tableView.setEditing(stateEditing, animated: true)
         changeState()
         selectedIndexs.removeAll()
+
     }
 
     // MARK: - Изменения состояния, редактирование/выбор.
@@ -282,7 +284,7 @@ extension ListViewController {
             if succses, let notes = notes {
                 self?.notes.append(contentsOf: notes)
             }
-            DispatchQueue.main.asyncAfter(deadline: .now() + 10) { [weak self] in
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0) { [weak self] in
                 self?.tableView.reloadData()
                 self?.removeLoadingScreen()
             }

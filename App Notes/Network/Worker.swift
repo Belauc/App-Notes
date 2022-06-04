@@ -25,7 +25,10 @@ final class Worker: WorkerType {
 
     func fetch(completion: @escaping (Bool, [Note]?) -> Void) {
         guard let url = createURLComponents() else { return }
+        let group = DispatchGroup()
+        group.enter()
         let task = session.dataTask(with: url) { data, response, error in
+            defer { group.leave() }
             if let error = error {
                 print(error.localizedDescription)
                 completion(false, nil)
@@ -42,6 +45,14 @@ final class Worker: WorkerType {
                 jsonDecoder.dateDecodingStrategy = .secondsSince1970
                 do {
                     let notes = try jsonDecoder.decode([Note].self, from: data)
+                    notes.forEach { [weak self] note in
+                        group.enter()
+                        guard let imageUrl = note.userShareIcon else { return }
+                        self?.loadImage(from: imageUrl) { data in
+                            note.cachedImage = data
+                            group.leave()
+                        }
+                    }
                     completion(true, notes)
                 } catch let error {
                     print(error)
@@ -49,6 +60,18 @@ final class Worker: WorkerType {
             }
         }
         task.resume()
+    }
+
+    func loadImage(from urlString: String, completion: @escaping (Data) -> Void) {
+        guard let url = URL(string: urlString) else { return }
+        DispatchQueue.main.async {
+            do {
+                let data = try Data(contentsOf: url)
+                completion(data)
+            } catch let error {
+                print(error.localizedDescription)
+            }
+        }
     }
 
     private func createURLComponents() -> URL? {

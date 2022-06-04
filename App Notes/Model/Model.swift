@@ -13,12 +13,14 @@ class Note: NSObject, Decodable, NSCoding {
     var body: String?
     var date: Date = Date()
     var userShareIcon: String?
+    var cachedImage: Data?
     var isEmtpy: Bool {
         guard (title ?? "").isEmpty && (body ?? "").isEmpty else {
             return false
         }
         return true
     }
+
     enum CodingKeys: String, CodingKey {
         case title = "header"
         case body = "text"
