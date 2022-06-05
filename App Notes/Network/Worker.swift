@@ -64,13 +64,11 @@ final class Worker: WorkerType {
 
     func loadImage(from urlString: String, completion: @escaping (Data) -> Void) {
         guard let url = URL(string: urlString) else { return }
-        DispatchQueue.main.async {
-            do {
-                let data = try Data(contentsOf: url)
-                completion(data)
-            } catch let error {
-                print(error.localizedDescription)
-            }
+        do {
+            let data = try Data(contentsOf: url)
+            completion(data)
+        } catch let error {
+            print(error.localizedDescription)
         }
     }
 
