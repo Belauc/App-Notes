@@ -1,17 +1,18 @@
 //
-//  ListViewController.swift
+//  MainViewController.swift
 //  App Notes
 //
-//  Created by Sergey on 10.04.2022.
+//  Created by Sergey on 09.06.2022.
 //
 
 import UIKit
+import Foundation
 
 protocol UpdateNotesListDelegate: AnyObject {
     func updateNoteList(note: Note)
 }
 
-final class ListViewController: UIViewController {
+final class MainSceneViewController: UIViewController {
     private let addButton = UIButton()
     private let tableView = UITableView()
     private var editBarButton = UIBarButtonItem()
@@ -41,16 +42,35 @@ final class ListViewController: UIViewController {
     private var notes: [Note] = []
     private var selectedIndexs: [IndexPath] = []
     private var stateEditing = false
-    private var worker = Worker()
+
+    // MARK: - References
+
+    private let interactor: MainBusinessLogic
+    public let router: MainRoutingLogic
 
     override func viewDidLoad() {
         super.viewDidLoad()
         configure()
     }
 
+    // MARK: - Init
+
+    init(
+      interactor: MainBusinessLogic,
+      router: MainRoutingLogic
+    ) {
+        self.interactor = interactor
+        self.router = router
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
     // MARK: - Общая настройка
     private func configure() {
-        loadData()
+        interactor.fetchNotesData()
         setupViews()
     }
 
@@ -115,9 +135,12 @@ final class ListViewController: UIViewController {
     // MARK: - Удаление данных после редактирования списка заметок
     private func deleteDataAfterEdit() {
         selectedIndexs = selectedIndexs.sorted(by: {$0.row > $1.row})
+        var noteIds = [UUID]()
         selectedIndexs.forEach { indexPath in
+            noteIds.append(notes[indexPath.row].id)
             notes.remove(at: indexPath.row)
         }
+        interactor.deleteNoteFromList(noteId: MainModel.DeleteNoteFromList.Request(idNotes: noteIds))
         tableView.deleteRows(at: selectedIndexs, with: .right)
         selectedIndexs.removeAll()
     }
@@ -137,7 +160,6 @@ final class ListViewController: UIViewController {
         tableView.setEditing(stateEditing, animated: true)
         changeState()
         selectedIndexs.removeAll()
-
     }
 
     // MARK: - Изменения состояния, редактирование/выбор.
@@ -194,7 +216,7 @@ final class ListViewController: UIViewController {
 }
 
 // MARK: - Расширение для UITableViewDataSource
-extension ListViewController: UITableViewDataSource {
+extension MainSceneViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return notes.count
     }
@@ -221,7 +243,7 @@ extension ListViewController: UITableViewDataSource {
 }
 
 // MARK: - Расширение для UITableViewDelegate
-extension ListViewController: UITableViewDelegate {
+extension MainSceneViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if stateEditing {
             selectedIndexs.append(indexPath)
@@ -248,7 +270,8 @@ extension ListViewController: UITableViewDelegate {
     ) -> UISwipeActionsConfiguration? {
         let deleteAction = UIContextualAction(style: .destructive, title: nil) { [weak self] _, _, _ in
             guard let self = self else { return }
-            self.notes.remove(at: indexPath.row)
+            let noteForDelete = self.notes.remove(at: indexPath.row).id
+            self.interactor.deleteNoteFromList(noteId: MainModel.DeleteNoteFromList.Request(idNotes: [noteForDelete]))
             self.tableView.deleteRows(at: [indexPath], with: .right)
             self.saveData()
         }
@@ -258,7 +281,7 @@ extension ListViewController: UITableViewDelegate {
 }
 
 // MARK: - Работа с UpdateNotesListDelegate
-extension ListViewController: UpdateNotesListDelegate {
+extension MainSceneViewController: UpdateNotesListDelegate {
     func updateNoteList(note: Note) {
         guard !note.isEmtpy else { return }
         if let index = notes.firstIndex(of: note) {
@@ -266,38 +289,32 @@ extension ListViewController: UpdateNotesListDelegate {
         } else {
             notes.append(note)
         }
-        sortNotes()
         saveData()
-    }
-
-    private func sortNotes() {
-        notes = notes.sorted(by: { $0.date > $1.date })
-        tableView.reloadData()
     }
 }
 
 // MARK: - Работы с UserDefaults
-extension ListViewController {
-    private func loadData() {
-        notes = UserSettings.noteModel
-        worker.fetch { [weak self] succses, notes in
-            if succses, let notes = notes {
-                self?.notes.append(contentsOf: notes)
-            }
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0) { [weak self] in
-                self?.tableView.reloadData()
-                self?.removeLoadingScreen()
-            }
-        }
-    }
+extension MainSceneViewController {
+//    private func loadData() {
+//        notes = UserSettings.noteModel
+//        worker.fetch { [weak self] succses, notes in
+//            if succses, let notes = notes {
+//                self?.notes.append(contentsOf: notes)
+//            }
+//            DispatchQueue.main.asyncAfter(deadline: .now() + 0) { [weak self] in
+//                self?.tableView.reloadData()
+//                self?.removeLoadingScreen()
+//            }
+//        }
+//    }
 
     private func saveData() {
-        UserSettings.noteModel = notes
+        interactor.saveNotesToDefaults(notes: MainModel.SaveNotesToDefaults.Request(notes: notes))
     }
 }
 
 // MARK: - Экстеншен настройки констрейтов и views
-extension ListViewController {
+extension MainSceneViewController {
     // MARK: - Настройка констрейтов и тд. для TableView
     private func setupTableView() {
         view.addSubview(tableView)
@@ -396,5 +413,14 @@ extension ListViewController {
         editBarButton.title = UiSettings.titleForSelectStateButton
         navigationItem.rightBarButtonItem = editBarButton
     }
+}
 
+extension MainSceneViewController: MainDisplayLogic {
+    func displayNotes(viewModel: MainModel.FetchData.ViewModel) {
+        notes = viewModel.notes
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+            self.removeLoadingScreen()
+        }
+    }
 }

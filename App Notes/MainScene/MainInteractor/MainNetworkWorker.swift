@@ -1,18 +1,13 @@
 //
-//  Worker.swift
+//  MainNetworkWorker.swift
 //  App Notes
 //
-//  Created by Sergey on 16.05.2022.
+//  Created by Sergey on 09.06.2022.
 //
 
 import Foundation
 
-protocol WorkerType {
-    var session: URLSession { get }
-    func fetch(completion: @escaping (Bool, [Note]?) -> Void)
-}
-
-final class Worker: WorkerType {
+final class MainNetworkWorker: MainWorkingLogic {
     var session: URLSession
 
     init(session: URLSession = URLSession(configuration: .default)) {
@@ -23,7 +18,7 @@ final class Worker: WorkerType {
         print(#function)
     }
 
-    func fetch(completion: @escaping (Bool, [Note]?) -> Void) {
+    func fetchData(completion: @escaping (Bool, MainModel.FetchData.Response?) -> Void) {
         guard let url = createURLComponents() else { return }
         let group = DispatchGroup()
         group.enter()
@@ -53,7 +48,7 @@ final class Worker: WorkerType {
                             group.leave()
                         }
                     }
-                    completion(true, notes)
+                    completion(true, MainModel.FetchData.Response(notes: notes))
                 } catch let error {
                     print(error)
                 }
@@ -62,7 +57,7 @@ final class Worker: WorkerType {
         task.resume()
     }
 
-    func loadImage(from urlString: String, completion: @escaping (Data) -> Void) {
+    private func loadImage(from urlString: String, completion: @escaping (Data) -> Void) {
         guard let url = URL(string: urlString) else { return }
         do {
             let data = try Data(contentsOf: url)
@@ -94,3 +89,4 @@ final class Worker: WorkerType {
         }
     }
 }
+
