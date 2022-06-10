@@ -12,6 +12,7 @@ class Note: NSObject, Decodable, NSCoding {
     var title: String?
     var body: String?
     var date: Date = Date()
+    var stringDate: String?
     var userShareIcon: String?
     var cachedImage: Data?
     var isEmtpy: Bool {
