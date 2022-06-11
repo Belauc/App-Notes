@@ -17,9 +17,15 @@
 		A550B94328525FA200A47A28 /* MainNetworkWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A550B94228525FA200A47A28 /* MainNetworkWorker.swift */; };
 		A550B9452852622500A47A28 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A550B9442852622500A47A28 /* MainViewController.swift */; };
 		A550B9472852938200A47A28 /* MainModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = A550B9462852938200A47A28 /* MainModels.swift */; };
+		A550B95128547F3500A47A28 /* DetailInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A550B95028547F3500A47A28 /* DetailInteractor.swift */; };
+		A550B95328547F4400A47A28 /* DetailPresentor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A550B95228547F4400A47A28 /* DetailPresentor.swift */; };
+		A550B95528547F5400A47A28 /* DetailModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = A550B95428547F5400A47A28 /* DetailModels.swift */; };
+		A550B95728547F6E00A47A28 /* DetailRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A550B95628547F6E00A47A28 /* DetailRouter.swift */; };
+		A550B95928547F7A00A47A28 /* DetailProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = A550B95828547F7A00A47A28 /* DetailProtocols.swift */; };
+		A550B95B28547F8C00A47A28 /* DetailAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = A550B95A28547F8C00A47A28 /* DetailAssembly.swift */; };
 		A5613A1727F0B5FB00188D35 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5613A1627F0B5FB00188D35 /* AppDelegate.swift */; };
 		A5613A1927F0B5FB00188D35 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5613A1827F0B5FB00188D35 /* SceneDelegate.swift */; };
-		A5613A1B27F0B5FB00188D35 /* NoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5613A1A27F0B5FB00188D35 /* NoteViewController.swift */; };
+		A5613A1B27F0B5FB00188D35 /* DetailSceneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5613A1A27F0B5FB00188D35 /* DetailSceneViewController.swift */; };
 		A5613A2027F0B5FC00188D35 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A5613A1F27F0B5FC00188D35 /* Assets.xcassets */; };
 		A5613A2327F0B5FC00188D35 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A5613A2127F0B5FC00188D35 /* LaunchScreen.storyboard */; };
 		A5AE19DD27F0C7010005DD07 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5AE19DC27F0C7010005DD07 /* Model.swift */; };
@@ -39,10 +45,16 @@
 		A550B94228525FA200A47A28 /* MainNetworkWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainNetworkWorker.swift; sourceTree = "<group>"; };
 		A550B9442852622500A47A28 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		A550B9462852938200A47A28 /* MainModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainModels.swift; sourceTree = "<group>"; };
+		A550B95028547F3500A47A28 /* DetailInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailInteractor.swift; sourceTree = "<group>"; };
+		A550B95228547F4400A47A28 /* DetailPresentor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPresentor.swift; sourceTree = "<group>"; };
+		A550B95428547F5400A47A28 /* DetailModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailModels.swift; sourceTree = "<group>"; };
+		A550B95628547F6E00A47A28 /* DetailRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailRouter.swift; sourceTree = "<group>"; };
+		A550B95828547F7A00A47A28 /* DetailProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailProtocols.swift; sourceTree = "<group>"; };
+		A550B95A28547F8C00A47A28 /* DetailAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailAssembly.swift; sourceTree = "<group>"; };
 		A5613A1327F0B5FB00188D35 /* App Notes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "App Notes.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A5613A1627F0B5FB00188D35 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A5613A1827F0B5FB00188D35 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		A5613A1A27F0B5FB00188D35 /* NoteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteViewController.swift; sourceTree = "<group>"; };
+		A5613A1A27F0B5FB00188D35 /* DetailSceneViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailSceneViewController.swift; sourceTree = "<group>"; };
 		A5613A1F27F0B5FC00188D35 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A5613A2227F0B5FC00188D35 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A5613A2427F0B5FC00188D35 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -177,6 +189,7 @@
 		A550B9492854075900A47A28 /* DetailAssembly */ = {
 			isa = PBXGroup;
 			children = (
+				A550B95A28547F8C00A47A28 /* DetailAssembly.swift */,
 			);
 			path = DetailAssembly;
 			sourceTree = "<group>";
@@ -184,6 +197,7 @@
 		A550B94A2854076C00A47A28 /* DetailProtocols */ = {
 			isa = PBXGroup;
 			children = (
+				A550B95828547F7A00A47A28 /* DetailProtocols.swift */,
 			);
 			path = DetailProtocols;
 			sourceTree = "<group>";
@@ -191,6 +205,7 @@
 		A550B94B2854077D00A47A28 /* DetailRouter */ = {
 			isa = PBXGroup;
 			children = (
+				A550B95628547F6E00A47A28 /* DetailRouter.swift */,
 			);
 			path = DetailRouter;
 			sourceTree = "<group>";
@@ -198,7 +213,7 @@
 		A550B94C2854078600A47A28 /* DetailView */ = {
 			isa = PBXGroup;
 			children = (
-				A5613A1A27F0B5FB00188D35 /* NoteViewController.swift */,
+				A5613A1A27F0B5FB00188D35 /* DetailSceneViewController.swift */,
 			);
 			path = DetailView;
 			sourceTree = "<group>";
@@ -206,6 +221,7 @@
 		A550B94D2854079700A47A28 /* DetailEntity */ = {
 			isa = PBXGroup;
 			children = (
+				A550B95428547F5400A47A28 /* DetailModels.swift */,
 			);
 			path = DetailEntity;
 			sourceTree = "<group>";
@@ -213,6 +229,7 @@
 		A550B94E285407A400A47A28 /* DetailPresentor */ = {
 			isa = PBXGroup;
 			children = (
+				A550B95228547F4400A47A28 /* DetailPresentor.swift */,
 			);
 			path = DetailPresentor;
 			sourceTree = "<group>";
@@ -220,6 +237,7 @@
 		A550B94F285407AF00A47A28 /* DetailInteractor */ = {
 			isa = PBXGroup;
 			children = (
+				A550B95028547F3500A47A28 /* DetailInteractor.swift */,
 			);
 			path = DetailInteractor;
 			sourceTree = "<group>";
@@ -371,17 +389,23 @@
 			buildActionMask = 2147483647;
 			files = (
 				A550B93B285154A100A47A28 /* MainAssembly.swift in Sources */,
-				A5613A1B27F0B5FB00188D35 /* NoteViewController.swift in Sources */,
+				A5613A1B27F0B5FB00188D35 /* DetailSceneViewController.swift in Sources */,
+				A550B95B28547F8C00A47A28 /* DetailAssembly.swift in Sources */,
 				A5613A1727F0B5FB00188D35 /* AppDelegate.swift in Sources */,
 				A54A5A8D280381530038B4B4 /* NoteCardView.swift in Sources */,
 				A5613A1927F0B5FB00188D35 /* SceneDelegate.swift in Sources */,
+				A550B95328547F4400A47A28 /* DetailPresentor.swift in Sources */,
 				A5D2124C28146E2100FDCA28 /* UserSettings.swift in Sources */,
+				A550B95128547F3500A47A28 /* DetailInteractor.swift in Sources */,
+				A550B95928547F7A00A47A28 /* DetailProtocols.swift in Sources */,
 				A550B9452852622500A47A28 /* MainViewController.swift in Sources */,
+				A550B95528547F5400A47A28 /* DetailModels.swift in Sources */,
 				A550B93F285155A600A47A28 /* MainProtocols.swift in Sources */,
 				A5AE19DD27F0C7010005DD07 /* Model.swift in Sources */,
 				A550B93D285154CD00A47A28 /* MainRouter.swift in Sources */,
 				A550B939285152C200A47A28 /* MainPresentor.swift in Sources */,
 				A550B9412851591000A47A28 /* MainInteractor.swift in Sources */,
+				A550B95728547F6E00A47A28 /* DetailRouter.swift in Sources */,
 				A550B9472852938200A47A28 /* MainModels.swift in Sources */,
 				A550B94328525FA200A47A28 /* MainNetworkWorker.swift in Sources */,
 			);
