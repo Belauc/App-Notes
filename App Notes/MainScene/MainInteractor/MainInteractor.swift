@@ -8,8 +8,9 @@
 import Foundation
 
 final class MainInteractor: MainDataStore, MainBusinessLogic {
-    private(set) var noteId: UUID?
-    private(set) var noteModels: MainModel.FetchData.Response?
+
+    private(set) var noteModel: Note?
+    private var notes: [Note]?
 
     private let presenter: MainPresentationLogic
     private let worker: MainWorkingLogic
@@ -27,7 +28,7 @@ final class MainInteractor: MainDataStore, MainBusinessLogic {
         DispatchQueue.main.async { [weak self] in
             self?.worker.fetchData { [weak self] succses, notes in
                 if succses, let notes = notes {
-                    self?.noteModels = notes
+                    self?.notes = notes.notes
                     self?.presenter.presentNotes(response: notes)
                 }
             }
@@ -37,11 +38,15 @@ final class MainInteractor: MainDataStore, MainBusinessLogic {
     func deleteNoteFromList(noteId: MainModel.DeleteNoteFromList.Request) {
         guard !noteId.idNotes.isEmpty else { return }
         noteId.idNotes.forEach { id in
-            noteModels?.notes.removeAll(where: { $0.id == id })
+            notes?.removeAll(where: { $0.id == id })
         }
     }
 
     func saveNotesToDefaults(notes: MainModel.SaveNotesToDefaults.Request) {
         UserSettings.noteModel = notes.notes
+    }
+
+    func saveStorageData(note: MainModel.SaveStorageData.Request) {
+        noteModel = note.note
     }
 }

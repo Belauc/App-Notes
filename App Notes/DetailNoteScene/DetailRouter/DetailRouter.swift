@@ -1,14 +1,14 @@
 //
-//  MainRouter.swift
+//  DetailRouter.swift
 //  App Notes
 //
-//  Created by Sergey on 09.06.2022.
+//  Created by Sergey on 11.06.2022.
 //
 
 import Foundation
 import UIKit
 
-final class MainRouter: MainRoutingLogic {
+final class DetailRouter: DetailRoutingLogic {
     // MARK: - Reference
 
     weak var viewController: UIViewController?
@@ -17,8 +17,7 @@ final class MainRouter: MainRoutingLogic {
     var dataStore: MainDataStore?
 
     func navigateToDetailScene() {
-        let vc = DetailSceneAssembly.builder(note: dataStore?.noteModel ?? Note())
-
+        let vc = DetailSceneAssembly.builder(note: Note())
         viewController?.navigationController?.pushViewController(
             vc,
             animated: true

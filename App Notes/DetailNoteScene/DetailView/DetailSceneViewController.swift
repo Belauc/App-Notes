@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class NoteViewController: UIViewController {
+final class DetailSceneViewController: UIViewController {
 
     private var doneBarButton = UIBarButtonItem()
     private var bodyTextView = UITextView()
@@ -31,7 +31,6 @@ final class NoteViewController: UIViewController {
         static let titleForDoneButton = "Готово"
         static let titleAlertForCheckNil = "Внимание"
         static let messageAlertForCheckNil = "Необхоидмо заполнить хотя бы одно поле для сохранения"
-        static var locale: Locale = Locale(identifier: "ru_RU")
         static let backgroundColor = UIColor(red: 249/255, green: 250/255, blue: 254/255, alpha: 1)
     }
     var note: Note = Note()
@@ -47,6 +46,18 @@ final class NoteViewController: UIViewController {
                 return .editEnable
             }
         }
+    }
+    private let router: DetailRouter
+    private let interactor: DetailInteractor
+
+    init(router: DetailRouter, interactor: DetailInteractor) {
+        self.router = router
+        self.interactor = interactor
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 
     override func viewDidLoad() {
@@ -98,7 +109,7 @@ final class NoteViewController: UIViewController {
         setupUIHeader()
         setupUIBody()
         updateUI()
-        restoreData()
+        interactor.presentSeletedNote()
     }
 
     // MARK: - Настройка констрейтов и тд. для scrollView
@@ -200,20 +211,20 @@ final class NoteViewController: UIViewController {
 }
 
 // MARK: - Extensions для работы с делегатами
-extension NoteViewController: UITextViewDelegate {
+extension DetailSceneViewController: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
         enableButtonForStartEditing()
     }
 }
 
-extension NoteViewController: UITextFieldDelegate {
+extension DetailSceneViewController: UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
         enableButtonForStartEditing()
     }
 }
 
 // MARK: - Extensions для работы с данными
-extension NoteViewController {
+extension DetailSceneViewController: DetailDisplayLogic {
     // Сохраннеие данных
     private func saveData() {
         note.title = headerTitleTextField.text
@@ -221,15 +232,11 @@ extension NoteViewController {
         note.date = Date()
         delegate?.updateNoteList(note: note)
     }
-
-    // Выгрузка данных
-    private func restoreData() {
-        headerTitleTextField.text = note.title
-        bodyTextView.text = note.body
-        let dateFormater = DateFormatter()
-        dateFormater.dateFormat = "dd.MM.yyyy EEEE HH:mm"
-        dateFormater.locale = UiSettings.locale
-        dateTimeLabel.text = dateFormater.string(from: note.date)
+    // Отображение заметки
+    func displayNote(viewModel: DetailModel.ShowSelectedNote.ViewModel) {
+        headerTitleTextField.text = viewModel.note.title
+        bodyTextView.text = viewModel.note.body
+        dateTimeLabel.text = viewModel.note.stringDate
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -239,7 +246,7 @@ extension NoteViewController {
 }
 
 // MARK: - Extensions для работы проверки на пустоту TextInput
-extension NoteViewController {
+extension DetailSceneViewController {
     private func checkTextFieldOnNil() {
         guard note.isEmtpy else { return }
         let alert = UIAlertController(title: UiSettings.titleAlertForCheckNil,

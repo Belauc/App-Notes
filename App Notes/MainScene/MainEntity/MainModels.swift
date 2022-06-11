@@ -18,6 +18,14 @@ enum MainModel {
         }
     }
 
+    enum SaveStorageData {
+        struct Request {
+            var note: Note
+        }
+        struct Response { }
+        struct ViewModel { }
+    }
+
     enum DeleteNoteFromList {
         struct Request {
             var idNotes = [UUID]()
@@ -44,4 +52,3 @@ enum MainModel {
         }
     }
 }
-

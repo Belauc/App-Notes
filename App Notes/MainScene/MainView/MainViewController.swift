@@ -8,10 +8,6 @@
 import UIKit
 import Foundation
 
-protocol UpdateNotesListDelegate: AnyObject {
-    func updateNoteList(note: Note)
-}
-
 final class MainSceneViewController: UIViewController {
     private let addButton = UIButton()
     private let tableView = UITableView()
@@ -94,8 +90,6 @@ final class MainSceneViewController: UIViewController {
             deleteDataAfterEdit()
             saveData()
         } else {
-            let noteViewController = NoteViewController()
-            noteViewController.delegate = self
             UIView.animateKeyframes(
                 withDuration: 1,
                 delay: 0,
@@ -107,7 +101,8 @@ final class MainSceneViewController: UIViewController {
             )
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) { [weak self] in
                 guard let self = self else { return }
-                self.navigationController?.pushViewController(noteViewController, animated: true)
+                
+                self.router.navigateToDetailScene()
             }
         }
     }
@@ -249,10 +244,8 @@ extension MainSceneViewController: UITableViewDelegate {
             selectedIndexs.append(indexPath)
         } else {
             let clickedItem = notes[indexPath.row]
-            let noteViewController = NoteViewController()
-            noteViewController.delegate = self
-            noteViewController.note = clickedItem
-            navigationController?.pushViewController(noteViewController, animated: true)
+            interactor.saveStorageData(note: MainModel.SaveStorageData.Request(note: clickedItem))
+            router.navigateToDetailScene()
         }
     }
 
@@ -407,7 +400,7 @@ extension MainSceneViewController {
         navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationItem.title = UiSettings.titleForNavBar
         navigationItem.backBarButtonItem = UIBarButtonItem(
-            title: "", style: .plain, target: NoteViewController(), action: nil)
+            title: "", style: .plain, target: DetailSceneAssembly.builder(note: Note()), action: nil)
         editBarButton.target = self
         editBarButton.action = #selector(editButtonPressed)
         editBarButton.title = UiSettings.titleForSelectStateButton
