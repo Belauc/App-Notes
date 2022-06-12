@@ -31,7 +31,7 @@ final class MainScenePresenter: MainPresentationLogic {
     }
 
     private func sortNotes(_ response: MainModel.FetchData.Response) -> MainModel.FetchData.Response {
-        let sortedNotes = response.notes.sorted(by: { $0.date > $1.date })
+        let sortedNotes = response.notes.sorted(by: { $0.date < $1.date })
         var result = response
         result.notes = sortedNotes
         return result

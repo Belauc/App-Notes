@@ -104,6 +104,7 @@ final class MainSceneViewController: UIViewController {
                 guard let self = self else { return }
                 self.router.navigateToDetailScene(clouser: { [weak self] note in
                     self?.interactor.saveNote(note: MainModel.SaveNewNote.Request(note: note))
+                    self?.saveData()
                 })
             }
         }
@@ -134,6 +135,7 @@ final class MainSceneViewController: UIViewController {
         interactor.deleteNoteFromList(
             selectedIds: MainModel.DeleteNoteFromList.Request(selectedIds: idSelectedNotes)
         )
+        saveData()
     }
 
     // MARK: - Проверка на количество выбранных заметок
@@ -270,6 +272,7 @@ extension MainSceneViewController: UITableViewDelegate {
                 selectedIds: MainModel.DeleteNoteFromList.Request(selectedIds: [noteIdForDelete])
             )
         }
+        saveData()
         deleteAction.image = UIImage(systemName: "trash")
         return UISwipeActionsConfiguration(actions: [deleteAction])
     }
