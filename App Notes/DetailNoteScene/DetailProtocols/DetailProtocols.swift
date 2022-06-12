@@ -22,6 +22,4 @@ protocol DetailPresentationLogic {
     func presentNotes(response: DetailModel.ShowSelectedNote.Response)
 }
 
-protocol DetailRoutingLogic {
-    func navigateToDetailScene()
-}
+protocol DetailRoutingLogic { }

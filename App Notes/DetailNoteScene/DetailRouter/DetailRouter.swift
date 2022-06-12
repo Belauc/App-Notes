@@ -15,12 +15,4 @@ final class DetailRouter: DetailRoutingLogic {
 
     // MARK: - Data store
     var dataStore: MainDataStore?
-
-    func navigateToDetailScene() {
-//        let vc = DetailSceneAssembly.builder(note: Note(), clouser: (Note) -> Void)
-//        viewController?.navigationController?.pushViewController(
-//            vc,
-//            animated: true
-//        )
-    }
 }
