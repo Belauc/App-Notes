@@ -36,4 +36,24 @@ final class MainScenePresenter: MainPresentationLogic {
         result.notes = sortedNotes
         return result
     }
+
+    func updateNotesAfterDeleted(response: MainModel.DeleteNoteFromList.Response) {
+        response.notes.forEach { note in
+            note.stringDate = getDataFormater().string(from: note.date)
+        }
+        let sortedNotes = sortNotes(MainModel.FetchData.Response(notes: response.notes))
+        viewController?.updateNotesListAfterDeleted(
+            viewModel: MainModel.DeleteNoteFromList.ViewModel(notes: sortedNotes.notes)
+        )
+    }
+
+    func updateNotesAfterSeved(response: MainModel.SaveNewNote.Response) {
+        response.notes.forEach { note in
+            note.stringDate = getDataFormater().string(from: note.date)
+        }
+        let sortedNotes = sortNotes(MainModel.FetchData.Response(notes: response.notes))
+        viewController?.updateNotesListAfterAdded(
+            viewModel: MainModel.SaveNewNote.ViewModel(notes: sortedNotes.notes)
+        )
+    }
 }

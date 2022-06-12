@@ -14,17 +14,21 @@ protocol MainDataStore {
 
 protocol MainDisplayLogic: AnyObject {
     func displayNotes(viewModel: MainModel.FetchData.ViewModel)
+    func updateNotesListAfterDeleted(viewModel: MainModel.DeleteNoteFromList.ViewModel)
+    func updateNotesListAfterAdded(viewModel: MainModel.SaveNewNote.ViewModel)
 }
 
-protocol UpdateNotesListDelegate: AnyObject {
+protocol UpdateNotesListClouser: AnyObject {
     func updateNoteList(note: Note)
 }
 
 protocol MainBusinessLogic: AnyObject {
     func fetchNotesData()
-    func deleteNoteFromList(noteId: MainModel.DeleteNoteFromList.Request)
+    func deleteNoteFromList(selectedIds: MainModel.DeleteNoteFromList.Request)
     func saveNotesToDefaults(notes: MainModel.SaveNotesToDefaults.Request)
     func saveStorageData(note: MainModel.SaveStorageData.Request)
+    func clearStorageData()
+    func saveNote(note: MainModel.SaveNewNote.Request)
 }
 
 protocol MainWorkingLogic {
@@ -34,8 +38,10 @@ protocol MainWorkingLogic {
 
 protocol MainPresentationLogic {
     func presentNotes(response: MainModel.FetchData.Response)
+    func updateNotesAfterDeleted(response: MainModel.DeleteNoteFromList.Response)
+    func updateNotesAfterSeved(response: MainModel.SaveNewNote.Response)
 }
 
 protocol MainRoutingLogic {
-    func navigateToDetailScene()
+    func navigateToDetailScene(clouser: ((Note) -> Void)?)
 }
