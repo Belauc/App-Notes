@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 enum DetailSceneAssembly {
-    static func builder(note: Note) -> UIViewController {
+    static func builder(note: Note, clouser: ((Note) -> Void)?) -> UIViewController {
 
         let presenter = DetailScenePresenter()
         let router = DetailRouter()
@@ -21,7 +21,8 @@ enum DetailSceneAssembly {
 
         let viewController = DetailSceneViewController(
             router: router,
-            interactor: interactor
+            interactor: interactor,
+            clouser: clouser
         )
 
         router.viewController = viewController

@@ -34,7 +34,6 @@ final class DetailSceneViewController: UIViewController {
         static let backgroundColor = UIColor(red: 249/255, green: 250/255, blue: 254/255, alpha: 1)
     }
     var note: Note = Note()
-    var delegate: UpdateNotesListDelegate?
     private enum State {
         case editEnable
         case editDisable
@@ -49,10 +48,12 @@ final class DetailSceneViewController: UIViewController {
     }
     private let router: DetailRouter
     private let interactor: DetailInteractor
+    private let clouser: ((Note) -> Void)?
 
-    init(router: DetailRouter, interactor: DetailInteractor) {
+    init(router: DetailRouter, interactor: DetailInteractor, clouser: ((Note) -> Void)?) {
         self.router = router
         self.interactor = interactor
+        self.clouser = clouser
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -230,10 +231,12 @@ extension DetailSceneViewController: DetailDisplayLogic {
         note.title = headerTitleTextField.text
         note.body = bodyTextView.text
         note.date = Date()
-        delegate?.updateNoteList(note: note)
+        guard let clouser = clouser else { return }
+        clouser(note)
     }
     // Отображение заметки
     func displayNote(viewModel: DetailModel.ShowSelectedNote.ViewModel) {
+        note = viewModel.note
         headerTitleTextField.text = viewModel.note.title
         bodyTextView.text = viewModel.note.body
         dateTimeLabel.text = viewModel.note.stringDate

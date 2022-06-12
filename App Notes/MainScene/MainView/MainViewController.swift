@@ -37,6 +37,7 @@ final class MainSceneViewController: UIViewController {
     private var addButtonBottomAnchor: NSLayoutConstraint?
     private var notes: [Note] = []
     private var selectedIndexs: [IndexPath] = []
+    private var idSelectedNotes: [UUID] = []
     private var stateEditing = false
 
     // MARK: - References
@@ -101,8 +102,9 @@ final class MainSceneViewController: UIViewController {
             )
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) { [weak self] in
                 guard let self = self else { return }
-                
-                self.router.navigateToDetailScene()
+                self.router.navigateToDetailScene(clouser: { [weak self] note in
+                    self?.interactor.saveNote(note: MainModel.SaveNewNote.Request(note: note))
+                })
             }
         }
     }
@@ -129,15 +131,9 @@ final class MainSceneViewController: UIViewController {
 
     // MARK: - Удаление данных после редактирования списка заметок
     private func deleteDataAfterEdit() {
-        selectedIndexs = selectedIndexs.sorted(by: {$0.row > $1.row})
-        var noteIds = [UUID]()
-        selectedIndexs.forEach { indexPath in
-            noteIds.append(notes[indexPath.row].id)
-            notes.remove(at: indexPath.row)
-        }
-        interactor.deleteNoteFromList(noteId: MainModel.DeleteNoteFromList.Request(idNotes: noteIds))
-        tableView.deleteRows(at: selectedIndexs, with: .right)
-        selectedIndexs.removeAll()
+        interactor.deleteNoteFromList(
+            selectedIds: MainModel.DeleteNoteFromList.Request(selectedIds: idSelectedNotes)
+        )
     }
 
     // MARK: - Проверка на количество выбранных заметок
@@ -155,6 +151,7 @@ final class MainSceneViewController: UIViewController {
         tableView.setEditing(stateEditing, animated: true)
         changeState()
         selectedIndexs.removeAll()
+        idSelectedNotes.removeAll()
     }
 
     // MARK: - Изменения состояния, редактирование/выбор.
@@ -242,10 +239,14 @@ extension MainSceneViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if stateEditing {
             selectedIndexs.append(indexPath)
+            idSelectedNotes.append(notes[indexPath.row].id)
         } else {
             let clickedItem = notes[indexPath.row]
             interactor.saveStorageData(note: MainModel.SaveStorageData.Request(note: clickedItem))
-            router.navigateToDetailScene()
+            router.navigateToDetailScene(clouser: { [weak self] note in
+                self?.interactor.saveNote(note: MainModel.SaveNewNote.Request(note: note))
+            })
+            interactor.clearStorageData()
         }
     }
 
@@ -263,44 +264,19 @@ extension MainSceneViewController: UITableViewDelegate {
     ) -> UISwipeActionsConfiguration? {
         let deleteAction = UIContextualAction(style: .destructive, title: nil) { [weak self] _, _, _ in
             guard let self = self else { return }
-            let noteForDelete = self.notes.remove(at: indexPath.row).id
-            self.interactor.deleteNoteFromList(noteId: MainModel.DeleteNoteFromList.Request(idNotes: [noteForDelete]))
-            self.tableView.deleteRows(at: [indexPath], with: .right)
-            self.saveData()
+            let noteIdForDelete = self.notes[indexPath.row].id
+            self.selectedIndexs.append(indexPath)
+            self.interactor.deleteNoteFromList(
+                selectedIds: MainModel.DeleteNoteFromList.Request(selectedIds: [noteIdForDelete])
+            )
         }
         deleteAction.image = UIImage(systemName: "trash")
         return UISwipeActionsConfiguration(actions: [deleteAction])
     }
 }
 
-// MARK: - Работа с UpdateNotesListDelegate
-extension MainSceneViewController: UpdateNotesListDelegate {
-    func updateNoteList(note: Note) {
-        guard !note.isEmtpy else { return }
-        if let index = notes.firstIndex(of: note) {
-            notes[index] = note
-        } else {
-            notes.append(note)
-        }
-        saveData()
-    }
-}
-
 // MARK: - Работы с UserDefaults
 extension MainSceneViewController {
-//    private func loadData() {
-//        notes = UserSettings.noteModel
-//        worker.fetch { [weak self] succses, notes in
-//            if succses, let notes = notes {
-//                self?.notes.append(contentsOf: notes)
-//            }
-//            DispatchQueue.main.asyncAfter(deadline: .now() + 0) { [weak self] in
-//                self?.tableView.reloadData()
-//                self?.removeLoadingScreen()
-//            }
-//        }
-//    }
-
     private func saveData() {
         interactor.saveNotesToDefaults(notes: MainModel.SaveNotesToDefaults.Request(notes: notes))
     }
@@ -400,7 +376,9 @@ extension MainSceneViewController {
         navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationItem.title = UiSettings.titleForNavBar
         navigationItem.backBarButtonItem = UIBarButtonItem(
-            title: "", style: .plain, target: DetailSceneAssembly.builder(note: Note()), action: nil)
+            title: "", style: .plain, target: DetailSceneAssembly.builder(note: Note()) { [weak self] note in
+                self?.interactor.saveNote(note: MainModel.SaveNewNote.Request(note: note))
+            }, action: nil)
         editBarButton.target = self
         editBarButton.action = #selector(editButtonPressed)
         editBarButton.title = UiSettings.titleForSelectStateButton
@@ -409,6 +387,22 @@ extension MainSceneViewController {
 }
 
 extension MainSceneViewController: MainDisplayLogic {
+    func updateNotesListAfterAdded(viewModel: MainModel.SaveNewNote.ViewModel) {
+        notes = viewModel.notes
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
+        saveData()
+    }
+
+    func updateNotesListAfterDeleted(viewModel: MainModel.DeleteNoteFromList.ViewModel) {
+        notes = viewModel.notes
+        tableView.deleteRows(at: selectedIndexs, with: .middle)
+        selectedIndexs.removeAll()
+        idSelectedNotes.removeAll()
+        saveData()
+    }
+
     func displayNotes(viewModel: MainModel.FetchData.ViewModel) {
         notes = viewModel.notes
         DispatchQueue.main.async {
