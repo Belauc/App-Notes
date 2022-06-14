@@ -22,17 +22,16 @@ protocol UpdateNotesListClouser: AnyObject {
     func updateNoteList(note: Note)
 }
 
-protocol MainBusinessLogic: AnyObject {
-    func fetchNotesData()
-    func deleteNoteFromList(selectedIds: MainModel.DeleteNoteFromList.Request)
-    func saveNotesToDefaults(notes: MainModel.SaveNotesToDefaults.Request)
-    func saveStorageData(note: MainModel.SaveStorageData.Request)
+protocol MainBusinessLogic {
+    func fetchNotesData(request: MainModel.FetchData.Request?)
+    func deleteNoteFromList(request: MainModel.DeleteNoteFromList.Request)
+    func saveNotesToDefaults(request: MainModel.SaveNotesToDefaults.Request)
+    func saveStorageData(request: MainModel.SaveStorageData.Request)
     func clearStorageData()
-    func saveNote(note: MainModel.SaveNewNote.Request)
+    func saveNote(request: MainModel.SaveNewNote.Request)
 }
 
 protocol MainWorkingLogic {
-    var session: URLSession { get }
     func fetchData(completion: @escaping (Bool, MainModel.FetchData.Response?) -> Void)
 }
 

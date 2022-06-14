@@ -110,7 +110,7 @@ final class DetailSceneViewController: UIViewController {
         setupUIHeader()
         setupUIBody()
         updateUI()
-        interactor.presentSeletedNote()
+        interactor.presentSeletedNote(request: nil)
     }
 
     // MARK: - Настройка констрейтов и тд. для scrollView

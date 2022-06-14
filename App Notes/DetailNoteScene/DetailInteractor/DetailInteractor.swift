@@ -19,7 +19,7 @@ final class DetailInteractor: DetailBusinessLogic {
         self.noteModel = noteModel
     }
 
-    func presentSeletedNote() {
+    func presentSeletedNote(request: DetailModel.ShowSelectedNote.Request?) {
         presenter.presentNotes(response: DetailModel.ShowSelectedNote.Response(note: noteModel))
     }
 }

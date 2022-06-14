@@ -67,7 +67,7 @@ final class MainSceneViewController: UIViewController {
 
     // MARK: - Общая настройка
     private func configure() {
-        interactor.fetchNotesData()
+        interactor.fetchNotesData(request: nil)
         setupViews()
     }
 
@@ -103,7 +103,7 @@ final class MainSceneViewController: UIViewController {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) { [weak self] in
                 guard let self = self else { return }
                 self.router.navigateToDetailScene(clouser: { [weak self] note in
-                    self?.interactor.saveNote(note: MainModel.SaveNewNote.Request(note: note))
+                    self?.interactor.saveNote(request: MainModel.SaveNewNote.Request(note: note))
                     self?.saveData()
                 })
             }
@@ -133,7 +133,7 @@ final class MainSceneViewController: UIViewController {
     // MARK: - Удаление данных после редактирования списка заметок
     private func deleteDataAfterEdit() {
         interactor.deleteNoteFromList(
-            selectedIds: MainModel.DeleteNoteFromList.Request(selectedIds: idSelectedNotes)
+            request: MainModel.DeleteNoteFromList.Request(selectedIds: idSelectedNotes)
         )
         saveData()
     }
@@ -244,9 +244,9 @@ extension MainSceneViewController: UITableViewDelegate {
             idSelectedNotes.append(notes[indexPath.row].id)
         } else {
             let clickedItem = notes[indexPath.row]
-            interactor.saveStorageData(note: MainModel.SaveStorageData.Request(note: clickedItem))
+            interactor.saveStorageData(request: MainModel.SaveStorageData.Request(note: clickedItem))
             router.navigateToDetailScene(clouser: { [weak self] note in
-                self?.interactor.saveNote(note: MainModel.SaveNewNote.Request(note: note))
+                self?.interactor.saveNote(request: MainModel.SaveNewNote.Request(note: note))
             })
             interactor.clearStorageData()
         }
@@ -269,7 +269,7 @@ extension MainSceneViewController: UITableViewDelegate {
             let noteIdForDelete = self.notes[indexPath.row].id
             self.selectedIndexs.append(indexPath)
             self.interactor.deleteNoteFromList(
-                selectedIds: MainModel.DeleteNoteFromList.Request(selectedIds: [noteIdForDelete])
+                request: MainModel.DeleteNoteFromList.Request(selectedIds: [noteIdForDelete])
             )
         }
         saveData()
@@ -281,7 +281,7 @@ extension MainSceneViewController: UITableViewDelegate {
 // MARK: - Работы с UserDefaults
 extension MainSceneViewController {
     private func saveData() {
-        interactor.saveNotesToDefaults(notes: MainModel.SaveNotesToDefaults.Request(notes: notes))
+        interactor.saveNotesToDefaults(request: MainModel.SaveNotesToDefaults.Request(notes: notes))
     }
 }
 
@@ -380,7 +380,7 @@ extension MainSceneViewController {
         self.navigationItem.title = UiSettings.titleForNavBar
         navigationItem.backBarButtonItem = UIBarButtonItem(
             title: "", style: .plain, target: DetailSceneAssembly.builder(note: Note()) { [weak self] note in
-                self?.interactor.saveNote(note: MainModel.SaveNewNote.Request(note: note))
+                self?.interactor.saveNote(request: MainModel.SaveNewNote.Request(note: note))
             }, action: nil)
         editBarButton.target = self
         editBarButton.action = #selector(editButtonPressed)

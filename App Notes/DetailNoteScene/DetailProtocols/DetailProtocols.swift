@@ -15,7 +15,7 @@ protocol DetailDisplayLogic: AnyObject {
 }
 
 protocol DetailBusinessLogic: AnyObject {
-    func presentSeletedNote()
+    func presentSeletedNote(request: DetailModel.ShowSelectedNote.Request?)
 }
 
 protocol DetailPresentationLogic {

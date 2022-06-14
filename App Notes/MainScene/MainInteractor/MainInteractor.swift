@@ -24,7 +24,7 @@ final class MainInteractor: MainDataStore, MainBusinessLogic {
         self.worker = worker
     }
 
-    func fetchNotesData() {
+    func fetchNotesData(request: MainModel.FetchData.Request?) {
         getDataFromDefaults()
         DispatchQueue.main.async { [weak self] in
             self?.worker.fetchData { [weak self] succses, notes in
@@ -40,29 +40,29 @@ final class MainInteractor: MainDataStore, MainBusinessLogic {
         notes = UserSettings.noteModel
     }
 
-    func deleteNoteFromList(selectedIds: MainModel.DeleteNoteFromList.Request) {
-        guard !selectedIds.selectedIds.isEmpty else { return }
-        selectedIds.selectedIds.forEach { id in
+    func deleteNoteFromList(request: MainModel.DeleteNoteFromList.Request) {
+        guard !request.selectedIds.isEmpty else { return }
+        request.selectedIds.forEach { id in
             notes?.removeAll(where: { $0.id == id })
         }
         presenter.updateNotesAfterDeleted(response: MainModel.DeleteNoteFromList.Response(notes: notes ?? []))
     }
 
-    func saveNotesToDefaults(notes: MainModel.SaveNotesToDefaults.Request) {
-        UserSettings.noteModel = notes.notes
+    func saveNotesToDefaults(request: MainModel.SaveNotesToDefaults.Request) {
+        UserSettings.noteModel = request.notes
     }
 
-    func saveStorageData(note: MainModel.SaveStorageData.Request) {
-        noteModel = note.note
+    func saveStorageData(request: MainModel.SaveStorageData.Request) {
+        noteModel = request.note
     }
 
-    func saveNote(note: MainModel.SaveNewNote.Request) {
-        guard !note.note.isEmtpy else { return }
-        let noteIndex = notes?.firstIndex(where: { $0.id == note.note.id})
+    func saveNote(request: MainModel.SaveNewNote.Request) {
+        guard !request.note.isEmtpy else { return }
+        let noteIndex = notes?.firstIndex(where: { $0.id == request.note.id})
         if let index = noteIndex {
-            notes?[index] = note.note
+            notes?[index] = request.note
         } else {
-            notes?.append(note.note)
+            notes?.append(request.note)
         }
         presenter.updateNotesAfterSeved(response: MainModel.SaveNewNote.Response(notes: notes ?? []))
     }
