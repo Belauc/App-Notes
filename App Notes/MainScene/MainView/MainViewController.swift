@@ -67,7 +67,7 @@ final class MainSceneViewController: UIViewController {
 
     // MARK: - Общая настройка
     private func configure() {
-        interactor.fetchNotesData(request: nil)
+        interactor.fetchNotesData(request: MainModel.FetchData.Request())
         setupViews()
     }
 

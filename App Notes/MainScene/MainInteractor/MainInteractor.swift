@@ -24,7 +24,7 @@ final class MainInteractor: MainDataStore, MainBusinessLogic {
         self.worker = worker
     }
 
-    func fetchNotesData(request: MainModel.FetchData.Request?) {
+    func fetchNotesData(request: MainModel.FetchData.Request) {
         getDataFromDefaults()
         DispatchQueue.main.async { [weak self] in
             self?.worker.fetchData { [weak self] succses, notes in

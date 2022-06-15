@@ -23,7 +23,7 @@ protocol UpdateNotesListClouser: AnyObject {
 }
 
 protocol MainBusinessLogic {
-    func fetchNotesData(request: MainModel.FetchData.Request?)
+    func fetchNotesData(request: MainModel.FetchData.Request)
     func deleteNoteFromList(request: MainModel.DeleteNoteFromList.Request)
     func saveNotesToDefaults(request: MainModel.SaveNotesToDefaults.Request)
     func saveStorageData(request: MainModel.SaveStorageData.Request)
