@@ -13,13 +13,11 @@ class InteractorTests: XCTestCase {
 
     var presenterMock: MainPresentorMock!
     var workerMock: MainWorkerMock!
-    var userDefaultsMock: MainUserDefaultsMock!
 
     override func setUp() {
         super.setUp()
         presenterMock = MainPresentorMock()
         workerMock = MainWorkerMock()
-        userDefaultsMock = MainUserDefaultsMock()
         sut = MainInteractor(presenter: presenterMock, worker: workerMock)
     }
 

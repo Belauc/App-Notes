@@ -32,7 +32,6 @@
 		A550B97C285A81F200A47A28 /* DetailPresenterMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = A550B97B285A81F200A47A28 /* DetailPresenterMock.swift */; };
 		A550B97E285AA39C00A47A28 /* MainViewControllerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = A550B97D285AA39C00A47A28 /* MainViewControllerMock.swift */; };
 		A550B980285AAACB00A47A28 /* DetailViewControllerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = A550B97F285AAACB00A47A28 /* DetailViewControllerMock.swift */; };
-		A550B982285BA96000A47A28 /* MainUserDefaultsMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = A550B981285BA96000A47A28 /* MainUserDefaultsMock.swift */; };
 		A5613A1727F0B5FB00188D35 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5613A1627F0B5FB00188D35 /* AppDelegate.swift */; };
 		A5613A1927F0B5FB00188D35 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5613A1827F0B5FB00188D35 /* SceneDelegate.swift */; };
 		A5613A1B27F0B5FB00188D35 /* DetailSceneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5613A1A27F0B5FB00188D35 /* DetailSceneViewController.swift */; };
@@ -81,7 +80,6 @@
 		A550B97B285A81F200A47A28 /* DetailPresenterMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPresenterMock.swift; sourceTree = "<group>"; };
 		A550B97D285AA39C00A47A28 /* MainViewControllerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewControllerMock.swift; sourceTree = "<group>"; };
 		A550B97F285AAACB00A47A28 /* DetailViewControllerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewControllerMock.swift; sourceTree = "<group>"; };
-		A550B981285BA96000A47A28 /* MainUserDefaultsMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainUserDefaultsMock.swift; sourceTree = "<group>"; };
 		A5613A1327F0B5FB00188D35 /* App Notes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "App Notes.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A5613A1627F0B5FB00188D35 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A5613A1827F0B5FB00188D35 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -315,7 +313,6 @@
 				A550B976285A79B300A47A28 /* MainPresentorMock.swift */,
 				A550B978285A79C600A47A28 /* MainWorkerMock.swift */,
 				A550B97D285AA39C00A47A28 /* MainViewControllerMock.swift */,
-				A550B981285BA96000A47A28 /* MainUserDefaultsMock.swift */,
 			);
 			path = Mocks;
 			sourceTree = "<group>";
@@ -514,7 +511,6 @@
 				A550B977285A79B300A47A28 /* MainPresentorMock.swift in Sources */,
 				A550B970285A76B700A47A28 /* PresenterTests.swift in Sources */,
 				A550B96A285A760D00A47A28 /* InteractorTests.swift in Sources */,
-				A550B982285BA96000A47A28 /* MainUserDefaultsMock.swift in Sources */,
 				A550B980285AAACB00A47A28 /* DetailViewControllerMock.swift in Sources */,
 				A550B97E285AA39C00A47A28 /* MainViewControllerMock.swift in Sources */,
 			);
