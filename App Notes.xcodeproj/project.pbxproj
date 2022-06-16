@@ -23,6 +23,16 @@
 		A550B95728547F6E00A47A28 /* DetailRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A550B95628547F6E00A47A28 /* DetailRouter.swift */; };
 		A550B95928547F7A00A47A28 /* DetailProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = A550B95828547F7A00A47A28 /* DetailProtocols.swift */; };
 		A550B95B28547F8C00A47A28 /* DetailAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = A550B95A28547F8C00A47A28 /* DetailAssembly.swift */; };
+		A550B963285A750700A47A28 /* AppNotesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A550B962285A750700A47A28 /* AppNotesTests.swift */; };
+		A550B96A285A760D00A47A28 /* InteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A550B969285A760D00A47A28 /* InteractorTests.swift */; };
+		A550B970285A76B700A47A28 /* PresentorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A550B96F285A76B700A47A28 /* PresentorTests.swift */; };
+		A550B972285A76FB00A47A28 /* DetailInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A550B971285A76FB00A47A28 /* DetailInteractorTests.swift */; };
+		A550B974285A770D00A47A28 /* DetailPresentorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A550B973285A770D00A47A28 /* DetailPresentorTests.swift */; };
+		A550B977285A79B300A47A28 /* MainPresentorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = A550B976285A79B300A47A28 /* MainPresentorMock.swift */; };
+		A550B979285A79C600A47A28 /* MainWorkerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = A550B978285A79C600A47A28 /* MainWorkerMock.swift */; };
+		A550B97C285A81F200A47A28 /* DetailPresentorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = A550B97B285A81F200A47A28 /* DetailPresentorMock.swift */; };
+		A550B97E285AA39C00A47A28 /* MainViewCintrollerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = A550B97D285AA39C00A47A28 /* MainViewCintrollerMock.swift */; };
+		A550B980285AAACB00A47A28 /* DetailViewControllerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = A550B97F285AAACB00A47A28 /* DetailViewControllerMock.swift */; };
 		A5613A1727F0B5FB00188D35 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5613A1627F0B5FB00188D35 /* AppDelegate.swift */; };
 		A5613A1927F0B5FB00188D35 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5613A1827F0B5FB00188D35 /* SceneDelegate.swift */; };
 		A5613A1B27F0B5FB00188D35 /* DetailSceneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5613A1A27F0B5FB00188D35 /* DetailSceneViewController.swift */; };
@@ -31,6 +41,16 @@
 		A5AE19DD27F0C7010005DD07 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5AE19DC27F0C7010005DD07 /* Model.swift */; };
 		A5D2124C28146E2100FDCA28 /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D2124B28146E2100FDCA28 /* UserSettings.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		A550B964285A750700A47A28 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A5613A0B27F0B5FB00188D35 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A5613A1227F0B5FB00188D35;
+			remoteInfo = "App Notes";
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		2489B0D984D49CCD2A612247 /* Pods-App Notes.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App Notes.release.xcconfig"; path = "Target Support Files/Pods-App Notes/Pods-App Notes.release.xcconfig"; sourceTree = "<group>"; };
@@ -51,6 +71,17 @@
 		A550B95628547F6E00A47A28 /* DetailRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailRouter.swift; sourceTree = "<group>"; };
 		A550B95828547F7A00A47A28 /* DetailProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailProtocols.swift; sourceTree = "<group>"; };
 		A550B95A28547F8C00A47A28 /* DetailAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailAssembly.swift; sourceTree = "<group>"; };
+		A550B960285A750700A47A28 /* App NotesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "App NotesTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A550B962285A750700A47A28 /* AppNotesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppNotesTests.swift; sourceTree = "<group>"; };
+		A550B969285A760D00A47A28 /* InteractorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InteractorTests.swift; sourceTree = "<group>"; };
+		A550B96F285A76B700A47A28 /* PresentorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentorTests.swift; sourceTree = "<group>"; };
+		A550B971285A76FB00A47A28 /* DetailInteractorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailInteractorTests.swift; sourceTree = "<group>"; };
+		A550B973285A770D00A47A28 /* DetailPresentorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPresentorTests.swift; sourceTree = "<group>"; };
+		A550B976285A79B300A47A28 /* MainPresentorMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPresentorMock.swift; sourceTree = "<group>"; };
+		A550B978285A79C600A47A28 /* MainWorkerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWorkerMock.swift; sourceTree = "<group>"; };
+		A550B97B285A81F200A47A28 /* DetailPresentorMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPresentorMock.swift; sourceTree = "<group>"; };
+		A550B97D285AA39C00A47A28 /* MainViewCintrollerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewCintrollerMock.swift; sourceTree = "<group>"; };
+		A550B97F285AAACB00A47A28 /* DetailViewControllerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewControllerMock.swift; sourceTree = "<group>"; };
 		A5613A1327F0B5FB00188D35 /* App Notes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "App Notes.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A5613A1627F0B5FB00188D35 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A5613A1827F0B5FB00188D35 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -63,6 +94,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		A550B95D285A750700A47A28 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		A5613A1027F0B5FB00188D35 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -242,10 +280,60 @@
 			path = DetailInteractor;
 			sourceTree = "<group>";
 		};
+		A550B961285A750700A47A28 /* App NotesTests */ = {
+			isa = PBXGroup;
+			children = (
+				A550B96C285A764C00A47A28 /* DetailSceneTests */,
+				A550B96B285A762E00A47A28 /* MainSceneTests */,
+				A550B962285A750700A47A28 /* AppNotesTests.swift */,
+			);
+			path = "App NotesTests";
+			sourceTree = "<group>";
+		};
+		A550B96B285A762E00A47A28 /* MainSceneTests */ = {
+			isa = PBXGroup;
+			children = (
+				A550B975285A799100A47A28 /* Mocks */,
+				A550B969285A760D00A47A28 /* InteractorTests.swift */,
+				A550B96F285A76B700A47A28 /* PresentorTests.swift */,
+			);
+			path = MainSceneTests;
+			sourceTree = "<group>";
+		};
+		A550B96C285A764C00A47A28 /* DetailSceneTests */ = {
+			isa = PBXGroup;
+			children = (
+				A550B97A285A81E000A47A28 /* Mocks */,
+				A550B971285A76FB00A47A28 /* DetailInteractorTests.swift */,
+				A550B973285A770D00A47A28 /* DetailPresentorTests.swift */,
+			);
+			path = DetailSceneTests;
+			sourceTree = "<group>";
+		};
+		A550B975285A799100A47A28 /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				A550B976285A79B300A47A28 /* MainPresentorMock.swift */,
+				A550B978285A79C600A47A28 /* MainWorkerMock.swift */,
+				A550B97D285AA39C00A47A28 /* MainViewCintrollerMock.swift */,
+			);
+			path = Mocks;
+			sourceTree = "<group>";
+		};
+		A550B97A285A81E000A47A28 /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				A550B97B285A81F200A47A28 /* DetailPresentorMock.swift */,
+				A550B97F285AAACB00A47A28 /* DetailViewControllerMock.swift */,
+			);
+			path = Mocks;
+			sourceTree = "<group>";
+		};
 		A5613A0A27F0B5FB00188D35 = {
 			isa = PBXGroup;
 			children = (
 				A5613A1527F0B5FB00188D35 /* App Notes */,
+				A550B961285A750700A47A28 /* App NotesTests */,
 				A5613A1427F0B5FB00188D35 /* Products */,
 				9F2FD7F2F12CCB1CE0C07149 /* Pods */,
 				73110896E030B087BD270F70 /* Frameworks */,
@@ -256,6 +344,7 @@
 			isa = PBXGroup;
 			children = (
 				A5613A1327F0B5FB00188D35 /* App Notes.app */,
+				A550B960285A750700A47A28 /* App NotesTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -278,6 +367,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		A550B95F285A750700A47A28 /* App NotesTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A550B968285A750700A47A28 /* Build configuration list for PBXNativeTarget "App NotesTests" */;
+			buildPhases = (
+				A550B95C285A750700A47A28 /* Sources */,
+				A550B95D285A750700A47A28 /* Frameworks */,
+				A550B95E285A750700A47A28 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				A550B965285A750700A47A28 /* PBXTargetDependency */,
+			);
+			name = "App NotesTests";
+			productName = "App NotesTests";
+			productReference = A550B960285A750700A47A28 /* App NotesTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		A5613A1227F0B5FB00188D35 /* App Notes */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = A5613A2727F0B5FC00188D35 /* Build configuration list for PBXNativeTarget "App Notes" */;
@@ -303,9 +410,13 @@
 		A5613A0B27F0B5FB00188D35 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1240;
+				LastSwiftUpdateCheck = 1330;
 				LastUpgradeCheck = 1240;
 				TargetAttributes = {
+					A550B95F285A750700A47A28 = {
+						CreatedOnToolsVersion = 13.3.1;
+						TestTargetID = A5613A1227F0B5FB00188D35;
+					};
 					A5613A1227F0B5FB00188D35 = {
 						CreatedOnToolsVersion = 12.4;
 					};
@@ -325,11 +436,19 @@
 			projectRoot = "";
 			targets = (
 				A5613A1227F0B5FB00188D35 /* App Notes */,
+				A550B95F285A750700A47A28 /* App NotesTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		A550B95E285A750700A47A28 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		A5613A1127F0B5FB00188D35 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -384,6 +503,23 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		A550B95C285A750700A47A28 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A550B979285A79C600A47A28 /* MainWorkerMock.swift in Sources */,
+				A550B97C285A81F200A47A28 /* DetailPresentorMock.swift in Sources */,
+				A550B972285A76FB00A47A28 /* DetailInteractorTests.swift in Sources */,
+				A550B974285A770D00A47A28 /* DetailPresentorTests.swift in Sources */,
+				A550B977285A79B300A47A28 /* MainPresentorMock.swift in Sources */,
+				A550B970285A76B700A47A28 /* PresentorTests.swift in Sources */,
+				A550B96A285A760D00A47A28 /* InteractorTests.swift in Sources */,
+				A550B980285AAACB00A47A28 /* DetailViewControllerMock.swift in Sources */,
+				A550B963285A750700A47A28 /* AppNotesTests.swift in Sources */,
+				A550B97E285AA39C00A47A28 /* MainViewCintrollerMock.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		A5613A0F27F0B5FB00188D35 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -413,6 +549,14 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		A550B965285A750700A47A28 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A5613A1227F0B5FB00188D35 /* App Notes */;
+			targetProxy = A550B964285A750700A47A28 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
 		A5613A2127F0B5FC00188D35 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
@@ -425,6 +569,46 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		A550B966285A750700A47A28 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = PWUQFV6CQT;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "tobie.App-NotesTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/App Notes.app/App Notes";
+			};
+			name = Debug;
+		};
+		A550B967285A750700A47A28 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = PWUQFV6CQT;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "tobie.App-NotesTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/App Notes.app/App Notes";
+			};
+			name = Release;
+		};
 		A5613A2527F0B5FC00188D35 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -584,6 +768,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		A550B968285A750700A47A28 /* Build configuration list for PBXNativeTarget "App NotesTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A550B966285A750700A47A28 /* Debug */,
+				A550B967285A750700A47A28 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		A5613A0E27F0B5FB00188D35 /* Build configuration list for PBXProject "App Notes" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
