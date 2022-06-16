@@ -1,5 +1,5 @@
 //
-//  MainViewCintrollerMock.swift
+//  MainViewControllerMock.swift
 //  App NotesTests
 //
 //  Created by Sergey on 16.06.2022.

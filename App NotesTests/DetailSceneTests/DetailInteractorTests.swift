@@ -10,11 +10,11 @@ import XCTest
 class DetailInteractorTests: XCTestCase {
     var sut: DetailBusinessLogic!
 
-    var presenterMock: DetailPresentorMock!
+    var presenterMock: DetailPresenterMock!
 
     override func setUp() {
         super.setUp()
-        presenterMock = DetailPresentorMock()
+        presenterMock = DetailPresenterMock()
         sut = DetailInteractor(presenter: presenterMock, noteModel: Note())
     }
 

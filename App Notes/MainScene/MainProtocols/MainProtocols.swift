@@ -44,3 +44,7 @@ protocol MainPresentationLogic {
 protocol MainRoutingLogic {
     func navigateToDetailScene(clouser: ((Note) -> Void)?)
 }
+
+protocol UserSettingsLogic {
+    static var noteModel: [Note] { get set }
+}

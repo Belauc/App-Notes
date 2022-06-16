@@ -23,16 +23,16 @@
 		A550B95728547F6E00A47A28 /* DetailRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A550B95628547F6E00A47A28 /* DetailRouter.swift */; };
 		A550B95928547F7A00A47A28 /* DetailProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = A550B95828547F7A00A47A28 /* DetailProtocols.swift */; };
 		A550B95B28547F8C00A47A28 /* DetailAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = A550B95A28547F8C00A47A28 /* DetailAssembly.swift */; };
-		A550B963285A750700A47A28 /* AppNotesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A550B962285A750700A47A28 /* AppNotesTests.swift */; };
 		A550B96A285A760D00A47A28 /* InteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A550B969285A760D00A47A28 /* InteractorTests.swift */; };
-		A550B970285A76B700A47A28 /* PresentorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A550B96F285A76B700A47A28 /* PresentorTests.swift */; };
+		A550B970285A76B700A47A28 /* PresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A550B96F285A76B700A47A28 /* PresenterTests.swift */; };
 		A550B972285A76FB00A47A28 /* DetailInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A550B971285A76FB00A47A28 /* DetailInteractorTests.swift */; };
 		A550B974285A770D00A47A28 /* DetailPresentorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A550B973285A770D00A47A28 /* DetailPresentorTests.swift */; };
 		A550B977285A79B300A47A28 /* MainPresentorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = A550B976285A79B300A47A28 /* MainPresentorMock.swift */; };
 		A550B979285A79C600A47A28 /* MainWorkerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = A550B978285A79C600A47A28 /* MainWorkerMock.swift */; };
-		A550B97C285A81F200A47A28 /* DetailPresentorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = A550B97B285A81F200A47A28 /* DetailPresentorMock.swift */; };
-		A550B97E285AA39C00A47A28 /* MainViewCintrollerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = A550B97D285AA39C00A47A28 /* MainViewCintrollerMock.swift */; };
+		A550B97C285A81F200A47A28 /* DetailPresenterMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = A550B97B285A81F200A47A28 /* DetailPresenterMock.swift */; };
+		A550B97E285AA39C00A47A28 /* MainViewControllerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = A550B97D285AA39C00A47A28 /* MainViewControllerMock.swift */; };
 		A550B980285AAACB00A47A28 /* DetailViewControllerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = A550B97F285AAACB00A47A28 /* DetailViewControllerMock.swift */; };
+		A550B982285BA96000A47A28 /* MainUserDefaultsMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = A550B981285BA96000A47A28 /* MainUserDefaultsMock.swift */; };
 		A5613A1727F0B5FB00188D35 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5613A1627F0B5FB00188D35 /* AppDelegate.swift */; };
 		A5613A1927F0B5FB00188D35 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5613A1827F0B5FB00188D35 /* SceneDelegate.swift */; };
 		A5613A1B27F0B5FB00188D35 /* DetailSceneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5613A1A27F0B5FB00188D35 /* DetailSceneViewController.swift */; };
@@ -72,16 +72,16 @@
 		A550B95828547F7A00A47A28 /* DetailProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailProtocols.swift; sourceTree = "<group>"; };
 		A550B95A28547F8C00A47A28 /* DetailAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailAssembly.swift; sourceTree = "<group>"; };
 		A550B960285A750700A47A28 /* App NotesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "App NotesTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		A550B962285A750700A47A28 /* AppNotesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppNotesTests.swift; sourceTree = "<group>"; };
 		A550B969285A760D00A47A28 /* InteractorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InteractorTests.swift; sourceTree = "<group>"; };
-		A550B96F285A76B700A47A28 /* PresentorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentorTests.swift; sourceTree = "<group>"; };
+		A550B96F285A76B700A47A28 /* PresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresenterTests.swift; sourceTree = "<group>"; };
 		A550B971285A76FB00A47A28 /* DetailInteractorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailInteractorTests.swift; sourceTree = "<group>"; };
 		A550B973285A770D00A47A28 /* DetailPresentorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPresentorTests.swift; sourceTree = "<group>"; };
 		A550B976285A79B300A47A28 /* MainPresentorMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPresentorMock.swift; sourceTree = "<group>"; };
 		A550B978285A79C600A47A28 /* MainWorkerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWorkerMock.swift; sourceTree = "<group>"; };
-		A550B97B285A81F200A47A28 /* DetailPresentorMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPresentorMock.swift; sourceTree = "<group>"; };
-		A550B97D285AA39C00A47A28 /* MainViewCintrollerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewCintrollerMock.swift; sourceTree = "<group>"; };
+		A550B97B285A81F200A47A28 /* DetailPresenterMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPresenterMock.swift; sourceTree = "<group>"; };
+		A550B97D285AA39C00A47A28 /* MainViewControllerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewControllerMock.swift; sourceTree = "<group>"; };
 		A550B97F285AAACB00A47A28 /* DetailViewControllerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewControllerMock.swift; sourceTree = "<group>"; };
+		A550B981285BA96000A47A28 /* MainUserDefaultsMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainUserDefaultsMock.swift; sourceTree = "<group>"; };
 		A5613A1327F0B5FB00188D35 /* App Notes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "App Notes.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A5613A1627F0B5FB00188D35 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A5613A1827F0B5FB00188D35 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -132,7 +132,6 @@
 		A54A5A89280378350038B4B4 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				A5D2124B28146E2100FDCA28 /* UserSettings.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -171,6 +170,7 @@
 		A550B9332851509000A47A28 /* MainEntity */ = {
 			isa = PBXGroup;
 			children = (
+				A5D2124B28146E2100FDCA28 /* UserSettings.swift */,
 				A5AE19DC27F0C7010005DD07 /* Model.swift */,
 				A550B9462852938200A47A28 /* MainModels.swift */,
 			);
@@ -285,7 +285,6 @@
 			children = (
 				A550B96C285A764C00A47A28 /* DetailSceneTests */,
 				A550B96B285A762E00A47A28 /* MainSceneTests */,
-				A550B962285A750700A47A28 /* AppNotesTests.swift */,
 			);
 			path = "App NotesTests";
 			sourceTree = "<group>";
@@ -295,7 +294,7 @@
 			children = (
 				A550B975285A799100A47A28 /* Mocks */,
 				A550B969285A760D00A47A28 /* InteractorTests.swift */,
-				A550B96F285A76B700A47A28 /* PresentorTests.swift */,
+				A550B96F285A76B700A47A28 /* PresenterTests.swift */,
 			);
 			path = MainSceneTests;
 			sourceTree = "<group>";
@@ -315,7 +314,8 @@
 			children = (
 				A550B976285A79B300A47A28 /* MainPresentorMock.swift */,
 				A550B978285A79C600A47A28 /* MainWorkerMock.swift */,
-				A550B97D285AA39C00A47A28 /* MainViewCintrollerMock.swift */,
+				A550B97D285AA39C00A47A28 /* MainViewControllerMock.swift */,
+				A550B981285BA96000A47A28 /* MainUserDefaultsMock.swift */,
 			);
 			path = Mocks;
 			sourceTree = "<group>";
@@ -323,7 +323,7 @@
 		A550B97A285A81E000A47A28 /* Mocks */ = {
 			isa = PBXGroup;
 			children = (
-				A550B97B285A81F200A47A28 /* DetailPresentorMock.swift */,
+				A550B97B285A81F200A47A28 /* DetailPresenterMock.swift */,
 				A550B97F285AAACB00A47A28 /* DetailViewControllerMock.swift */,
 			);
 			path = Mocks;
@@ -508,15 +508,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				A550B979285A79C600A47A28 /* MainWorkerMock.swift in Sources */,
-				A550B97C285A81F200A47A28 /* DetailPresentorMock.swift in Sources */,
+				A550B97C285A81F200A47A28 /* DetailPresenterMock.swift in Sources */,
 				A550B972285A76FB00A47A28 /* DetailInteractorTests.swift in Sources */,
 				A550B974285A770D00A47A28 /* DetailPresentorTests.swift in Sources */,
 				A550B977285A79B300A47A28 /* MainPresentorMock.swift in Sources */,
-				A550B970285A76B700A47A28 /* PresentorTests.swift in Sources */,
+				A550B970285A76B700A47A28 /* PresenterTests.swift in Sources */,
 				A550B96A285A760D00A47A28 /* InteractorTests.swift in Sources */,
+				A550B982285BA96000A47A28 /* MainUserDefaultsMock.swift in Sources */,
 				A550B980285AAACB00A47A28 /* DetailViewControllerMock.swift in Sources */,
-				A550B963285A750700A47A28 /* AppNotesTests.swift in Sources */,
-				A550B97E285AA39C00A47A28 /* MainViewCintrollerMock.swift in Sources */,
+				A550B97E285AA39C00A47A28 /* MainViewControllerMock.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

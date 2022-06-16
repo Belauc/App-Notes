@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class UserSettings {
+final class UserSettings: UserSettingsLogic {
     private enum SettingsKeys: String {
         case noteModels
     }
