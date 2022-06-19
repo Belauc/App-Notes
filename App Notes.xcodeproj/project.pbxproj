@@ -8,31 +8,97 @@
 
 /* Begin PBXBuildFile section */
 		18117973B698483744112A49 /* Pods_App_Notes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96C8B21562B2652774A823FC /* Pods_App_Notes.framework */; };
+		A54A5A8D280381530038B4B4 /* NoteCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A54A5A8C280381530038B4B4 /* NoteCardView.swift */; };
+		A550B939285152C200A47A28 /* MainPresentor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A550B938285152C200A47A28 /* MainPresentor.swift */; };
+		A550B93B285154A100A47A28 /* MainAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = A550B93A285154A100A47A28 /* MainAssembly.swift */; };
+		A550B93D285154CD00A47A28 /* MainRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A550B93C285154CD00A47A28 /* MainRouter.swift */; };
+		A550B93F285155A600A47A28 /* MainProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = A550B93E285155A600A47A28 /* MainProtocols.swift */; };
+		A550B9412851591000A47A28 /* MainInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A550B9402851591000A47A28 /* MainInteractor.swift */; };
+		A550B94328525FA200A47A28 /* MainNetworkWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A550B94228525FA200A47A28 /* MainNetworkWorker.swift */; };
+		A550B9452852622500A47A28 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A550B9442852622500A47A28 /* MainViewController.swift */; };
+		A550B9472852938200A47A28 /* MainModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = A550B9462852938200A47A28 /* MainModels.swift */; };
+		A550B95128547F3500A47A28 /* DetailInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A550B95028547F3500A47A28 /* DetailInteractor.swift */; };
+		A550B95328547F4400A47A28 /* DetailPresentor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A550B95228547F4400A47A28 /* DetailPresentor.swift */; };
+		A550B95528547F5400A47A28 /* DetailModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = A550B95428547F5400A47A28 /* DetailModels.swift */; };
+		A550B95728547F6E00A47A28 /* DetailRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A550B95628547F6E00A47A28 /* DetailRouter.swift */; };
+		A550B95928547F7A00A47A28 /* DetailProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = A550B95828547F7A00A47A28 /* DetailProtocols.swift */; };
+		A550B95B28547F8C00A47A28 /* DetailAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = A550B95A28547F8C00A47A28 /* DetailAssembly.swift */; };
+		A550B96A285A760D00A47A28 /* InteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A550B969285A760D00A47A28 /* InteractorTests.swift */; };
+		A550B970285A76B700A47A28 /* PresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A550B96F285A76B700A47A28 /* PresenterTests.swift */; };
+		A550B972285A76FB00A47A28 /* DetailInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A550B971285A76FB00A47A28 /* DetailInteractorTests.swift */; };
+		A550B974285A770D00A47A28 /* DetailPresentorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A550B973285A770D00A47A28 /* DetailPresentorTests.swift */; };
+		A550B977285A79B300A47A28 /* MainPresentorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = A550B976285A79B300A47A28 /* MainPresentorMock.swift */; };
+		A550B979285A79C600A47A28 /* MainWorkerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = A550B978285A79C600A47A28 /* MainWorkerMock.swift */; };
+		A550B97C285A81F200A47A28 /* DetailPresenterMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = A550B97B285A81F200A47A28 /* DetailPresenterMock.swift */; };
+		A550B97E285AA39C00A47A28 /* MainViewControllerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = A550B97D285AA39C00A47A28 /* MainViewControllerMock.swift */; };
+		A550B980285AAACB00A47A28 /* DetailViewControllerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = A550B97F285AAACB00A47A28 /* DetailViewControllerMock.swift */; };
 		A5613A1727F0B5FB00188D35 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5613A1627F0B5FB00188D35 /* AppDelegate.swift */; };
 		A5613A1927F0B5FB00188D35 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5613A1827F0B5FB00188D35 /* SceneDelegate.swift */; };
-		A5613A1B27F0B5FB00188D35 /* NoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5613A1A27F0B5FB00188D35 /* NoteViewController.swift */; };
+		A5613A1B27F0B5FB00188D35 /* DetailSceneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5613A1A27F0B5FB00188D35 /* DetailSceneViewController.swift */; };
 		A5613A2027F0B5FC00188D35 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A5613A1F27F0B5FC00188D35 /* Assets.xcassets */; };
 		A5613A2327F0B5FC00188D35 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A5613A2127F0B5FC00188D35 /* LaunchScreen.storyboard */; };
 		A5AE19DD27F0C7010005DD07 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5AE19DC27F0C7010005DD07 /* Model.swift */; };
-		A5AE19E827F0E5CA0005DD07 /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5AE19E727F0E5CA0005DD07 /* UserSettings.swift */; };
+		A5D2124C28146E2100FDCA28 /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D2124B28146E2100FDCA28 /* UserSettings.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		A550B964285A750700A47A28 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A5613A0B27F0B5FB00188D35 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A5613A1227F0B5FB00188D35;
+			remoteInfo = "App Notes";
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		2489B0D984D49CCD2A612247 /* Pods-App Notes.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App Notes.release.xcconfig"; path = "Target Support Files/Pods-App Notes/Pods-App Notes.release.xcconfig"; sourceTree = "<group>"; };
 		91C2DD8D85F1250ABE1E6D1D /* Pods-App Notes.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App Notes.debug.xcconfig"; path = "Target Support Files/Pods-App Notes/Pods-App Notes.debug.xcconfig"; sourceTree = "<group>"; };
 		96C8B21562B2652774A823FC /* Pods_App_Notes.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_App_Notes.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A54A5A8C280381530038B4B4 /* NoteCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteCardView.swift; sourceTree = "<group>"; };
+		A550B938285152C200A47A28 /* MainPresentor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPresentor.swift; sourceTree = "<group>"; };
+		A550B93A285154A100A47A28 /* MainAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainAssembly.swift; sourceTree = "<group>"; };
+		A550B93C285154CD00A47A28 /* MainRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainRouter.swift; sourceTree = "<group>"; };
+		A550B93E285155A600A47A28 /* MainProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainProtocols.swift; sourceTree = "<group>"; };
+		A550B9402851591000A47A28 /* MainInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainInteractor.swift; sourceTree = "<group>"; };
+		A550B94228525FA200A47A28 /* MainNetworkWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainNetworkWorker.swift; sourceTree = "<group>"; };
+		A550B9442852622500A47A28 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		A550B9462852938200A47A28 /* MainModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainModels.swift; sourceTree = "<group>"; };
+		A550B95028547F3500A47A28 /* DetailInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailInteractor.swift; sourceTree = "<group>"; };
+		A550B95228547F4400A47A28 /* DetailPresentor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPresentor.swift; sourceTree = "<group>"; };
+		A550B95428547F5400A47A28 /* DetailModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailModels.swift; sourceTree = "<group>"; };
+		A550B95628547F6E00A47A28 /* DetailRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailRouter.swift; sourceTree = "<group>"; };
+		A550B95828547F7A00A47A28 /* DetailProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailProtocols.swift; sourceTree = "<group>"; };
+		A550B95A28547F8C00A47A28 /* DetailAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailAssembly.swift; sourceTree = "<group>"; };
+		A550B960285A750700A47A28 /* App NotesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "App NotesTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A550B969285A760D00A47A28 /* InteractorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InteractorTests.swift; sourceTree = "<group>"; };
+		A550B96F285A76B700A47A28 /* PresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresenterTests.swift; sourceTree = "<group>"; };
+		A550B971285A76FB00A47A28 /* DetailInteractorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailInteractorTests.swift; sourceTree = "<group>"; };
+		A550B973285A770D00A47A28 /* DetailPresentorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPresentorTests.swift; sourceTree = "<group>"; };
+		A550B976285A79B300A47A28 /* MainPresentorMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPresentorMock.swift; sourceTree = "<group>"; };
+		A550B978285A79C600A47A28 /* MainWorkerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWorkerMock.swift; sourceTree = "<group>"; };
+		A550B97B285A81F200A47A28 /* DetailPresenterMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPresenterMock.swift; sourceTree = "<group>"; };
+		A550B97D285AA39C00A47A28 /* MainViewControllerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewControllerMock.swift; sourceTree = "<group>"; };
+		A550B97F285AAACB00A47A28 /* DetailViewControllerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewControllerMock.swift; sourceTree = "<group>"; };
 		A5613A1327F0B5FB00188D35 /* App Notes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "App Notes.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A5613A1627F0B5FB00188D35 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A5613A1827F0B5FB00188D35 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		A5613A1A27F0B5FB00188D35 /* NoteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteViewController.swift; sourceTree = "<group>"; };
+		A5613A1A27F0B5FB00188D35 /* DetailSceneViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailSceneViewController.swift; sourceTree = "<group>"; };
 		A5613A1F27F0B5FC00188D35 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A5613A2227F0B5FC00188D35 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A5613A2427F0B5FC00188D35 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A5AE19DC27F0C7010005DD07 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
-		A5AE19E727F0E5CA0005DD07 /* UserSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettings.swift; sourceTree = "<group>"; };
+		A5D2124B28146E2100FDCA28 /* UserSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettings.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		A550B95D285A750700A47A28 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		A5613A1027F0B5FB00188D35 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -61,10 +127,210 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		A54A5A89280378350038B4B4 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		A550B9302851504400A47A28 /* MainScene */ = {
+			isa = PBXGroup;
+			children = (
+				A550B9372851523B00A47A28 /* MainAsembly */,
+				A550B9362851522C00A47A28 /* MainProtocols */,
+				A550B935285150BA00A47A28 /* MainRouter */,
+				A550B934285150AD00A47A28 /* MainView */,
+				A550B9332851509000A47A28 /* MainEntity */,
+				A550B9322851508300A47A28 /* MainPresentor */,
+				A550B9312851505F00A47A28 /* MainInteractor */,
+			);
+			path = MainScene;
+			sourceTree = "<group>";
+		};
+		A550B9312851505F00A47A28 /* MainInteractor */ = {
+			isa = PBXGroup;
+			children = (
+				A550B94228525FA200A47A28 /* MainNetworkWorker.swift */,
+				A550B9402851591000A47A28 /* MainInteractor.swift */,
+			);
+			path = MainInteractor;
+			sourceTree = "<group>";
+		};
+		A550B9322851508300A47A28 /* MainPresentor */ = {
+			isa = PBXGroup;
+			children = (
+				A550B938285152C200A47A28 /* MainPresentor.swift */,
+			);
+			path = MainPresentor;
+			sourceTree = "<group>";
+		};
+		A550B9332851509000A47A28 /* MainEntity */ = {
+			isa = PBXGroup;
+			children = (
+				A5D2124B28146E2100FDCA28 /* UserSettings.swift */,
+				A5AE19DC27F0C7010005DD07 /* Model.swift */,
+				A550B9462852938200A47A28 /* MainModels.swift */,
+			);
+			path = MainEntity;
+			sourceTree = "<group>";
+		};
+		A550B934285150AD00A47A28 /* MainView */ = {
+			isa = PBXGroup;
+			children = (
+				A54A5A8C280381530038B4B4 /* NoteCardView.swift */,
+				A550B9442852622500A47A28 /* MainViewController.swift */,
+			);
+			path = MainView;
+			sourceTree = "<group>";
+		};
+		A550B935285150BA00A47A28 /* MainRouter */ = {
+			isa = PBXGroup;
+			children = (
+				A550B93C285154CD00A47A28 /* MainRouter.swift */,
+			);
+			path = MainRouter;
+			sourceTree = "<group>";
+		};
+		A550B9362851522C00A47A28 /* MainProtocols */ = {
+			isa = PBXGroup;
+			children = (
+				A550B93E285155A600A47A28 /* MainProtocols.swift */,
+			);
+			path = MainProtocols;
+			sourceTree = "<group>";
+		};
+		A550B9372851523B00A47A28 /* MainAsembly */ = {
+			isa = PBXGroup;
+			children = (
+				A550B93A285154A100A47A28 /* MainAssembly.swift */,
+			);
+			path = MainAsembly;
+			sourceTree = "<group>";
+		};
+		A550B9482853883B00A47A28 /* DetailNoteScene */ = {
+			isa = PBXGroup;
+			children = (
+				A550B94F285407AF00A47A28 /* DetailInteractor */,
+				A550B94E285407A400A47A28 /* DetailPresentor */,
+				A550B94D2854079700A47A28 /* DetailEntity */,
+				A550B94C2854078600A47A28 /* DetailView */,
+				A550B94B2854077D00A47A28 /* DetailRouter */,
+				A550B94A2854076C00A47A28 /* DetailProtocols */,
+				A550B9492854075900A47A28 /* DetailAssembly */,
+			);
+			path = DetailNoteScene;
+			sourceTree = "<group>";
+		};
+		A550B9492854075900A47A28 /* DetailAssembly */ = {
+			isa = PBXGroup;
+			children = (
+				A550B95A28547F8C00A47A28 /* DetailAssembly.swift */,
+			);
+			path = DetailAssembly;
+			sourceTree = "<group>";
+		};
+		A550B94A2854076C00A47A28 /* DetailProtocols */ = {
+			isa = PBXGroup;
+			children = (
+				A550B95828547F7A00A47A28 /* DetailProtocols.swift */,
+			);
+			path = DetailProtocols;
+			sourceTree = "<group>";
+		};
+		A550B94B2854077D00A47A28 /* DetailRouter */ = {
+			isa = PBXGroup;
+			children = (
+				A550B95628547F6E00A47A28 /* DetailRouter.swift */,
+			);
+			path = DetailRouter;
+			sourceTree = "<group>";
+		};
+		A550B94C2854078600A47A28 /* DetailView */ = {
+			isa = PBXGroup;
+			children = (
+				A5613A1A27F0B5FB00188D35 /* DetailSceneViewController.swift */,
+			);
+			path = DetailView;
+			sourceTree = "<group>";
+		};
+		A550B94D2854079700A47A28 /* DetailEntity */ = {
+			isa = PBXGroup;
+			children = (
+				A550B95428547F5400A47A28 /* DetailModels.swift */,
+			);
+			path = DetailEntity;
+			sourceTree = "<group>";
+		};
+		A550B94E285407A400A47A28 /* DetailPresentor */ = {
+			isa = PBXGroup;
+			children = (
+				A550B95228547F4400A47A28 /* DetailPresentor.swift */,
+			);
+			path = DetailPresentor;
+			sourceTree = "<group>";
+		};
+		A550B94F285407AF00A47A28 /* DetailInteractor */ = {
+			isa = PBXGroup;
+			children = (
+				A550B95028547F3500A47A28 /* DetailInteractor.swift */,
+			);
+			path = DetailInteractor;
+			sourceTree = "<group>";
+		};
+		A550B961285A750700A47A28 /* App NotesTests */ = {
+			isa = PBXGroup;
+			children = (
+				A550B96C285A764C00A47A28 /* DetailSceneTests */,
+				A550B96B285A762E00A47A28 /* MainSceneTests */,
+			);
+			path = "App NotesTests";
+			sourceTree = "<group>";
+		};
+		A550B96B285A762E00A47A28 /* MainSceneTests */ = {
+			isa = PBXGroup;
+			children = (
+				A550B975285A799100A47A28 /* Mocks */,
+				A550B969285A760D00A47A28 /* InteractorTests.swift */,
+				A550B96F285A76B700A47A28 /* PresenterTests.swift */,
+			);
+			path = MainSceneTests;
+			sourceTree = "<group>";
+		};
+		A550B96C285A764C00A47A28 /* DetailSceneTests */ = {
+			isa = PBXGroup;
+			children = (
+				A550B97A285A81E000A47A28 /* Mocks */,
+				A550B971285A76FB00A47A28 /* DetailInteractorTests.swift */,
+				A550B973285A770D00A47A28 /* DetailPresentorTests.swift */,
+			);
+			path = DetailSceneTests;
+			sourceTree = "<group>";
+		};
+		A550B975285A799100A47A28 /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				A550B976285A79B300A47A28 /* MainPresentorMock.swift */,
+				A550B978285A79C600A47A28 /* MainWorkerMock.swift */,
+				A550B97D285AA39C00A47A28 /* MainViewControllerMock.swift */,
+			);
+			path = Mocks;
+			sourceTree = "<group>";
+		};
+		A550B97A285A81E000A47A28 /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				A550B97B285A81F200A47A28 /* DetailPresenterMock.swift */,
+				A550B97F285AAACB00A47A28 /* DetailViewControllerMock.swift */,
+			);
+			path = Mocks;
+			sourceTree = "<group>";
+		};
 		A5613A0A27F0B5FB00188D35 = {
 			isa = PBXGroup;
 			children = (
 				A5613A1527F0B5FB00188D35 /* App Notes */,
+				A550B961285A750700A47A28 /* App NotesTests */,
 				A5613A1427F0B5FB00188D35 /* Products */,
 				9F2FD7F2F12CCB1CE0C07149 /* Pods */,
 				73110896E030B087BD270F70 /* Frameworks */,
@@ -75,6 +341,7 @@
 			isa = PBXGroup;
 			children = (
 				A5613A1327F0B5FB00188D35 /* App Notes.app */,
+				A550B960285A750700A47A28 /* App NotesTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -82,14 +349,14 @@
 		A5613A1527F0B5FB00188D35 /* App Notes */ = {
 			isa = PBXGroup;
 			children = (
+				A550B9482853883B00A47A28 /* DetailNoteScene */,
+				A550B9302851504400A47A28 /* MainScene */,
+				A54A5A89280378350038B4B4 /* Model */,
 				A5613A1627F0B5FB00188D35 /* AppDelegate.swift */,
 				A5613A1827F0B5FB00188D35 /* SceneDelegate.swift */,
-				A5613A1A27F0B5FB00188D35 /* NoteViewController.swift */,
 				A5613A1F27F0B5FC00188D35 /* Assets.xcassets */,
 				A5613A2127F0B5FC00188D35 /* LaunchScreen.storyboard */,
 				A5613A2427F0B5FC00188D35 /* Info.plist */,
-				A5AE19DC27F0C7010005DD07 /* Model.swift */,
-				A5AE19E727F0E5CA0005DD07 /* UserSettings.swift */,
 			);
 			path = "App Notes";
 			sourceTree = "<group>";
@@ -97,6 +364,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		A550B95F285A750700A47A28 /* App NotesTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A550B968285A750700A47A28 /* Build configuration list for PBXNativeTarget "App NotesTests" */;
+			buildPhases = (
+				A550B95C285A750700A47A28 /* Sources */,
+				A550B95D285A750700A47A28 /* Frameworks */,
+				A550B95E285A750700A47A28 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				A550B965285A750700A47A28 /* PBXTargetDependency */,
+			);
+			name = "App NotesTests";
+			productName = "App NotesTests";
+			productReference = A550B960285A750700A47A28 /* App NotesTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		A5613A1227F0B5FB00188D35 /* App Notes */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = A5613A2727F0B5FC00188D35 /* Build configuration list for PBXNativeTarget "App Notes" */;
@@ -122,9 +407,13 @@
 		A5613A0B27F0B5FB00188D35 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1240;
+				LastSwiftUpdateCheck = 1330;
 				LastUpgradeCheck = 1240;
 				TargetAttributes = {
+					A550B95F285A750700A47A28 = {
+						CreatedOnToolsVersion = 13.3.1;
+						TestTargetID = A5613A1227F0B5FB00188D35;
+					};
 					A5613A1227F0B5FB00188D35 = {
 						CreatedOnToolsVersion = 12.4;
 					};
@@ -144,11 +433,19 @@
 			projectRoot = "";
 			targets = (
 				A5613A1227F0B5FB00188D35 /* App Notes */,
+				A550B95F285A750700A47A28 /* App NotesTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		A550B95E285A750700A47A28 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		A5613A1127F0B5FB00188D35 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -203,19 +500,58 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		A550B95C285A750700A47A28 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A550B979285A79C600A47A28 /* MainWorkerMock.swift in Sources */,
+				A550B97C285A81F200A47A28 /* DetailPresenterMock.swift in Sources */,
+				A550B972285A76FB00A47A28 /* DetailInteractorTests.swift in Sources */,
+				A550B974285A770D00A47A28 /* DetailPresentorTests.swift in Sources */,
+				A550B977285A79B300A47A28 /* MainPresentorMock.swift in Sources */,
+				A550B970285A76B700A47A28 /* PresenterTests.swift in Sources */,
+				A550B96A285A760D00A47A28 /* InteractorTests.swift in Sources */,
+				A550B980285AAACB00A47A28 /* DetailViewControllerMock.swift in Sources */,
+				A550B97E285AA39C00A47A28 /* MainViewControllerMock.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		A5613A0F27F0B5FB00188D35 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A5613A1B27F0B5FB00188D35 /* NoteViewController.swift in Sources */,
+				A550B93B285154A100A47A28 /* MainAssembly.swift in Sources */,
+				A5613A1B27F0B5FB00188D35 /* DetailSceneViewController.swift in Sources */,
+				A550B95B28547F8C00A47A28 /* DetailAssembly.swift in Sources */,
 				A5613A1727F0B5FB00188D35 /* AppDelegate.swift in Sources */,
+				A54A5A8D280381530038B4B4 /* NoteCardView.swift in Sources */,
 				A5613A1927F0B5FB00188D35 /* SceneDelegate.swift in Sources */,
-				A5AE19E827F0E5CA0005DD07 /* UserSettings.swift in Sources */,
+				A550B95328547F4400A47A28 /* DetailPresentor.swift in Sources */,
+				A5D2124C28146E2100FDCA28 /* UserSettings.swift in Sources */,
+				A550B95128547F3500A47A28 /* DetailInteractor.swift in Sources */,
+				A550B95928547F7A00A47A28 /* DetailProtocols.swift in Sources */,
+				A550B9452852622500A47A28 /* MainViewController.swift in Sources */,
+				A550B95528547F5400A47A28 /* DetailModels.swift in Sources */,
+				A550B93F285155A600A47A28 /* MainProtocols.swift in Sources */,
 				A5AE19DD27F0C7010005DD07 /* Model.swift in Sources */,
+				A550B93D285154CD00A47A28 /* MainRouter.swift in Sources */,
+				A550B939285152C200A47A28 /* MainPresentor.swift in Sources */,
+				A550B9412851591000A47A28 /* MainInteractor.swift in Sources */,
+				A550B95728547F6E00A47A28 /* DetailRouter.swift in Sources */,
+				A550B9472852938200A47A28 /* MainModels.swift in Sources */,
+				A550B94328525FA200A47A28 /* MainNetworkWorker.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		A550B965285A750700A47A28 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A5613A1227F0B5FB00188D35 /* App Notes */;
+			targetProxy = A550B964285A750700A47A28 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		A5613A2127F0B5FC00188D35 /* LaunchScreen.storyboard */ = {
@@ -229,6 +565,46 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		A550B966285A750700A47A28 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = PWUQFV6CQT;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "tobie.App-NotesTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/App Notes.app/App Notes";
+			};
+			name = Debug;
+		};
+		A550B967285A750700A47A28 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = PWUQFV6CQT;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "tobie.App-NotesTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/App Notes.app/App Notes";
+			};
+			name = Release;
+		};
 		A5613A2527F0B5FC00188D35 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -388,6 +764,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		A550B968285A750700A47A28 /* Build configuration list for PBXNativeTarget "App NotesTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A550B966285A750700A47A28 /* Debug */,
+				A550B967285A750700A47A28 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		A5613A0E27F0B5FB00188D35 /* Build configuration list for PBXProject "App Notes" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
