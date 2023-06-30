@@ -68,5 +68,85 @@
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "C4B01B25-0970-444E-B7F4-B8AF0A11B228"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "App Notes/MainScene/MainView/MainViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "402"
+            endingLineNumber = "402"
+            landmarkName = "updateNotesListAfterDeleted(viewModel:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "B7D3A66F-1AEC-4737-9780-0300AD21CA02"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "App Notes/MainScene/MainView/MainViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "256"
+            endingLineNumber = "256"
+            landmarkName = "tableView(_:didDeselectRowAt:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "B7D3A66F-1AEC-4737-9780-0300AD21CA02 - 1f023089ce7415d8"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "App_Notes.MainSceneViewController.tableView(_: __C.UITableView, didDeselectRowAt: Foundation.IndexPath) -&gt; ()"
+                  moduleName = "App Notes"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sergey/Desktop/Develop/App-Notes/App%20Notes/MainScene/MainView/MainViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "256"
+                  endingLineNumber = "256"
+                  offsetFromSymbolStart = "160">
+               </Location>
+               <Location
+                  uuid = "B7D3A66F-1AEC-4737-9780-0300AD21CA02 - 81e7bafea77fe5ed"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Foundation.IndexPath) -&gt; Swift.Bool in App_Notes.MainSceneViewController.tableView(_: __C.UITableView, didDeselectRowAt: Foundation.IndexPath) -&gt; ()"
+                  moduleName = "App Notes"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sergey/Desktop/Develop/App-Notes/App%20Notes/MainScene/MainView/MainViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "256"
+                  endingLineNumber = "256"
+                  offsetFromSymbolStart = "140">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "D8DB920E-4509-4925-8898-7623FE319F71"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "App Notes/MainScene/MainView/MainViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "243"
+            endingLineNumber = "243"
+            landmarkName = "tableView(_:didSelectRowAt:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

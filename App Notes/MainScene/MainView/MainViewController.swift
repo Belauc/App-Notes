@@ -43,7 +43,7 @@ final class MainSceneViewController: UIViewController {
     // MARK: - References
 
     private let interactor: MainBusinessLogic
-    public let router: MainRoutingLogic
+    private let router: MainRoutingLogic
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -254,6 +254,7 @@ extension MainSceneViewController: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
         selectedIndexs.removeAll(where: {$0 == indexPath})
+        idSelectedNotes.removeAll(where: {$0 == notes[indexPath.row].id})
     }
 
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
